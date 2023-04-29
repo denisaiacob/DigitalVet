@@ -1,0 +1,23 @@
+.App {
+    text-align: center;
+    background-image: url('./components/images/Background.png');
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;}
+    @media (max-width: 800px) {
+      .App {
+        background-image: none;
+        background-size: contain;
+        background-color: #f9d3bc;
+      }
+    }
+
+.App-header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+}

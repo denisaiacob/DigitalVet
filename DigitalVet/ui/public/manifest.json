@@ -1,0 +1,15 @@
+{
+  "short_name": "DigitalVet",
+  "name": "Website for searching veterinary clinics or vets",
+  "icons": [
+    {
+      "src": "Icon.png",
+      "sizes": "78x79",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
