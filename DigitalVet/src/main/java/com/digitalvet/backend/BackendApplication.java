@@ -1,13 +1,13 @@
-package com.website.DigitalVet;
+package com.digitalvet.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DigitalVetApplication {
+public class BackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DigitalVetApplication.class, args);
+		SpringApplication.run(BackendApplication.class, args);
 	}
 
 }
