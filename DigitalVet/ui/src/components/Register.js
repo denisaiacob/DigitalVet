@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState} from "react";
+import {Link,useHistory} from 'react-router-dom';
 import {
     TextField,
     Stack,
@@ -8,18 +8,43 @@ import {
     Typography,
     Box
 } from "@mui/material";
+import UserService from "../services/UserService";
 
 function Register() {
+    const history = useHistory();
+
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        role: "user"
+    })
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            last: data.get('last-name'),
-            first:data.get('first-name'),
-            email: data.get('email'),
-            password: data.get('password'),
+        UserService.register((user)).then((response) => {
+            console.log(response);
+            history.push("/");
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setUser({...user, [event.target.name]: value});
+    };
+    const reset = (event) => {
+        event.preventDefault();
+        setUser({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            role: "user"
         });
     };
+
     const buttonStyle = {
         backgroundColor: '#54d6be',
         color: 'white',
@@ -70,20 +95,26 @@ function Register() {
                                     <TextField
                                         required
                                         fullWidth
-                                        id="first-name"
-                                        name="first-name"
+                                        id="firstName"
+                                        name="firstName"
                                         label="First name"
+                                        value={user.firstName}
+                                        onChange={(event) => handleChange(event)}
                                         margin='normal'
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div>
                                     <TextField
                                         required
                                         fullWidth
-                                        id="last-name"
-                                        name="last-name"
+                                        id="lastName"
+                                        name="lastName"
                                         label="Last name"
+                                        value={user.lastName}
+                                        onChange={(event) => handleChange(event)}
                                         margin='normal'
+                                        autoComplete='off'
                                     />
                                 </div>
                             </Stack>
@@ -94,8 +125,11 @@ function Register() {
                                 label="Email"
                                 name="email"
                                 type="email"
-                                autoComplete="email"
+                                // autoComplete="email"
+                                value={user.email}
+                                onChange={(event) => handleChange(event)}
                                 margin='normal'
+                                autoComplete='off'
                             />
                             <TextField
                                 required
@@ -104,8 +138,11 @@ function Register() {
                                 label="Password"
                                 name="password"
                                 type="password"
-                                autoComplete="current-password"
+                                // autoComplete="current-password"
+                                value={user.password}
+                                onChange={(event) => handleChange(event)}
                                 margin='normal'
+                                autoComplete='off'
                             />
 
                             <Button

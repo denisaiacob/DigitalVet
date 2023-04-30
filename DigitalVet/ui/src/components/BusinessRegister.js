@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {
     TextField,
     Stack,
@@ -8,14 +8,42 @@ import {
     Typography,
     Box
 } from "@mui/material";
+import {useState} from "react";
+import UserService from "../services/UserService";
 
 function BusinessRegister() {
+    const history = useHistory();
+
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        role: "business"
+    })
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+        UserService.register((user)).then((response) => {
+            console.log(response);
+            history.push("/");
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setUser({...user, [event.target.name]: value});
+    };
+
+    const reset = (event) => {
+        event.preventDefault();
+        setUser({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            role: "business"
         });
     };
     const buttonStyle = {
@@ -68,18 +96,26 @@ function BusinessRegister() {
                                     <TextField
                                         required
                                         fullWidth
-                                        id="first-name"
+                                        id="firstName"
+                                        name="firstName"
                                         label="First name"
+                                        value={user.firstName}
+                                        onChange={(event) => handleChange(event)}
                                         margin='normal'
+                                        autoComplete='off'
                                     />
                                 </div>
                                 <div>
                                     <TextField
                                         required
                                         fullWidth
-                                        id="last-name"
+                                        id="lastName"
+                                        name="lastName"
                                         label="Last name"
+                                        value={user.lastName}
+                                        onChange={(event) => handleChange(event)}
                                         margin='normal'
+                                        autoComplete='off'
                                     />
                                 </div>
                             </Stack>
@@ -90,8 +126,11 @@ function BusinessRegister() {
                                 label="Email"
                                 name="email"
                                 type="email"
-                                autoComplete="email"
+                                // autoComplete="email"
+                                value={user.email}
+                                onChange={(event) => handleChange(event)}
                                 margin='normal'
+                                autoComplete='off'
                             />
                             <TextField
                                 required
@@ -100,8 +139,11 @@ function BusinessRegister() {
                                 label="Password"
                                 name="password"
                                 type="password"
-                                autoComplete="current-password"
+                                // autoComplete="current-password"
+                                value={user.password}
+                                onChange={(event) => handleChange(event)}
                                 margin='normal'
+                                autoComplete='off'
                             />
 
                             <Button
