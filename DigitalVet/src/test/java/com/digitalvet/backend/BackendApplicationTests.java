@@ -1,10 +1,10 @@
-package com.website.DigitalVet;
+package com.digitalvet.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DigitalVetApplicationTests {
+class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {

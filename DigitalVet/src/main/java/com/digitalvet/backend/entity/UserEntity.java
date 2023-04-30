@@ -15,7 +15,7 @@ public class UserEntity {
     private Long id;
 
     @NotBlank(message="Email is mandatory")
-    @Pattern(regexp="^(?=.{5,45})[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]{2,}+[A-Za-z]{2,}$", message = "Wrong email")
+    @Pattern(regexp="^(?=.{5,45})[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$", message = "Wrong email")
     private String email;
 
     @NotBlank(message="First name is mandatory")
