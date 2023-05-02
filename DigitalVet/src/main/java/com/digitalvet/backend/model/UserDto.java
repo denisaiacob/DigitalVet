@@ -1,6 +1,6 @@
 package com.digitalvet.backend.model;
 
-public class UserModel {
+public class UserDto {
     private Long id;
     private String email;
     private String firstName;
@@ -8,15 +8,20 @@ public class UserModel {
     private String password;
     private String role;
 
-    public UserModel() {}
+    public UserDto() {}
 
-    public UserModel(Long id,String firstName, String lastName, String email,String password, String role) {
+    public UserDto(Long id, String firstName, String lastName, String email, String password, String role) {
         this.id = id;
-        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public UserDto(String email,String password){
+        this.email=email;
+        this.password=password;
     }
 
     public Long getId() {
