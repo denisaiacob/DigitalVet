@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
                 return "Password not match";
             }
         }else {
-            return "Email not exits";
+            return "Email not exist";
         }
 
     }

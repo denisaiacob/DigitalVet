@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {
     Checkbox,
     FormControlLabel,
@@ -10,22 +10,47 @@ import {
     Typography,
     Box
 } from "@mui/material";
+import {useState} from "react";
+import UserService from "../services/UserService";
 
 function Login() {
+    const history = useHistory();
+    const [err, setErr] = useState(false);
+    const [resp,setResp]=useState('');
+    const [user, setUser] = useState({
+        email: "",
+        password: "",
+    })
+    const reset = (event) => {
+        event.preventDefault();
+        setUser({
+            email: "",
+            password: "",
+        });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        UserService.login((user)).then((response) => {
+            console.log(response);
+            setResp(response)
+            // history.push("/");
+        })
+            .catch((error) => {
+                reset(event);
+                console.log(error);
+            });
+        {resp === 'Success' ? (history.push("/")):(setErr(true))}
+    };
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setUser({...user, [event.target.name]: value});
+    };
     const buttonStyle = {
         backgroundColor: '#54d6be',
         color: 'white',
         marginTop: 10,
         marginBottom: 10
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
     };
 
     return (
@@ -55,6 +80,7 @@ function Login() {
                             component="form"
                             onSubmit={handleSubmit}
                             noValidate
+                            autoComplete='off'
                             sx={{mt: 2}}
                         >
                             <TextField
@@ -64,8 +90,12 @@ function Login() {
                                 label="Email"
                                 name="email"
                                 type="email"
-                                autoComplete="email"
+                                value={user.email}
+                                onChange={(event) => handleChange(event)}
+                                // autoComplete="email"
                                 margin='normal'
+                                color={err? "error":"info"}
+                                focused={err}
                             />
                             <TextField
                                 required
@@ -74,8 +104,12 @@ function Login() {
                                 label="Password"
                                 name="password"
                                 type="password"
-                                autoComplete="current-password"
+                                value={user.password}
+                                onChange={(event) => handleChange(event)}
+                                // autoComplete="current-password"
                                 margin='normal'
+                                color={err? "error":"info"}
+                                focused={err}
                             />
                             <Stack
                                 alignItems="center"

@@ -20,20 +20,6 @@ function Register() {
         password: "",
         role: "user"
     })
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        UserService.register((user)).then((response) => {
-            console.log(response);
-            history.push("/");
-        })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-    const handleChange = (event) => {
-        const value = event.target.value;
-        setUser({...user, [event.target.name]: value});
-    };
     const reset = (event) => {
         event.preventDefault();
         setUser({
@@ -43,6 +29,21 @@ function Register() {
             password: "",
             role: "user"
         });
+    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        UserService.register((user)).then((response) => {
+            console.log(response);
+            history.push("/");
+        })
+            .catch((error) => {
+                reset(event);
+                console.log(error);
+            });
+    };
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setUser({...user, [event.target.name]: value});
     };
 
     const buttonStyle = {
