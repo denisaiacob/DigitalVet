@@ -1,15 +1,13 @@
 import * as React from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {
-    TextField,
-    Stack,
-    Button,
     Container,
     Typography,
     Box
 } from "@mui/material";
 import {useState} from "react";
 import UserService from "../services/UserService";
+import RegisterForm from "./RegisterForm";
 
 function BusinessRegister() {
     const history = useHistory();
@@ -80,95 +78,7 @@ function BusinessRegister() {
                         >
                             Business account registrations
                         </Typography>
-                        <Box
-                            component="form"
-                            onSubmit={handleSubmit}
-                            noValidate
-                            sx={{mt: 2}}
-                        >
-                            <Stack
-                                alignItems="center"
-                                justifyContent="center"
-                                direction="row"
-                                spacing={2}
-                            >
-                                <div>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="firstName"
-                                        name="firstName"
-                                        label="First name"
-                                        value={user.firstName}
-                                        onChange={(event) => handleChange(event)}
-                                        margin='normal'
-                                        autoComplete='off'
-                                    />
-                                </div>
-                                <div>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="lastName"
-                                        name="lastName"
-                                        label="Last name"
-                                        value={user.lastName}
-                                        onChange={(event) => handleChange(event)}
-                                        margin='normal'
-                                        autoComplete='off'
-                                    />
-                                </div>
-                            </Stack>
-                            <TextField
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email"
-                                name="email"
-                                type="email"
-                                // autoComplete="email"
-                                value={user.email}
-                                onChange={(event) => handleChange(event)}
-                                margin='normal'
-                                autoComplete='off'
-                            />
-                            <TextField
-                                required
-                                fullWidth
-                                id="password"
-                                label="Password"
-                                name="password"
-                                type="password"
-                                // autoComplete="current-password"
-                                value={user.password}
-                                onChange={(event) => handleChange(event)}
-                                margin='normal'
-                                autoComplete='off'
-                            />
-
-                            <Button
-                                fullWidth
-                                type="submit"
-                                variant="contained"
-                                style={buttonStyle}
-                            >
-                                Register
-                            </Button>
-                        </Box>
-                        <Stack
-                            alignItems="center"
-                            justifyContent="center"
-                            direction="row"
-                            spacing={2}
-                        >
-                            <Typography color="darkgrey">Already have an account?</Typography>
-                            <Typography
-                                color='#3ca692'
-                                component={Link} to="/login"
-                            >
-                                Sign in
-                            </Typography>
-                        </Stack>
+                        <RegisterForm role={"business"}/>
                     </Box>
                 </Container>
             </Box>
