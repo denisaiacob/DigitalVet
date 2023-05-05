@@ -6,6 +6,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {addYears} from "date-fns";
 import dayjs from 'dayjs';
+import {Link} from "react-router-dom";
 
 const cities = [
     'Iasi',
@@ -119,6 +120,7 @@ function ServiceFilter() {
                 </LocalizationProvider>
             </FormControl>
             <Button
+                component={Link} to="/show"
                 variant='contained'
                 fullWidth
                 type='submit'

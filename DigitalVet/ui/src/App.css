@@ -1,12 +1,19 @@
-.App {
+.all {
     text-align: center;
     background-image: url('./components/images/Background.png');
     height: 100%;
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;}
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
     @media (max-width: 800px) {
-      .App {
+      .all {
         background-image: none;
         background-size: contain;
         background-color: #f9d3bc;
@@ -14,10 +21,13 @@
     }
 
 .App-header {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
+    /*min-height: 100vh;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*font-size: calc(10px + 2vmin);*/
 }
+
+
+

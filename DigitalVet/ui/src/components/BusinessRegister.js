@@ -10,54 +10,16 @@ import UserService from "../services/UserService";
 import RegisterForm from "./RegisterForm";
 
 function BusinessRegister() {
-    const history = useHistory();
-
-    const [user, setUser] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        role: "business"
-    })
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        UserService.register((user)).then((response) => {
-            console.log(response);
-            history.push("/");
-        })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-    const handleChange = (event) => {
-        const value = event.target.value;
-        setUser({...user, [event.target.name]: value});
-    };
-
-    const reset = (event) => {
-        event.preventDefault();
-        setUser({
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            role: "business"
-        });
-    };
-    const buttonStyle = {
-        backgroundColor: '#54d6be',
-        color: 'white',
-        marginTop: 10,
-        marginBottom: 10
-    };
 
     return (
-        <div style={{marginLeft: '10px', marginRight: '10px'}}>
+        <div className="all">
             <Box
                 sx={{
                     backgroundColor: 'white',
                     marginTop: 10,
                     marginBottom: 2,
+                    marginLeft: 3,
+                    marginRight:3,
                     borderBottom: 40,
                     borderTop: 10,
                     borderColor: 'white'

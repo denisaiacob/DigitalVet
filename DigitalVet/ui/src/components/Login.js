@@ -54,12 +54,14 @@ function Login() {
     };
 
     return (
-        <div style={{marginLeft: '10px', marginRight: '10px'}}>
+        <div className="all">
             <Box
                 sx={{
                     backgroundColor: 'white',
                     marginTop: 10,
                     marginBottom: 2,
+                    marginLeft: 3,
+                    marginRight:3,
                     borderBottom: 40,
                     borderTop: 10,
                     borderColor: 'white'
