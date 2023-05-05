@@ -6,7 +6,7 @@ import {
     Button,
     Box, Typography
 } from "@mui/material";
-import UserService from "../services/UserService";
+import UserService from "../../services/UserService";
 
 function RegisterForm({role}) {
     const history = useHistory();

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import SwipeableViews from 'react-swipeable-views';
 import {useTheme} from '@mui/material/styles';
-import {Container, Box, Tab, Tabs, AppBar} from "@mui/material";
+import { Box, Tab, Tabs, AppBar} from "@mui/material";
 import ServiceFilter from "./ServiceFilter";
 import SearchFilter from "./SearchFilter";
 

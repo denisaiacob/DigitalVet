@@ -4,7 +4,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
 import {blueGrey} from '@mui/material/colors';
-import logo from "./images/Logo.png";
+import logo from "../images/Logo.png";
 import DrawerMenu from "./DrawerMenu";
 import {Link} from 'react-router-dom';
 import {

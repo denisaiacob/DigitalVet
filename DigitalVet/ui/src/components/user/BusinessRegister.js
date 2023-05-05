@@ -1,12 +1,9 @@
 import * as React from 'react';
-import {useHistory} from 'react-router-dom';
 import {
     Container,
     Typography,
     Box
 } from "@mui/material";
-import {useState} from "react";
-import UserService from "../services/UserService";
 import RegisterForm from "./RegisterForm";
 
 function BusinessRegister() {

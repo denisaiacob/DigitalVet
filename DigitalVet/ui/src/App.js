@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import {Route, BrowserRouter} from 'react-router-dom';
-import Login from "./components/Login";
-import MenuAppBar from "./components/MenuAppBar";
-import Filter from "./components/Filter";
-import Register from "./components/Register";
-import BusinessRegister from "./components/BusinessRegister";
+import Login from "./components/user/Login";
+import MenuAppBar from "./components/menu/MenuAppBar";
+import Filter from "./components/filter/Filter";
+import Register from "./components/user/Register";
+import BusinessRegister from "./components/user/BusinessRegister";
 import ShowClinics from "./components/ShowClinics";
 
 function App() {

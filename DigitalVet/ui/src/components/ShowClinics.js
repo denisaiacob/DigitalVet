@@ -1,10 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import "../App.css"
+import LeftSide from "./LeftSide"
 
 function ShowClinics() {
     return (
-        <div className="show-clinics">
-            test
+        <div className="container">
+            <div className="left-column">
+                <LeftSide/>
+            </div>
+            <div className="right-column">Coloana dreapta</div>
         </div>
     );
 }
