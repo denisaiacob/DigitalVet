@@ -41,16 +41,25 @@
 }
 
 .left-column {
+    /*text-align: center;*/
     flex: 1;
 }
 
 .right-column {
+    margin-top: inherit;
     flex: 3;
 }
 
 .radio-group-container {
     max-height: 200px;
     overflow-y: auto;
+}
+.show-box{
+    margin-top: 40px;
+    margin-left: 40px;
+    /*margin-right: 40px;*/
+    /*justify-content: start;*/
+    /*align-items: start;*/
 }
 
 

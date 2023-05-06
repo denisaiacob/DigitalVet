@@ -12,7 +12,7 @@ import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {DesktopTimePicker, TimePicker} from "@mui/x-date-pickers";
+import {TimePicker} from "@mui/x-date-pickers";
 import {useState} from "react";
 import {addYears} from "date-fns";
 
@@ -21,7 +21,6 @@ const Accordion = styled((props) => (
 ))(({theme}) => ({
     borderTop: `10px solid #fdf1ea`,
     borderLeft: '20px solid #fdf1ea',
-    borderRight: '20px solid #fdf1ea',
     '&:before': {
         display: 'none',
     },
