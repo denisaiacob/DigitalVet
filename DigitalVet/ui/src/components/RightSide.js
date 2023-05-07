@@ -11,9 +11,12 @@ import {
     CardActions,
     Collapse,
     Typography,
-    IconButton
+    IconButton, Box, Paper
 } from "@mui/material";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
+import {yellow, red, blue} from "@mui/material/colors";
+import StarIcon from '@mui/icons-material/Star';
+import {useHistory} from "react-router-dom";
 
 const ExpandMore = styled((props) => {
     const {expand, ...other} = props;
@@ -26,11 +29,29 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
+const PointerTypography = styled(Typography)({
+    cursor: 'pointer',
+    "&:hover": {
+        color: blue[800],
+    },
+});
+const RoundedTypography = styled(Typography)({
+    fontFamily: 'Century Gothic',
+    fontWeight: 'bold',
+    fontSize: '1.0rem',
+    textAlign:'start',
+});
+
 function RightSide() {
+    const history = useHistory();
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
+    };
+
+    const handleReviews = () => {
+        history.push("/");
     };
 
     return (
@@ -56,17 +77,21 @@ function RightSide() {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Typography>
-                                        Recenzii
+                                    <Typography variant="h5" component="span">
+                                        <StarIcon sx={{color: yellow[800]}}/>
+                                        5.0
                                     </Typography>
+                                    <PointerTypography onClick={handleReviews}>
+                                        30 Reviews
+                                    </PointerTypography>
                                 </Grid>
                             </Grid>
                             <Grid item>
                                 <Checkbox
                                     sx={{
-                                        color: '#FF0000',
+                                        color: red[500],
                                         '&.Mui-checked': {
-                                            color: '#FF0000',
+                                            color: red[500],
                                         },
                                     }}
                                     icon={<FavoriteBorder/>}
@@ -81,18 +106,30 @@ function RightSide() {
                         expand={expanded}
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
-                        aria-label="show more"
+                        aria-label="show services"
                     >
                         <ExpandMoreIcon/>
                     </ExpandMore>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography paragraph>Method:</Typography>
-                        <Typography paragraph>
-                            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-                            aside for 10 minutes.
-                        </Typography>
+                        <Paper variant="outlined">
+                            <Box sx={{mt:3,ml:5,mr:2,mb:1}}>
+                                <Grid container direction="column" spacing={2}>
+                                    <Grid container direction="row" spacing={2}>
+                                        <Grid item xs={11}>
+                                            <RoundedTypography variant="h5">Name of the service</RoundedTypography>
+                                        </Grid>
+                                        <Grid item xs={1}>
+                                            <RoundedTypography variant="h5">15 Lei</RoundedTypography>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography textAlign="start" variant="body2">Description</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </Paper>
                     </CardContent>
                 </Collapse>
             </Card>
