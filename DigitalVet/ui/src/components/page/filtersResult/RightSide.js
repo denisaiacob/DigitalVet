@@ -6,7 +6,7 @@ import {
     CardContent,
     CardActions,
     Collapse,
-    IconButton
+    IconButton,
 } from "@mui/material";
 import ClinicBox from "./ClinicBox";
 import ServiceDetailsBox from "./ServiceDetailsBox";
@@ -31,8 +31,8 @@ function RightSide() {
 
     return (
         <div>
-            <Card sx={{maxWidth: 820}} onClick={}>
-                <ClinicBox/>
+            <Card sx={{maxWidth: 820}}>
+                <ClinicBox imgWidth={360}/>
                 <CardActions disableSpacing>
                     <ExpandMore
                         expand={expanded}

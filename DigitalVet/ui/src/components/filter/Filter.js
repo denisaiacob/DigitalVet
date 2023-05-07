@@ -7,7 +7,6 @@ import SearchFilter from "./SearchFilter";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
-
     return (
         <div
             role="tabpanel"
@@ -41,7 +40,7 @@ function Filter() {
         <div className="all">
             <Box
                 sx={{
-                    marginTop: 5,
+                    marginTop: 7,
                     height: 400,
                     width: 396,
                     backgroundColor: 'white', color: 'black',

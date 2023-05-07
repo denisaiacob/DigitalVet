@@ -49,6 +49,11 @@ const AccordionDetails = styled(MuiAccordionDetails)(({theme}) => ({
     alignItems: "start"
 }));
 
+const RoundedTypography = styled(Typography)({
+    fontFamily: 'Arial',
+    fontSize: '1.1rem',
+});
+
 function LeftSide() {
     const [sort, setSort] = React.useState('Rating');
     const [location, setLocation] = React.useState('Iasi');
@@ -69,7 +74,7 @@ function LeftSide() {
     };
     return (
         <div>
-            <Typography variant="h6" sx={{marginTop: 3}}> Search filters</Typography>
+            <RoundedTypography variant="h5" sx={{marginTop: 3,marginBottom:1}}> Search filters</RoundedTypography>
             <Accordion>
                 <AccordionSummary aria-controls="panel1-content" id="panel1-content">
                     <Typography>Sort by</Typography>

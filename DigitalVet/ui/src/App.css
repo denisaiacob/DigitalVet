@@ -1,16 +1,16 @@
 .all {
-    text-align: center;
     background-image: url('./components/images/Background.png');
-    height: 100%;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    text-align: center;
     min-height: 100vh;
+    height: 100%;
 }
     @media (max-width: 800px) {
       .all {
@@ -57,9 +57,10 @@
 .show-box{
     margin-top: 40px;
     margin-left: 40px;
-    /*margin-right: 40px;*/
-    /*justify-content: start;*/
-    /*align-items: start;*/
+}
+.align-center {
+    justify-self: center;
+    align-self: center;
 }
 
 
