@@ -5,7 +5,7 @@ import {
     Grid,
     CardHeader,
     CardMedia,
-    Typography,
+    Typography, Box,
 } from "@mui/material";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import {yellow, red, blue} from "@mui/material/colors";
@@ -18,40 +18,51 @@ const PointerTypography = styled(Typography)({
         color: blue[800],
     },
 });
-function ClinicBox(){
+
+function ClinicBox({imgWidth}) {
     const history = useHistory();
     const handleReviews = () => {
         history.push("/");
     };
+    const handleClinic = (clinicName) => {
+        history.push({
+            pathname: '/clinic',
+            state: { clinicName }
+        });
+    };
 
-    return(
+    return (
         <div className="show-box">
             <Grid container spacing={2}>
                 <Grid item>
                     <CardMedia
                         component="img"
-                        height="210"
-                        sx={{width: 360}}
+                        // height="210"
+                        sx={{width: imgWidth}}
                         image="https://source.unsplash.com/random"
                         alt="Cabinet img"
+                        onClick={() => handleClinic("Clinic Name")}
                     />
                 </Grid>
                 <Grid item xs={12} sm container>
                     <Grid item xs={10} container direction="column" spacing={2} sx={{marginTop: 3}}>
                         <Grid item xs={2}>
                             <CardHeader
-                                title="Cabinet Name"
+                                title="Clinic Name"
                                 subheader="Adress"
+                                onClick={() => handleClinic("Clinic Name")}
                             />
                         </Grid>
-                        <Grid item>
+                        <Grid item className="align-center">
                             <Typography variant="h5" component="span">
                                 <StarIcon sx={{color: yellow[800]}}/>
                                 5.0
                             </Typography>
-                            <PointerTypography onClick={handleReviews}>
-                                30 Reviews
-                            </PointerTypography>
+                            <Box sx={{maxWidth:120}}>
+                                <PointerTypography onClick={handleReviews}>
+                                    30 Reviews
+                                </PointerTypography>
+                            </Box>
                         </Grid>
                     </Grid>
                     <Grid item>
@@ -70,5 +81,6 @@ function ClinicBox(){
             </Grid>
         </div>
     );
- }
- export default ClinicBox;
+}
+
+export default ClinicBox;

@@ -7,6 +7,7 @@ import Filter from "./components/filter/Filter";
 import Register from "./components/user/Register";
 import BusinessRegister from "./components/user/BusinessRegister";
 import ShowClinics from "./components/page/filtersResult/ShowClinics";
+import ClinicPage from "./components/page/clinic/ClinicPage";
 
 function App() {
     return (
@@ -19,8 +20,7 @@ function App() {
                     <Route exact path='/register' component={Register}/>
                     <Route exact path='/business' component={BusinessRegister}/>
                     <Route exact path='/show' component={ShowClinics}/>
-                    <Route exact path='/clinic' component={Clinic}/>
-
+                    <Route exact path="/clinic" component={ClinicPage}/>
                 </header>
             </div>
         </BrowserRouter>
