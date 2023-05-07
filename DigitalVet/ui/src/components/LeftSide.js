@@ -75,7 +75,7 @@ function LeftSide() {
                     <Typography>Sort by</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <div className="radio-group-container">
+                    <div className="radio-group-container" align="start">
                         <FormControl component="fieldset">
                             <RadioGroup
                                 aria-labelledby="sort"
@@ -95,7 +95,7 @@ function LeftSide() {
                     <Typography>Choose the location</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <div className="radio-group-container">
+                    <div className="radio-group-container" align="start">
                         <FormControl component="fieldset">
                             <RadioGroup
                                 aria-labelledby="location"
@@ -116,7 +116,7 @@ function LeftSide() {
                     <Typography>Choose service</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <div className="radio-group-container">
+                    <div className="radio-group-container" align="start">
                         <FormControl component="fieldset">
                             <RadioGroup
                                 aria-labelledby="services"
