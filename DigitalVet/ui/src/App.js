@@ -6,7 +6,7 @@ import MenuAppBar from "./components/menu/MenuAppBar";
 import Filter from "./components/filter/Filter";
 import Register from "./components/user/Register";
 import BusinessRegister from "./components/user/BusinessRegister";
-import ShowClinics from "./components/ShowClinics";
+import ShowClinics from "./components/page/filtersResult/ShowClinics";
 
 function App() {
     return (
@@ -19,6 +19,8 @@ function App() {
                     <Route exact path='/register' component={Register}/>
                     <Route exact path='/business' component={BusinessRegister}/>
                     <Route exact path='/show' component={ShowClinics}/>
+                    <Route exact path='/clinic' component={Clinic}/>
+
                 </header>
             </div>
         </BrowserRouter>

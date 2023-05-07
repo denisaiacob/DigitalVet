@@ -31,7 +31,7 @@ function RightSide() {
 
     return (
         <div>
-            <Card sx={{maxWidth: 820}}>
+            <Card sx={{maxWidth: 820}} onClick={}>
                 <ClinicBox/>
                 <CardActions disableSpacing>
                     <ExpandMore
