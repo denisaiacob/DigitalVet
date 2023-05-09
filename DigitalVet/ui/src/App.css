@@ -34,14 +34,11 @@
     height: 100%;
     display: flex;
     flex-direction: row;
-    /*justify-content: center;*/
-    /*align-items: center;*/
     min-height: 90vh;
     background-color: #fdf1ea;
 }
 
 .left-column {
-    /*text-align: center;*/
     flex: 1;
 }
 
@@ -62,6 +59,43 @@
     justify-self: center;
     align-self: center;
 }
+.clinic-page{
+    margin-top: 60px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    align-items: center;
+    min-height: 90vh;
+    background-color: #fdf1ea;
+}
+
+.tabs-view{
+    width: 970px;
+}
+@media (max-width: 800px) {
+    .tabs-view {
+       width: 600px;
+    }
+}
+@media (max-width: 700px) {
+    .tabs-view {
+       width: 300px;
+    }
+}
+
+.clinic-img{
+    max-width: 500px;
+}
+@media (max-width: 900px) {
+    .tabs-view {
+        width: 300px;
+    }
+}
+
+
+
 
 
 
