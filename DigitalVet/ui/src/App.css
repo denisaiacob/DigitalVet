@@ -20,14 +20,6 @@
       }
     }
 
-.App-header {
-    /*min-height: 100vh;*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
-    /*font-size: calc(10px + 2vmin);*/
-}
 .container {
     margin-top: 64px;
     text-align: center;
@@ -65,7 +57,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    /*justify-content: center;*/
     align-items: center;
     min-height: 90vh;
     background-color: #fdf1ea;
@@ -81,15 +72,15 @@
 }
 @media (max-width: 700px) {
     .tabs-view {
-       width: 300px;
+       width: 400px;
     }
 }
 
 .clinic-img{
     max-width: 500px;
 }
-@media (max-width: 900px) {
-    .tabs-view {
+@media (max-width: 700px) {
+    .clinic-view {
         width: 300px;
     }
 }

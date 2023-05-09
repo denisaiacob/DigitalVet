@@ -1,16 +1,17 @@
 import * as React from 'react';
 import "../../../App.css"
-import {Box, CardHeader, CardMedia, Checkbox, Grid, Card, Typography, AppBar, Tabs, Tab} from "@mui/material";
+import {Box, CardMedia, Checkbox, Grid, Card, Typography, Tabs, Tab} from "@mui/material";
 import {styled, useTheme} from "@mui/material/styles";
 import {useLocation} from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {blue, red, yellow} from "@mui/material/colors";
-import { Favorite, FavoriteBorder} from "@mui/icons-material";
+import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import {useState} from "react";
 import SwipeableViews from "react-swipeable-views";
 import Description from "./Description";
 import Program from "./Program";
+import Review from "./review/Review";
 
 
 function TabPanel(props) {
@@ -73,7 +74,7 @@ function ClinicPage() {
     return (
         <div className="clinic-page">
             <RoundedTypography sx={{mt: 5}}>{clinicName}</RoundedTypography>
-            <Card sx={{maxWidth: 970, mt: 3}}>
+            <Card sx={{maxWidth: 930, mt: 3}}>
                 <Grid container spacing={2} sx={{margin: 3}}>
                     <Grid item>
                         <CardMedia
@@ -122,7 +123,7 @@ function ClinicPage() {
             <Box
                 className="tabs-view"
                 sx={{
-                    marginBottom:20,
+                    marginBottom: 20,
                     marginTop: 7,
                     backgroundColor: 'transparent',
                 }}>
@@ -168,7 +169,7 @@ function ClinicPage() {
                         index={3}
                         dir={theme.direction}
                     >
-                        Tab
+                        <Review/>
                     </TabPanel>
                 </SwipeableViews>
             </Box>
