@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Box} from "@mui/material";
-import VetPart from "./vetPart";
+import VetPart from "./VetPart";
 import ServicePart from "./ServicePart";
 
 function Services() {
