@@ -8,6 +8,7 @@ import Register from "./components/user/Register";
 import BusinessRegister from "./components/user/BusinessRegister";
 import ShowClinics from "./components/page/filtersResult/ShowClinics";
 import ClinicPage from "./components/page/clinic/ClinicPage";
+import VetPage from "./components/page/clinic/VetPage";
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
                     <Route exact path='/business' component={BusinessRegister}/>
                     <Route exact path='/show' component={ShowClinics}/>
                     <Route exact path="/clinic" component={ClinicPage}/>
-                    <Route exact path="/clinic/vet" component={Filter}/>
+                    <Route exact path="/clinic/vet" component={VetPage}/>
                     <Route exact path="/service/:serviceId" component={Filter}/>
                 </header>
             </div>
