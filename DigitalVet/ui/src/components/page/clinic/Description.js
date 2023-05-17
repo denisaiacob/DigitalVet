@@ -9,10 +9,11 @@ function Description() {
             <Box
                 sx={{
                     textAlign: "start",
-                    borderTop: 20,
-                    borderBottom:50,
+                    borderTop: 30,
+                    borderBottom:30,
                     borderColor: "white",
-                    marginLeft: 5
+                    marginLeft: 6.5,
+                    marginRight:6.5
                 }}
             >
                 <Typography
