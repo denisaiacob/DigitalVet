@@ -39,15 +39,13 @@ function FilterByRating(){
         <Card
             variant="outlined"
             sx={{
-                width: 500,
+                width: 499,
                 height: 220,
                 '@media (max-width:700px)': {
-                    width: 120,
+                    width: 109,
                     height: 80,
                 },
                 textAlign: "center",
-                // alignItems: "center",
-                // justifyContent: "center",
                 display: "flex",
                 flexDirection: "column"
             }}
@@ -60,7 +58,6 @@ function FilterByRating(){
                     },
                     marginBottom: 1
                 }}
-                // color="text.secondary"
                 gutterBottom
             >
                 Filter by rating
