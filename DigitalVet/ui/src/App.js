@@ -21,6 +21,8 @@ function App() {
                     <Route exact path='/business' component={BusinessRegister}/>
                     <Route exact path='/show' component={ShowClinics}/>
                     <Route exact path="/clinic" component={ClinicPage}/>
+                    <Route exact path="/clinic/vet" component={Filter}/>
+                    <Route exact path="/service/:serviceId" component={Filter}/>
                 </header>
             </div>
         </BrowserRouter>

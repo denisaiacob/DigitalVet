@@ -12,6 +12,7 @@ import SwipeableViews from "react-swipeable-views";
 import Description from "./Description";
 import Program from "./Program";
 import Reviews from "./reviews/Reviews";
+import Services from "./services/Services";
 
 
 function TabPanel(props) {
@@ -148,7 +149,7 @@ function ClinicPage() {
                         index={0}
                         dir={theme.direction}
                     >
-                        Tab
+                        <Services/>
                     </TabPanel>
                     <TabPanel
                         value={value}
