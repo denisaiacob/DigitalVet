@@ -1,0 +1,143 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Bază de date: `digitalvet`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structură tabel pentru tabel `clinics`
+--
+
+CREATE TABLE `clinics` (
+  `clinic_id` int(9) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structură tabel pentru tabel `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `review_id` int(9) NOT NULL,
+  `vet_id` int(9) NOT NULL,
+  `service_id` int(9) NOT NULL,
+  `stars` int(1) NOT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structură tabel pentru tabel `services`
+--
+
+CREATE TABLE `services` (
+  `service_id` int(9) NOT NULL,
+  `vet_id` int(9) NOT NULL,
+  `name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structură tabel pentru tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(9) NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` varchar(10) DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Eliminarea datelor din tabel `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `role`) VALUES
+(452, 'Ion', 'Popescu', 'ionpopescu@gmail.com', '$2a$10$.7gOXgC2MJ1gd.ujli6/puDUfB7N8BsEfoGJXWtkQPQLVeEaaGNa2', 'user'),
+(502, 'Denisa', 'Iacob', 'denisa.alexandra@gmail.com', '$2a$10$Am0NXxNbRec/HfJgkWSjtuQRyZas64URLNjiMpFsAM0NDhIDoHsx6', 'business'),
+(552, 'Denisa', 'Iacob', 'denisa.iacob@gmail.com', '$2a$10$XKK2WZxAm5Uf9vA9H8O.P.XSdYe64GtpzQWzS2y1t3nFuGvK2XLi.', 'user');
+
+-- --------------------------------------------------------
+
+--
+-- Structură tabel pentru tabel `vets`
+--
+
+CREATE TABLE `vets` (
+  `vet_id` int(9) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `function` varchar(45) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexuri pentru tabele eliminate
+--
+
+--
+-- Indexuri pentru tabele `clinics`
+--
+ALTER TABLE `clinics`
+  ADD PRIMARY KEY (`clinic_id`);
+
+--
+-- Indexuri pentru tabele `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`review_id`);
+
+--
+-- Indexuri pentru tabele `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`service_id`);
+
+--
+-- Indexuri pentru tabele `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexuri pentru tabele `vets`
+--
+ALTER TABLE `vets`
+  ADD PRIMARY KEY (`vet_id`);
+
+--
+-- AUTO_INCREMENT pentru tabele eliminate
+--
+
+--
+-- AUTO_INCREMENT pentru tabele `clinics`
+--
+ALTER TABLE `clinics`
+  MODIFY `clinic_id` int(9) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pentru tabele `services`
+--
+ALTER TABLE `services`
+  MODIFY `service_id` int(9) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pentru tabele `vets`
+--
+ALTER TABLE `vets`
+  MODIFY `vet_id` int(9) NOT NULL AUTO_INCREMENT;
+COMMIT;
