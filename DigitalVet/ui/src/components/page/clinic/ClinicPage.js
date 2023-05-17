@@ -11,7 +11,7 @@ import {useState} from "react";
 import SwipeableViews from "react-swipeable-views";
 import Description from "./Description";
 import Program from "./Program";
-import Reviews from "./review/Reviews";
+import Reviews from "./reviews/Reviews";
 
 
 function TabPanel(props) {
