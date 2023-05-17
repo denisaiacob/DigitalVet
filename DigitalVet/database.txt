@@ -85,13 +85,33 @@ CREATE TABLE `vets` (
   `photo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `program` (
+  `program_id` int(9) NOT NULL,
+  `clinic_id` int(9) NOT NULL,
+  `months` varchar(20) NOT NULL,
+  `tuesday` varchar(20) NOT NULL,
+  `wednesday` varchar(20) NOT NULL,
+  `thursday` varchar(20) NOT NULL,
+  `friday` varchar(20) NOT NULL,
+  `saturday` varchar(20) NOT NULL,
+  `sunday` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexuri pentru tabele eliminate
 --
 
 --
+-- Indexuri pentru tabele `program`
+--
+ALTER TABLE `program`
+  ADD PRIMARY KEY (`program_id`);
+COMMIT;
+
+--
 -- Indexuri pentru tabele `clinics`
 --
+
 ALTER TABLE `clinics`
   ADD PRIMARY KEY (`clinic_id`);
 
