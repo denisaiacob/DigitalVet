@@ -27,7 +27,7 @@ function Program() {
                     Program
                 </Typography>
                 <Grid container direction="row" spacing={2} sx={{marginTop:1}}>
-                    <Grid item xs={2}>
+                    <Grid item xs={4}>
                         <ProgramTypography>Months</ProgramTypography>
                         <ProgramTypography>Tuesday</ProgramTypography>
                         <ProgramTypography>Wednesday</ProgramTypography>

@@ -19,7 +19,6 @@ function SummaryReviews() {
         <Card
             variant="outlined"
             sx={{
-                marginLeft: 3.5,
                 width: 300,
                 height: 220,
                 '@media (max-width:700px)': {

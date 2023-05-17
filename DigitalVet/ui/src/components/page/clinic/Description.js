@@ -22,7 +22,10 @@ function Description() {
                     About us
                 </Typography>
                 <Typography
-                    sx={{marginTop:2}}
+                    sx={{marginTop:2,
+                        '@media (max-width:700px)': {
+                            fontSize: '0.7rem',
+                        },}}
                 >
                     Description
                 </Typography>
