@@ -84,6 +84,11 @@
         width: 300px;
     }
 }
+.services {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 
 
 

@@ -102,7 +102,7 @@ function DrawerMenu() {
                             </ListSubheader>
                         }
                     >
-                        <ListItemButton>
+                        <ListItemButton component={Link} to="/business">
                             <ListItemIcon>
                                 <AddBoxIcon/>
                             </ListItemIcon>
@@ -115,7 +115,6 @@ function DrawerMenu() {
             <Grid container spacing={2} alignItems={"center"}>
                 <Grid container item xs={1}>
                     <IconButton
-                        // sx={{ margin: "auto" }}
                         onClick={() => setOpenDrawer(!openDrawer)}
                     >
                         <MenuIcon/>
