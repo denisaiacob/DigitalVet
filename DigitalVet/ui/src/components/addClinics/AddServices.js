@@ -1,6 +1,10 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {Button, Typography, Box, Grid, Stack} from "@mui/material";
 import '../../App.css';
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import UploadPhoto from "./UploadPhoto";
 
 function AddServices() {
     const [serviceList, setServiceList] = useState([{service: ""}]);
@@ -28,7 +32,7 @@ function AddServices() {
                 margin: 5,
                 width: '70%',
                 display: 'flex',
-                textAlign:'center',
+                textAlign: 'center',
                 alignItems: 'center',
                 justifyContent: 'center'
             }}
@@ -39,18 +43,18 @@ function AddServices() {
                 autoComplete="off"
                 sx={{width: '80%', display: 'flex', textAlign: 'start'}}
             >
-                <Grid container style={{width:'100%'}}>
+                <Grid container style={{width: '100%'}}>
                     <Grid item xs={12}>
-                        <Typography fontWeight="bold" >Services</Typography>
+                        <Typography fontWeight="bold">Services</Typography>
                     </Grid>
                     {serviceList.map((singleService, index) => (
                         <div key={index} className="services">
-                            <Grid item xs={12} style={{width:'100%'}}>
-                                <Stack spacing={1} style={{width:'100%'}}>
+                            <Grid item xs={12} style={{width: '100%'}}>
+                                <Stack spacing={1} style={{width: '100%'}}>
                                     <input
                                         style={{
-                                            height:35,
-                                            marginTop:14
+                                            height: 35,
+                                            marginTop: 14
                                         }}
                                         name="service"
                                         type="text"
@@ -60,37 +64,29 @@ function AddServices() {
                                         required
                                     />
                                     {serviceList.length - 1 === index && (
-                                        <Button
-                                            sx={{
-                                                margin:3
-                                            }}
-                                            variant="outlined"
-                                            color="inherit"
-                                            onClick={handleServiceAdd}
-                                        >
-                                            Add a Service
-                                        </Button>
+                                        <IconButton
+                                            size="large"
+                                            onClick={handleServiceAdd}>
+                                            <AddCircleOutlineIcon fontSize="inherit"/>
+                                        </IconButton>
                                     )}
                                 </Stack>
                             </Grid>
                             <Grid item xs={12}>
-                                <div className="second-division">
+                                <div>
                                     {serviceList.length !== 1 && (
-                                        <Button
+                                        <IconButton
                                             sx={{
-                                                marginLeft:2,
-                                                height:35,
-                                                marginTop:2
+                                                marginTop: 1
                                             }}
-                                            variant="outlined"
-                                            color="error"
-                                            onClick={() => handleServiceRemove(index)}
-                                        >
-                                            <span>Remove</span>
-                                        </Button>
+                                            size="large"
+                                            onClick={handleServiceRemove}>
+                                            <DeleteIcon fontSize="inherit"/>
+                                        </IconButton>
                                     )}
                                 </div>
                             </Grid>
+                            
                         </div>
                     ))}
                 </Grid>

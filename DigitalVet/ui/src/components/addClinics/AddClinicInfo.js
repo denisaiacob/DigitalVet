@@ -3,14 +3,9 @@ import {Box, Grid, Typography} from "@mui/material";
 function AddClinicInfo() {
     return (
         <Box
-            sx={{
-                margin: 5,
-                width: '80%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
+            style={{width: '70%', textAlign: 'center'}}
         >
+            <Typography fontWeight="bold" sx={{margin: 3}}>The clinic's information</Typography>
             <Box
                 component="form"
                 noValidate

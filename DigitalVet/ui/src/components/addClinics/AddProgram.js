@@ -10,14 +10,9 @@ const MiniTypography = styled(Typography)({
 function AddProgram() {
     return (
         <Box
-            sx={{
-                margin: 5,
-                width: '70%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
+            style={{width: '70%', textAlign: 'center'}}
         >
+            <Typography fontWeight="bold" sx={{margin: 3}}>Clinic schedule</Typography>
             <Box
                 component="form"
                 noValidate

@@ -3,21 +3,9 @@ import UploadPhoto from "./UploadPhoto";
 
 function CreateClinicPage() {
     return (
-        <Box
-            sx={{
-                margin: 5,
-                width: '80%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
-        >
-            <Box
-                component="form"
-                noValidate
-                autoComplete="off"
-                sx={{display: 'flex', textAlign: 'start'}}
-            >
+        <Box style={{width: '70%'}}>
+            <Typography fontWeight="bold" sx={{margin: 3}} >Information for the Clinic Page</Typography>
+            <Box sx={{textAlign:'start'}}>
                 <Grid container style={{width: '100%'}}>
                     <Grid item xs={6}>
                         <Stack spacing={1} style={{width: '100%'}}>
