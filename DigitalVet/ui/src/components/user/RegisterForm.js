@@ -25,14 +25,16 @@ function RegisterForm({role}) {
             lastName: "",
             email: "",
             password: "",
-            role: "user"
+            role: role
         });
     };
     const handleSubmit = (event) => {
         event.preventDefault();
         UserService.register((user)).then((response) => {
             console.log(response);
-            history.push("/");
+        {
+            role === "business" ? history.push("/addClinic") : history.push("/");
+        }
         })
             .catch((error) => {
                 reset(event);
