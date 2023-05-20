@@ -14,7 +14,7 @@ import AddClinicInfo from "./AddClinicInfo";
 import AddProgram from "./AddProgram";
 import AddServices from "./AddServices";
 
-const steps = ['Clinic information', 'Clinic page', 'Add program', 'Add services', 'Add veterinarians'];
+const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add services', 'Add veterinarians'];
 
 const QontoConnector = styled(StepConnector)(({theme}) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -94,6 +94,24 @@ function AddClinic() {
         setActiveStep(0);
     };
 
+    let stepContent;
+    switch (activeStep) {
+        case 0:
+            stepContent = <CreateClinicPage />;
+            break;
+        case 1:
+            stepContent = <AddClinicInfo />;
+            break;
+        case 2:
+            stepContent = <AddProgram />;
+            break;
+        case 3:
+            stepContent = <AddServices />;
+            break;
+        default:
+            stepContent = <Typography>p5</Typography>;
+    }
+
     return (
         <div className="clinic-page">
             <Box sx={{width: '90%', margin: 5, alignItems: 'center'}}>
@@ -107,14 +125,8 @@ function AddClinic() {
                         );
                     })}
                 </Stepper>
-                {/*#########################pagina###################*/}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    {activeStep === 0 ? (<AddClinicInfo/>) :
-                        activeStep === 1 ? (<CreateClinicPage/>) :
-                            activeStep === 2 ? (<AddProgram/>) :
-                                activeStep === 3 ? (<AddServices/>) :
-                                    (<Typography>p5</Typography>)
-                    }
+                    {stepContent}
                 </div>
                 <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
                     <Button
