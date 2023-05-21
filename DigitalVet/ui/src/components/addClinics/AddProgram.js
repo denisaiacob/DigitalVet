@@ -1,5 +1,7 @@
 import {Box, Grid, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
+import {useState} from "react";
+import AddClinicService from "../../services/AddClinicService";
 
 const MiniTypography = styled(Typography)({
     '@media (max-width:700px)': {
@@ -8,6 +10,43 @@ const MiniTypography = styled(Typography)({
 });
 
 function AddProgram() {
+    const [program, setProgram] = useState({
+        clinicId: "",
+        months: "",
+        tuesday: "",
+        wednesday: "",
+        thursday: "",
+        friday: "",
+        saturday: "",
+        sunday: ""
+    })
+    const reset = (event) => {
+        event.preventDefault();
+        setProgram({
+            clinicId: "",
+            months: "",
+            tuesday: "",
+            wednesday: "",
+            thursday: "",
+            friday: "",
+            saturday: "",
+            sunday: ""
+        });
+    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        AddClinicService.addProgram((program)).then((response) => {
+            console.log(response);
+        })
+            .catch((error) => {
+                reset(event);
+                console.log(error);
+            });
+    };
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setProgram({...program, [event.target.name]: value});
+    };
     return (
         <Box
             style={{width: '70%', textAlign: 'center'}}
@@ -36,10 +75,22 @@ function AddProgram() {
                             <MiniTypography>Months</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
-                            <input type="time"/>
+                            <input
+                                id="months"
+                                name="months"
+                                value={clinic.months}
+                                onChange={(event) => handleChange(event)}
+                                type="time"
+                            />
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
-                            <input type="time"/>
+                            <input
+                                id="tuesday"
+                                name="tuesday"
+                                value={clinic.tuesday}
+                                onChange={(event) => handleChange(event)}
+                                type="time"
+                            />
                         </Grid>
                     </Grid>
                     <Grid item container xs={12}>
@@ -47,10 +98,22 @@ function AddProgram() {
                             <MiniTypography>Tuesday</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
-                            <input type="time"/>
+                            <input
+                                id="wednesday"
+                                name="wednesday"
+                                value={clinic.wednesday}
+                                onChange={(event) => handleChange(event)}
+                                type="time"
+                            />
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
-                            <input type="time"/>
+                            <input
+                                id="thursday"
+                                name="thursday"
+                                value={clinic.thursday}
+                                onChange={(event) => handleChange(event)}
+                                type="time"
+                            />
                         </Grid>
                     </Grid>
                     <Grid item container xs={12}>
@@ -58,10 +121,23 @@ function AddProgram() {
                             <MiniTypography>Wednesday</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
-                            <input type="time"/>
+                            <input
+                                id="friday"
+                                name="friday"
+                                value={clinic.friday}
+                                onChange={(event) => handleChange(event)}
+
+                                type="time"
+                            />
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
-                            <input type="time"/>
+                            <input
+                                id="saturday"
+                                name="saturday"
+                                value={clinic.saturday}
+                                onChange={(event) => handleChange(event)}
+                                type="time"
+                            />
                         </Grid>
                     </Grid>
                     <Grid item container xs={12}>

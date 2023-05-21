@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VetPhoto from "./VetPhoto";
 
 function AddVet() {
-    const [inputList, setInputList] = useState([{firstName: '', lastName: ''}]);
+    const [inputList, setInputList] = useState([{name: '', function: '', description: '', photo: ''}]);
 
     const handleInputChange = (e, index) => {
         const {name, value} = e.target;
@@ -23,7 +23,7 @@ function AddVet() {
     }
 
     const handleAddClick = () => {
-        setInputList([...inputList, {firstName: '', lastName: ''}]);
+        setInputList([...inputList, {name: '', function: '', description: '', photo: ''}]);
     }
     return (
         <Box style={{width: '70%', textAlign: 'center'}}>
@@ -56,6 +56,7 @@ function AddVet() {
                                     <textarea
                                         style={{width: '90%', height: 60, marginTop: 5}}
                                         type="text"
+                                        name="description"
                                         rows={5}
                                         onChange={e => handleInputChange(e, i)}
                                         // value=''

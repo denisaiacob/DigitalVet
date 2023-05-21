@@ -19,7 +19,7 @@ import AddProgram from "./AddProgram";
 import AddServices from "./AddServices";
 import AddVet from "./AddVet";
 
-const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add services', 'Add veterinarians'];
+const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add veterinarians','Add services'];
 
 const QontoConnector = styled(StepConnector)(({theme}) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -111,10 +111,10 @@ function AddClinic() {
             stepContent = <AddProgram/>;
             break;
         case 3:
-            stepContent = <AddServices/>;
+            stepContent = <AddVet/>;
             break;
         default:
-            stepContent = <AddVet/>
+            stepContent =<AddServices/>;
     }
 
     return (
