@@ -57,7 +57,7 @@ function UploadPhoto() {
             />
             <button onClick={uploadFile}> Upload Image</button>
             {imageUrls.map((url) => {
-                return <img src={url} style={{width: 300, margin: 10}}/>;
+                return <img alt='Cabinet photo' src={url} style={{width: 300, margin: 10}}/>;
             })}
         </div>
     );

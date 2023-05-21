@@ -34,7 +34,6 @@ function Login() {
         UserService.login((user)).then((response) => {
             console.log(response);
             setResp(response)
-            // history.push("/");
         })
             .catch((error) => {
                 reset(event);

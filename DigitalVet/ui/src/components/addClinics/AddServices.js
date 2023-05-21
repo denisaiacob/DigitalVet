@@ -1,10 +1,9 @@
 import React, {useState} from "react";
-import {Button, Typography, Box, Grid, Stack} from "@mui/material";
+import {Typography, Box, Grid, Stack} from "@mui/material";
 import '../../App.css';
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import UploadPhoto from "./UploadPhoto";
 
 function AddServices() {
     const [serviceList, setServiceList] = useState([{service: ""}]);
@@ -48,7 +47,7 @@ function AddServices() {
                         <Typography fontWeight="bold">Services</Typography>
                     </Grid>
                     {serviceList.map((singleService, index) => (
-                        <div key={index} className="services">
+                        <div className="services">
                             <Grid item xs={12} style={{width: '100%'}}>
                                 <Stack spacing={1} style={{width: '100%'}}>
                                     <input
@@ -86,7 +85,7 @@ function AddServices() {
                                     )}
                                 </div>
                             </Grid>
-                            
+
                         </div>
                     ))}
                 </Grid>

@@ -1,11 +1,16 @@
 import * as React from 'react';
-import {Box,AppBar,Toolbar }from '@mui/material';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
+import {
+    Box,
+    AppBar,
+    Toolbar,
+    Stepper,
+    StepConnector,
+    stepConnectorClasses,
+    Button,
+    StepLabel,
+    Step
+} from '@mui/material';
 import {styled} from "@mui/material/styles";
-import {StepConnector, stepConnectorClasses} from "@mui/material";
 import {Check} from "@mui/icons-material";
 import PropTypes from "prop-types";
 import CreateClinicPage from "./CreateClinicPage";
@@ -125,45 +130,43 @@ function AddClinic() {
                         );
                     })}
                 </Stepper>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center',marginBottom:40}}>
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 40}}>
                     {stepContent}
                 </div>
-                {/*<Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>*/}
-                    <AppBar style={{ background: 'transparent', top: 'auto', bottom: 0, marginTop: 'auto' }}>
-                        <Toolbar>
+                <AppBar style={{background: 'transparent', top: 'auto', bottom: 0, marginTop: 'auto'}}>
+                    <Toolbar>
+                        <Button
+                            variant="outlined"
+                            style={{
+                                color: activeStep === 0 ? 'gray' : '#43ab98',
+                                borderColor: activeStep === 0 ? 'gray' : '#43ab98'
+                            }}
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            sx={{mr: 1}}
+                        >
+                            Back
+                        </Button>
+                        <Box sx={{flex: '1 1 auto'}}/>
+                        {activeStep === steps.length - 1 ? (
                             <Button
+                                onClick={handleFinish}
                                 variant="outlined"
-                                style={{
-                                    color: activeStep === 0 ? 'gray' : '#43ab98',
-                                    borderColor: activeStep === 0 ? 'gray' : '#43ab98'
-                                }}
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                sx={{mr: 1}}
+                                style={{color: '#43ab98', borderColor: '#43ab98'}}
                             >
-                                Back
+                                Finish
                             </Button>
-                            <Box sx={{flex: '1 1 auto'}}/>
-                            {activeStep === steps.length - 1 ? (
-                                <Button
-                                    onClick={handleFinish}
-                                    variant="outlined"
-                                    style={{color: '#43ab98', borderColor: '#43ab98'}}
-                                >
-                                    Finish
-                                </Button>
-                            ) : (
-                                <Button
-                                    onClick={handleNext}
-                                    variant="outlined"
-                                    style={{color: '#43ab98', borderColor: '#43ab98'}}
-                                >
-                                    Next
-                                </Button>
-                            )}
-                        </Toolbar>
-                    </AppBar>
-                {/*</Box>*/}
+                        ) : (
+                            <Button
+                                onClick={handleNext}
+                                variant="outlined"
+                                style={{color: '#43ab98', borderColor: '#43ab98'}}
+                            >
+                                Next
+                            </Button>
+                        )}
+                    </Toolbar>
+                </AppBar>
             </Box>
         </div>
     );

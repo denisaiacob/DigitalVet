@@ -32,9 +32,9 @@ function RegisterForm({role}) {
         event.preventDefault();
         UserService.register((user)).then((response) => {
             console.log(response);
-        {
-            role === "business" ? history.push("/addClinic") : history.push("/");
-        }
+            {
+                role === "business" ? history.push("/addClinic") : history.push("/");
+            }
         })
             .catch((error) => {
                 reset(event);

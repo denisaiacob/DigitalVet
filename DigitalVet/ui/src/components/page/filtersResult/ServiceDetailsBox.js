@@ -6,7 +6,7 @@ import {
     Box,
     Paper, Button
 } from "@mui/material";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const RoundedTypography = styled(Typography)({
     fontFamily: 'Century Gothic',
@@ -16,7 +16,6 @@ const RoundedTypography = styled(Typography)({
 });
 
 function ServiceDetailsBox() {
-    const history = useHistory();
 
     return (
         <Paper variant="outlined">
