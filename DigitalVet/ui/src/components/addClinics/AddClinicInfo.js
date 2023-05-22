@@ -1,15 +1,16 @@
 import {Box, Grid, Typography} from "@mui/material";
 
-function AddClinicInfo() {
+function AddClinicInfo({info,setInfo}) {
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setInfo({...info, [event.target.name]: value});
+    };
     return (
         <Box
             style={{width: '70%', textAlign: 'center'}}
         >
             <Typography fontWeight="bold" sx={{margin: 3}}>The clinic's information</Typography>
             <Box
-                component="form"
-                noValidate
-                autoComplete="off"
                 sx={{display: 'flex', textAlign: 'start'}}
             >
                 <Grid container style={{width: '100%'}}>
@@ -18,9 +19,10 @@ function AddClinicInfo() {
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"
-                            // value=''
-                            // onChange={handleInputChange}
-                            // placeholder="Enter text here"
+                            id="fin"
+                            name="fin"
+                            value={info.fin}
+                            onChange={(event) => handleChange(event)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -28,9 +30,10 @@ function AddClinicInfo() {
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"
-                            // value=''
-                            // onChange={handleInputChange}
-                            // placeholder="Enter text here"
+                            id="trade"
+                            name="trade"
+                            value={info.trade}
+                            onChange={(event) => handleChange(event)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -38,9 +41,10 @@ function AddClinicInfo() {
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"
-                            // value=''
-                            // onChange={handleInputChange}
-                            // placeholder="Enter text here"
+                            id="administrator"
+                            name="administrator"
+                            value={info.administrator}
+                            onChange={(event) => handleChange(event)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -48,9 +52,10 @@ function AddClinicInfo() {
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"
-                            // value=''
-                            // onChange={handleInputChange}
-                            // placeholder="Enter text here"
+                            id="iban"
+                            name="iban"
+                            value={info.iban}
+                            onChange={(event) => handleChange(event)}
                         />
                     </Grid>
                 </Grid>

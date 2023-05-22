@@ -18,8 +18,11 @@ import AddClinicInfo from "./AddClinicInfo";
 import AddProgram from "./AddProgram";
 import AddServices from "./AddServices";
 import AddVet from "./AddVet";
+import AddClinicService from "../../services/AddClinicService";
+import {useState} from "react";
 
-const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add veterinarians','Add services'];
+
+const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add veterinarians', 'Add services'];
 
 const QontoConnector = styled(StepConnector)(({theme}) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -85,6 +88,62 @@ QontoStepIcon.propTypes = {
 };
 
 function AddClinic() {
+    const [clinicId, setClinicId] = useState(null)
+    const [clinic, setClinic] = useState({
+        name: "",
+        city: "",
+        address: "",
+        description: "",
+        photo: ""
+    })
+    const [info, setInfo] = useState({
+        fin: "",
+        trade: "",
+        administrator: "",
+        iban: "",
+    })
+    const [vet, setVet] = useState([{
+        name: "",
+        function: "",
+        description: "",
+        photo: ""
+    }])
+    const [program, setProgram] = useState({
+        clinicId: null,
+        months1: "",
+        tuesday1: "",
+        wednesday1: "",
+        thursday1: "",
+        friday1: "",
+        saturday1: "",
+        sunday1: "",
+        months2: "",
+        tuesday2: "",
+        wednesday2: "",
+        thursday2: "",
+        friday2: "",
+        saturday2: "",
+        sunday2: ""
+    })
+    const [programSubmit, setProgramSubmit] = useState({
+        clinicId: null,
+        months: "",
+        tuesday: "",
+        wednesday: "",
+        thursday: "",
+        friday: "",
+        saturday: "",
+        sunday: ""
+    })
+    const [service, setService] = useState([{
+        vetName: "",
+        name: "",
+    }])
+    const [serviceSubmit, setServiceSubmit] = useState([{
+        vetId: null,
+        name: "",
+    }])
+
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -95,31 +154,73 @@ function AddClinic() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleFinish = () => {
-        setActiveStep(0);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        AddClinicService.addClinic((clinic)).then((response) => {
+            console.log(response);
+            setClinicId(response.data);
+        }).catch((error) => {
+            console.log(error);
+        });
+        vet.map((x, i) => {
+            AddClinicService.addVet((vet[i])).then((response) => {
+                console.log(response);
+                const {vetId} = response.data;
+            }).catch((error) => {
+                console.log(error);
+            })
+        });
+        service.map((x, i) => {
+            AddClinicService.addService((serviceSubmit[i])).then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            })
+        });
+        setProgramSubmit((prevProgramSubmit) => ({
+            ...prevProgramSubmit,
+            clinicId: clinicId,
+            months: program.months1 + "-" + program.months2,
+            tuesday: program.tuesday1 + "-" + program.tuesday2,
+            wednesday: program.wednesday1 + "-" + program.wednesday2,
+            thursday: program.thursday1 + "-" + program.thursday2,
+            friday: program.friday1 + "-" + program.friday2,
+            saturday: program.saturday1 + "-" + program.saturday2,
+            sunday: program.sunday1 + "-" + program.sunday2
+        }));
+        AddClinicService.addProgram((programSubmit)).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        })
     };
 
     let stepContent;
     switch (activeStep) {
         case 0:
-            stepContent = <CreateClinicPage/>;
+            stepContent = <CreateClinicPage clinic={clinic} setClinic={setClinic}/>;
             break;
         case 1:
-            stepContent = <AddClinicInfo/>;
+            stepContent = <AddClinicInfo info={info} setInfo={setInfo}/>;
             break;
         case 2:
-            stepContent = <AddProgram/>;
+            stepContent = <AddProgram program={program} setProgram={setProgram}/>;
             break;
         case 3:
-            stepContent = <AddVet/>;
+            stepContent = <AddVet vet={vet} setVet={setVet}/>;
             break;
         default:
-            stepContent =<AddServices/>;
+            stepContent = <AddServices service={service} setService={setService}/>;
     }
 
     return (
         <div className="clinic-page">
-            <Box sx={{width: '90%', margin: 5, alignItems: 'center'}}>
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{width: '90%', margin: 5, alignItems: 'center'}}
+            >
                 <Stepper activeStep={activeStep} connector={<QontoConnector/>}>
                     {steps.map((label, index) => {
                         const stepProps = {};
@@ -150,7 +251,7 @@ function AddClinic() {
                         <Box sx={{flex: '1 1 auto'}}/>
                         {activeStep === steps.length - 1 ? (
                             <Button
-                                onClick={handleFinish}
+                                type="submit"
                                 variant="outlined"
                                 style={{color: '#43ab98', borderColor: '#43ab98'}}
                             >

@@ -1,49 +1,34 @@
 import {Box, Grid, Stack, Typography} from "@mui/material";
-import UploadPhoto from "./UploadPhoto";
 import {useState} from "react";
-import AddClinicService from "../../services/AddClinicService";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {storage} from "./firebase";
+import {v4} from "uuid";
 
-function CreateClinicPage() {
+function CreateClinicPage({clinic,setClinic}) {
 
-    const [clinic, setClinic] = useState({
-        name: "",
-        city: "",
-        address: "",
-        description: "",
-        photo: ""
-    })
-    const reset = (event) => {
-        event.preventDefault();
-        setClinic({
-            name: "",
-            city: "",
-            address: "",
-            description: "",
-            photo: ""
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imageUrls, setImageUrls] = useState('');
+
+    const uploadFile = () => {
+        if (imageUpload == null) return;
+        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                setImageUrls(() => url);
+                setClinic((prevClinic) => ({
+                    ...prevClinic,
+                    photo: url,}));
+            });
         });
     };
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        AddClinicService.addClinic((clinic)).then((response) => {
-            console.log(response);
-        })
-            .catch((error) => {
-                reset(event);
-                console.log(error);
-            });
-    };
+
     const handleChange = (event) => {
         const value = event.target.value;
         setClinic({...clinic, [event.target.name]: value});
     };
 
     return (
-        <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            style={{width: '70%'}}
-        >
+        <Box style={{width: '70%'}}>
             <Typography fontWeight="bold" sx={{margin: 3}} >Information for the Clinic Page</Typography>
             <Box sx={{textAlign:'start'}}>
                 <Grid container style={{width: '100%'}}>
@@ -86,7 +71,6 @@ function CreateClinicPage() {
                         <Typography>A short description</Typography>
                         <textarea
                             style={{width: '90%', height: 100, marginTop: 10, marginBottom: 10}}
-                            type="text"
                             rows={5}
                             id="description"
                             name="description"
@@ -95,7 +79,16 @@ function CreateClinicPage() {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <UploadPhoto/>
+                        <div>
+                            <input
+                                type="file"
+                                onChange={(event) => {
+                                    setImageUpload(event.target.files[0]);
+                                }}
+                            />
+                            <button onClick={uploadFile}> Upload Image</button>
+                            <img alt="clinic-photo" src={imageUrls} style={{width: 150, margin: 10}}/>
+                        </div>
                     </Grid>
                 </Grid>
             </Box>
