@@ -15,6 +15,9 @@ public class VetEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long vetId;
 
+    @NotBlank(message = "Vet id is mandatory")
+    private Long clinicId;
+
     @NotBlank(message = "Name is mandatory")
     @Pattern(regexp = "^(?=.{2,30}$)(\\w{2,}(\\s?\\w{2,})?)$", message = "Invalid name")
     private String name;
@@ -32,19 +35,29 @@ public class VetEntity {
     public VetEntity() {
     }
 
-    public VetEntity(String name, String function, String description, String photo) {
+    public VetEntity(Long clinicId,String name, String function, String description, String photo) {
+        this.clinicId=clinicId;
         this.name = name;
         this.function = function;
         this.description = description;
         this.photo = photo;
     }
 
-    public VetEntity(Long vetId, String name, String function, String description, String photo) {
+    public VetEntity(Long vetId,Long clinicId, String name, String function, String description, String photo) {
         this.vetId = vetId;
+        this.clinicId=clinicId;
         this.name = name;
         this.function = function;
         this.description = description;
         this.photo = photo;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
     }
 
     public Long getVetId() {
@@ -91,18 +104,19 @@ public class VetEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof VetEntity vetEntity)) return false;
-        return Objects.equals(getVetId(), vetEntity.getVetId()) && Objects.equals(getName(), vetEntity.getName()) && Objects.equals(getFunction(), vetEntity.getFunction()) && Objects.equals(getDescription(), vetEntity.getDescription()) && Objects.equals(getPhoto(), vetEntity.getPhoto());
+        return Objects.equals(getVetId(), vetEntity.getVetId()) && Objects.equals(getClinicId(), vetEntity.getClinicId()) && Objects.equals(getName(), vetEntity.getName()) && Objects.equals(getFunction(), vetEntity.getFunction()) && Objects.equals(getDescription(), vetEntity.getDescription()) && Objects.equals(getPhoto(), vetEntity.getPhoto());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getVetId(), getName(), getFunction(), getDescription(), getPhoto());
+        return Objects.hash(getVetId(), getClinicId(), getName(), getFunction(), getDescription(), getPhoto());
     }
 
     @Override
     public String toString() {
         return "VetEntity{" +
                 "vetId=" + vetId +
+                ", clinicId=" + clinicId +
                 ", name='" + name + '\'' +
                 ", function='" + function + '\'' +
                 ", description='" + description + '\'' +

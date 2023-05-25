@@ -20,7 +20,7 @@ import AddServices from "./AddServices";
 import AddVet from "./AddVet";
 import AddClinicService from "../../services/AddClinicService";
 import {useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add veterinarians', 'Add services'];
@@ -89,8 +89,7 @@ QontoStepIcon.propTypes = {
 };
 
 function AddClinic() {
-    const history = useHistory();
-    const [createClinic,setCreateClinic]=useState(false)
+    const [createClinic, setCreateClinic] = useState(false)
     // const [vetsId,setVetsId]=useState([])
     const [clinic, setClinic] = useState({
         name: "",
@@ -106,6 +105,7 @@ function AddClinic() {
         iban: "",
     })
     const [vet, setVet] = useState([{
+        clinicId: null,
         name: "",
         function: "",
         description: "",
@@ -167,6 +167,16 @@ function AddClinic() {
             saturday: program.saturday1 + "-" + program.saturday2,
             sunday: program.sunday1 + "-" + program.sunday2
         }));
+        vet.map((x, index) => {
+            setVet(prevVet => {
+                const newList = [...prevVet];
+                newList[index] = {
+                    ...newList[index],
+                    clinicId: clinicId
+                };
+                return newList;
+            })
+        });
     };
 
     const handleCreateClinic = (event) => {
@@ -178,6 +188,7 @@ function AddClinic() {
         }).catch((error) => {
             console.log(error);
         });
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
     const handleSubmit = (event) => {
@@ -202,7 +213,6 @@ function AddClinic() {
         }).catch((error) => {
             console.log(error);
         })
-        history.push("/");
     };
 
     let stepContent;
@@ -268,15 +278,23 @@ function AddClinic() {
                                 Next
                             </Button>
                         )}
-                        {activeStep === steps.length-1 && (
+                        {activeStep === steps.length - 1 && (
                             <Button
-                            type="submit"
-                            variant="outlined"
-                            style={{color: '#43ab98', borderColor: '#43ab98'}}
-                        >
-                            Finish
-                        </Button>)}
-                        {createClinic===true &&(handleSubmit())}
+                                type="submit"
+                                variant="outlined"
+                                style={{color: '#43ab98', borderColor: '#43ab98'}}
+                            >
+                                Finish
+                            </Button>)}
+                        {createClinic &&
+                            <Button
+                                component={Link} to="/"
+                                variant="outlined"
+                                style={{color: '#43ab98', borderColor: '#43ab98'}}
+                                onClick={handleSubmit}
+                            >Submit
+                            </Button>
+                        }
                     </Toolbar>
                 </AppBar>
             </Box>

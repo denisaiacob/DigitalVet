@@ -3,6 +3,7 @@ package com.digitalvet.backend.model;
 public class VetDto {
 
     private Long vetId;
+    private Long clinicId;
     private String name;
     private String function;
     private String description;
@@ -11,12 +12,21 @@ public class VetDto {
     public VetDto() {
     }
 
-    public VetDto(Long vetId, String name, String function, String description, String photo) {
+    public VetDto(Long vetId,Long clinicId, String name, String function, String description, String photo) {
         this.vetId = vetId;
+        this.clinicId = clinicId;
         this.name = name;
         this.function = function;
         this.description = description;
         this.photo = photo;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
     }
 
     public Long getVetId() {

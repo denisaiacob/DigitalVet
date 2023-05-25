@@ -18,6 +18,7 @@ public class VetServiceImpl implements VetService {
     public Long addVet(VetDto vetDto) {
         VetEntity vet = new VetEntity(
                 vetDto.getVetId(),
+                vetDto.getClinicId(),
                 vetDto.getName(),
                 vetDto.getFunction(),
                 vetDto.getDescription(),
