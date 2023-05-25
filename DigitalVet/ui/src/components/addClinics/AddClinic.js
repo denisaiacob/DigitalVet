@@ -20,6 +20,7 @@ import AddServices from "./AddServices";
 import AddVet from "./AddVet";
 import AddClinicService from "../../services/AddClinicService";
 import {useState} from "react";
+import {useHistory} from "react-router-dom";
 
 
 const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add veterinarians', 'Add services'];
@@ -88,7 +89,9 @@ QontoStepIcon.propTypes = {
 };
 
 function AddClinic() {
-    const [clinicId, setClinicId] = useState(null)
+    const history = useHistory();
+    const [createClinic,setCreateClinic]=useState(false)
+    // const [vetsId,setVetsId]=useState([])
     const [clinic, setClinic] = useState({
         name: "",
         city: "",
@@ -153,32 +156,8 @@ function AddClinic() {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        AddClinicService.addClinic((clinic)).then((response) => {
-            console.log(response);
-            setClinicId(response.data);
-        }).catch((error) => {
-            console.log(error);
-        });
-        vet.map((x, i) => {
-            AddClinicService.addVet((vet[i])).then((response) => {
-                console.log(response);
-                const {vetId} = response.data;
-            }).catch((error) => {
-                console.log(error);
-            })
-        });
-        service.map((x, i) => {
-            AddClinicService.addService((serviceSubmit[i])).then((response) => {
-                console.log(response);
-            }).catch((error) => {
-                console.log(error);
-            })
-        });
+    const handleProgram = (clinicId) => {
         setProgramSubmit((prevProgramSubmit) => ({
-            ...prevProgramSubmit,
             clinicId: clinicId,
             months: program.months1 + "-" + program.months2,
             tuesday: program.tuesday1 + "-" + program.tuesday2,
@@ -188,11 +167,42 @@ function AddClinic() {
             saturday: program.saturday1 + "-" + program.saturday2,
             sunday: program.sunday1 + "-" + program.sunday2
         }));
+    };
+
+    const handleCreateClinic = (event) => {
+        event.preventDefault();
+        AddClinicService.addClinic((clinic)).then((response) => {
+            console.log(response);
+            handleProgram(response.data);
+            setCreateClinic(true);
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+
+    const handleSubmit = (event) => {
+        setCreateClinic(false);
+        vet.map((x, i) => {
+            AddClinicService.addVet((vet[i])).then((response) => {
+                console.log(response);
+                // setVetsId((prevState) => ([...prevState,response.data]));
+            }).catch((error) => {
+                console.log(error);
+            })
+        });
+        // service.map((x, i) => {
+        //     AddClinicService.addService((serviceSubmit[i])).then((response) => {
+        //         console.log(response);
+        //     }).catch((error) => {
+        //         console.log(error);
+        //     })
+        // });
         AddClinicService.addProgram((programSubmit)).then((response) => {
             console.log(response);
         }).catch((error) => {
             console.log(error);
         })
+        history.push("/");
     };
 
     let stepContent;
@@ -217,7 +227,7 @@ function AddClinic() {
         <div className="clinic-page">
             <Box
                 component="form"
-                onSubmit={handleSubmit}
+                onSubmit={handleCreateClinic}
                 noValidate
                 sx={{width: '90%', margin: 5, alignItems: 'center'}}
             >
@@ -249,15 +259,7 @@ function AddClinic() {
                             Back
                         </Button>
                         <Box sx={{flex: '1 1 auto'}}/>
-                        {activeStep === steps.length - 1 ? (
-                            <Button
-                                type="submit"
-                                variant="outlined"
-                                style={{color: '#43ab98', borderColor: '#43ab98'}}
-                            >
-                                Finish
-                            </Button>
-                        ) : (
+                        {activeStep < steps.length - 1 && (
                             <Button
                                 onClick={handleNext}
                                 variant="outlined"
@@ -266,6 +268,15 @@ function AddClinic() {
                                 Next
                             </Button>
                         )}
+                        {activeStep === steps.length-1 && (
+                            <Button
+                            type="submit"
+                            variant="outlined"
+                            style={{color: '#43ab98', borderColor: '#43ab98'}}
+                        >
+                            Finish
+                        </Button>)}
+                        {createClinic===true &&(handleSubmit())}
                     </Toolbar>
                 </AppBar>
             </Box>

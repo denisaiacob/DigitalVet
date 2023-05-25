@@ -1,27 +1,44 @@
+import React from "react";
 import {Box, Grid, Stack, Typography} from "@mui/material";
 import {useState} from "react";
-import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL,
+} from "firebase/storage";
 import {storage} from "./firebase";
 import {v4} from "uuid";
 
-function CreateClinicPage({clinic,setClinic}) {
+function CreateClinicPage({clinic, setClinic}) {
+    const [state, setState] = useState({
+        imageUploaded: 0,
+        selectedFile: null
+    })
 
-    const [imageUpload, setImageUpload] = useState(null);
-    const [imageUrls, setImageUrls] = useState('');
-
-    const uploadFile = () => {
-        if (imageUpload == null) return;
-        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    const handleUploadClick = event => {
+        const file = event.target.files[0];
+        const imageUpload=event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = function (e) {
+            setState(prevState => ({
+                ...prevState,
+                selectedFile: [reader.result],
+                imageUploaded: 1
+            }));
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        const imageRef = ref(storage, `clinicImages/${imageUpload.name + v4()}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
-                setImageUrls(() => url);
                 setClinic((prevClinic) => ({
                     ...prevClinic,
-                    photo: url,}));
+                    photo: url,
+                }));
             });
-        });
+        })
     };
-
     const handleChange = (event) => {
         const value = event.target.value;
         setClinic({...clinic, [event.target.name]: value});
@@ -29,8 +46,8 @@ function CreateClinicPage({clinic,setClinic}) {
 
     return (
         <Box style={{width: '70%'}}>
-            <Typography fontWeight="bold" sx={{margin: 3}} >Information for the Clinic Page</Typography>
-            <Box sx={{textAlign:'start'}}>
+            <Typography fontWeight="bold" sx={{margin: 3}}>Information for the Clinic Page</Typography>
+            <Box sx={{textAlign: 'start'}}>
                 <Grid container style={{width: '100%'}}>
                     <Grid item xs={6}>
                         <Stack spacing={1} style={{width: '100%'}}>
@@ -81,19 +98,22 @@ function CreateClinicPage({clinic,setClinic}) {
                     <Grid item xs={12}>
                         <div>
                             <input
+                                accept="image/*"
+                                id="contained-button-file"
                                 type="file"
-                                onChange={(event) => {
-                                    setImageUpload(event.target.files[0]);
-                                }}
+                                onChange={handleUploadClick}
                             />
-                            <button onClick={uploadFile}> Upload Image</button>
-                            <img alt="clinic-photo" src={imageUrls} style={{width: 150, margin: 10}}/>
+
+                            {state.selectedFile !== null && (
+                                <img alt="clinic-photo" src={state.selectedFile} style={{width: 150, margin: 10}}/>
+                            )}
                         </div>
                     </Grid>
                 </Grid>
             </Box>
         </Box>
-    );
+    )
+        ;
 }
 
 export default CreateClinicPage;

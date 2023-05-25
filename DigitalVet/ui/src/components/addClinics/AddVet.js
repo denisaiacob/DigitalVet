@@ -3,30 +3,52 @@ import {Box, Grid, Typography} from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL,
+} from "firebase/storage";
 import {storage} from "./firebase";
 import {v4} from "uuid";
 
 function AddVet({vet, setVet}) {
-    const [imageUpload, setImageUpload] = useState(null);
-    const [imageUrls, setImageUrls] = useState('');
+    const[state,setState]=useState([{
+        imageUploaded: 0,
+        selectedFile: null
+    }])
 
-    const uploadFile = (index) => {
-        if (imageUpload == null) return;
+    const handleUploadClick = (index, event) => {
+        const file = event.target.files[0];
+        const imageUpload=event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function(e) {
+            setState(prevState => {
+                const newState = [...prevState];
+                newState[index] = {
+                    ...newState[index],
+                    selectedFile: reader.result,
+                    imageUploaded: 1
+                };
+                return newState;
+            });
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
         const imageRef = ref(storage, `vetImages/${imageUpload.name + v4()}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
-                setImageUrls(() => url);
-                setVet((prevVet) => {
-                    const list = [...prevVet];
-                    list[index] = {
-                        ...list[index],
-                        photo: url,
+                setVet(prevVet => {
+                    const newList = [...prevVet];
+                    newList[index] = {
+                        ...newList[index],
+                        photo: url
                     };
-                    return list;
+                    return newList;
                 });
             });
-        });
+        })
     };
 
     const handleInputChange = (e, index) => {
@@ -88,13 +110,15 @@ function AddVet({vet, setVet}) {
                                 </Grid>
                                 <div>
                                     <input
+                                        accept="image/*"
+                                        id="contained-button-file"
+                                        // multiple
                                         type="file"
-                                        onChange={(event) => {
-                                            setImageUpload(event.target.files[0]);
-                                        }}
+                                        onChange={handleUploadClick.bind(this, i)}
                                     />
-                                    <button onClick={uploadFile(i)}> Upload Image</button>
-                                    <img alt="vet-photo" src={imageUrls} style={{width: 150, margin: 10}}/>
+                                    {state[i] && state[i].selectedFile!==null && (
+                                        <img alt="vet-photo" src={state[i].selectedFile} style={{width: 150, margin: 10}}/>
+                                    )}
                                 </div>
                             </Grid>
                             <div>
