@@ -1,8 +1,8 @@
 package com.digitalvet.backend.services;
-
 import com.digitalvet.backend.entity.VetEntity;
 import com.digitalvet.backend.model.VetDto;
 import com.digitalvet.backend.repository.VetRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,5 +26,14 @@ public class VetServiceImpl implements VetService {
 
         vetRepository.save(vet);
         return vet.getVetId();
+    }
+
+    @Override
+    public VetDto getVetById(Long id) {
+        VetEntity vetEntity
+                = vetRepository.findById(id).get();
+        VetDto vet = new VetDto();
+        BeanUtils.copyProperties(vetEntity, vet);
+        return vet;
     }
 }

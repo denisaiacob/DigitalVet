@@ -1,8 +1,7 @@
 package com.digitalvet.backend.controller;
-
 import com.digitalvet.backend.model.ServiceDto;
-import com.digitalvet.backend.model.UserDto;
 import com.digitalvet.backend.services.ServiceService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -15,8 +14,15 @@ public class ServiceController {
         this.serviceService = serviceService;
     }
 
-    @PostMapping(path = "/addService")
+    @PostMapping(path = "/service")
     public Long addService(@RequestBody ServiceDto serviceDto) {
         return serviceService.addService(serviceDto);
+    }
+
+    @GetMapping("/service/{id}")
+    public ResponseEntity<ServiceDto> getServiceById(@PathVariable Long id) {
+        ServiceDto service = null;
+        service = serviceService.getServiceById(id);
+        return ResponseEntity.ok(service);
     }
 }

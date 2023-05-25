@@ -1,8 +1,8 @@
 package com.digitalvet.backend.services;
-
 import com.digitalvet.backend.entity.ProgramEntity;
 import com.digitalvet.backend.model.ProgramDto;
 import com.digitalvet.backend.repository.ProgramRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,5 +28,14 @@ public class ProgramServiceImpl implements ProgramService {
 
         programRepository.save(program);
         return program.getProgramId();
+    }
+
+    @Override
+    public ProgramDto getProgramById(Long id) {
+        ProgramEntity programEntity
+                = programRepository.findById(id).get();
+        ProgramDto program = new ProgramDto();
+        BeanUtils.copyProperties(programEntity, program);
+        return program;
     }
 }
