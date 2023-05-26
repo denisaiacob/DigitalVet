@@ -18,7 +18,7 @@ import AddClinicInfo from "./AddClinicInfo";
 import AddProgram from "./AddProgram";
 import AddServices from "./AddServices";
 import AddVet from "./AddVet";
-import AddClinicService from "../../services/AddClinicService";
+import AddClinicService from "../../services/ClinicService";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 

@@ -19,38 +19,34 @@ const PointerTypography = styled(Typography)({
     },
 });
 
-function ClinicBox({imgWidth}) {
+function ClinicBox({clinic}) {
     const history = useHistory();
     const handleReviews = () => {
         history.push("/");
     };
-    const handleClinic = (clinicName) => {
-        history.push({
-            pathname: '/clinic',
-            state: { clinicName }
-        });
+    const handleClinic = (clinicId) => {
+        history.push(`/clinic/${clinicId}`);
     };
 
     return (
-        <div className="show-box">
+        <div key={clinic.clinicId} className="show-box">
             <Grid container spacing={2}>
                 <Grid item>
                     <CardMedia
                         component="img"
-                        // height="210"
-                        sx={{width: imgWidth}}
-                        image="https://source.unsplash.com/random"
-                        alt="Cabinet img"
-                        onClick={() => handleClinic("Clinic Name")}
+                        sx={{width: 360}}
+                        image={clinic.photo}
+                        alt="Clinic"
+                        onClick={() => handleClinic(clinic.clinicId)}
                     />
                 </Grid>
                 <Grid item xs={12} sm container>
                     <Grid item xs={10} container direction="column" spacing={2} sx={{marginTop: 3}}>
                         <Grid item xs={2}>
                             <CardHeader
-                                title="Clinic Name"
-                                subheader="Adress"
-                                onClick={() => handleClinic("Clinic Name")}
+                                title={clinic.name}
+                                subheader={clinic.address}
+                                onClick={() => handleClinic(clinic.clinicId)}
                             />
                         </Grid>
                         <Grid item className="align-center">

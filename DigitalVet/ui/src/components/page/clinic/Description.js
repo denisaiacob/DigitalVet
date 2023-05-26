@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Box, Typography} from "@mui/material";
 
-function Description() {
+function Description({description}) {
     return (
         <Box
             sx={{backgroundColor: "white"}}
@@ -28,7 +28,7 @@ function Description() {
                             fontSize: '0.7rem',
                         },}}
                 >
-                    Description
+                    {description}
                 </Typography>
             </Box>
         </Box>

@@ -73,7 +73,7 @@ function AddVet({vet, setVet}) {
             {
                 vet.map((x, i) => {
                     return (
-                        <Box sx={{textAlign: 'start', marginTop: 5}}>
+                        <Box key={i} sx={{textAlign: 'start', marginTop: 5}}>
                             <Grid container>
                                 <Grid item xs={6}>
                                     <Typography>Name</Typography>

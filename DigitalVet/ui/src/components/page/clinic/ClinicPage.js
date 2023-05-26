@@ -2,17 +2,18 @@ import * as React from 'react';
 import "../../../App.css"
 import {Box, CardMedia, Checkbox, Grid, Card, Typography, Tabs, Tab} from "@mui/material";
 import {styled, useTheme} from "@mui/material/styles";
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {blue, red, yellow} from "@mui/material/colors";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import SwipeableViews from "react-swipeable-views";
 import Description from "./Description";
 import Program from "./Program";
 import Reviews from "./reviews/Reviews";
 import Services from "./services/Services";
+import ClinicService from "../../../services/ClinicService";
 
 
 function TabPanel(props) {
@@ -61,8 +62,27 @@ const PointerTypography = styled(Typography)({
 });
 
 function ClinicPage() {
-    const location = useLocation();
-    const clinicName = location.state?.clinicName;
+    const { clinicId } = useParams();
+    const [clinic, setClinic] = useState({
+        clinicId: clinicId,
+        name: "",
+        city: "",
+        address: "",
+        description:"",
+        photo:""
+    });
+    useEffect(() => {
+        console.log(clinicId);
+        const fetchData = async () => {
+            try {
+                const response = await ClinicService.getClinicById(clinicId);
+                setClinic(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const theme = useTheme();
     const [value, setValue] = useState(0);
@@ -74,7 +94,7 @@ function ClinicPage() {
     };
     return (
         <div className="clinic-page">
-            <RoundedTypography sx={{mt: 5}}>{clinicName}</RoundedTypography>
+            <RoundedTypography sx={{mt: 5}}>{clinic.name}</RoundedTypography>
             <Card sx={{maxWidth: 930, mt: 3}}>
                 <Grid container spacing={2} sx={{margin: 3}}>
                     <Grid item>
@@ -82,7 +102,7 @@ function ClinicPage() {
                             className="clinic-img"
                             component="img"
                             // sx={{maxWidth: 500}}
-                            image="https://source.unsplash.com/random"
+                            image={clinic.photo}
                             alt="Cabinet img"
                         />
                     </Grid>
@@ -91,7 +111,7 @@ function ClinicPage() {
                             <Grid item xs={2}>
                                 <Typography variant="h5" component="span">
                                     <LocationOnIcon sx={{color: yellow[800]}}/>
-                                    Adress
+                                    {clinic.address}
                                 </Typography>
                             </Grid>
                             <Grid item className="align-center">
@@ -156,7 +176,7 @@ function ClinicPage() {
                         index={1}
                         dir={theme.direction}
                     >
-                        <Description/>
+                        <Description description={clinic.description}/>
                     </TabPanel>
                     <TabPanel
                         value={value}

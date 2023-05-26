@@ -5,7 +5,7 @@ const PROGRAM_API_URL = "http://localhost:8070/api/v1/digitalVet/program"
 const VET_API_URL = "http://localhost:8070/api/v1/digitalVet/vet"
 const SERVICE_API_URL = "http://localhost:8070/api/v1/digitalVet/service"
 
-class AddClinicService {
+class ClinicService {
     addClinic(clinic) {
         return axios.post(CLINIC_API_URL, clinic);
     }
@@ -18,10 +18,12 @@ class AddClinicService {
     addVet(vet) {
         return axios.post(VET_API_URL, vet);
     }
-
     getAllClinics(){
         return axios.get(CLINIC_API_URL);
     }
+    getClinicById(id) {
+        return axios.get(CLINIC_API_URL + "/" + id);
+    }
 }
 
-export default new AddClinicService();
+export default new ClinicService();
