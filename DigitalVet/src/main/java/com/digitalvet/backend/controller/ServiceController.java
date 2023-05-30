@@ -1,8 +1,11 @@
 package com.digitalvet.backend.controller;
 import com.digitalvet.backend.model.ServiceDto;
+import com.digitalvet.backend.model.VetDto;
 import com.digitalvet.backend.services.ServiceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -23,6 +26,18 @@ public class ServiceController {
     public ResponseEntity<ServiceDto> getServiceById(@PathVariable Long id) {
         ServiceDto service = null;
         service = serviceService.getServiceById(id);
+        return ResponseEntity.ok(service);
+    }
+
+    @GetMapping("/services/{id}")
+    public List<ServiceDto> getServiceByVetId(@PathVariable String id) {
+        return  serviceService.getServiceByVetId(Long.valueOf(id));
+    }
+
+    @PutMapping("/service/{id}")
+    public ResponseEntity<ServiceDto> updateService(@PathVariable Long id,
+                                            @RequestBody ServiceDto service) {
+        service = serviceService.updateService(id, service);
         return ResponseEntity.ok(service);
     }
 }

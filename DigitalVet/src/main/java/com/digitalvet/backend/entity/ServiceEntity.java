@@ -22,18 +22,30 @@ public class ServiceEntity {
     @Pattern(regexp = "^(?=.{2,30}$)(\\w{2,}(\\s?\\w{2,})?)$", message = "Invalid name")
     private String name;
 
-    public ServiceEntity() {
-    }
+    @NotBlank(message = "Price is mandatory")
+    private double price;
 
-    public ServiceEntity(Long vetId,String name) {
+    public ServiceEntity() {}
+
+    public ServiceEntity(Long vetId,String name,Double price) {
         this.vetId=vetId;
         this.name = name;
+        this.price=price;
     }
 
-    public ServiceEntity(Long serviceId,Long vetId, String name) {
+    public ServiceEntity(Long serviceId,Long vetId, String name,Double price) {
         this.serviceId = serviceId;
         this.vetId = vetId;
         this.name = name;
+        this.price=price;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Long getServiceId() {
@@ -63,13 +75,13 @@ public class ServiceEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ServiceEntity that)) return false;
-        return Objects.equals(getServiceId(), that.getServiceId()) && Objects.equals(getVetId(), that.getVetId()) && Objects.equals(getName(), that.getName());
+        if (!(o instanceof ServiceEntity service)) return false;
+        return Double.compare(service.getPrice(), getPrice()) == 0 && Objects.equals(getServiceId(), service.getServiceId()) && Objects.equals(getVetId(), service.getVetId()) && Objects.equals(getName(), service.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getServiceId(), getVetId(), getName());
+        return Objects.hash(getServiceId(), getVetId(), getName(), getPrice());
     }
 
     @Override
@@ -78,6 +90,7 @@ public class ServiceEntity {
                 "serviceId=" + serviceId +
                 ", vetId=" + vetId +
                 ", name='" + name + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

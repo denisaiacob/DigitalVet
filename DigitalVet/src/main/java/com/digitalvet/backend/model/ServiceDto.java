@@ -6,12 +6,23 @@ public class ServiceDto {
     private Long vetId;
     private String name;
 
+    private Double price;
+
     public ServiceDto() {}
 
-    public ServiceDto(Long serviceId, Long vetId, String name) {
+    public ServiceDto(Long serviceId, Long vetId, String name,Double price) {
         this.serviceId = serviceId;
         this.vetId = vetId;
         this.name = name;
+        this.price=price;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Long getServiceId() {
