@@ -10,6 +10,7 @@ import ShowClinics from "./components/page/filtersResult/ShowClinics";
 import ClinicPage from "./components/page/clinic/ClinicPage";
 import VetPage from "./components/page/clinic/VetPage";
 import AddClinic from "./components/addClinics/AddClinic";
+import BusinessAcountSettings from "./components/settings/BusinessAcountSettings";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route exact path='/register' component={Register}/>
                     <Route exact path='/business' component={BusinessRegister}/>
                     <Route exact path='/addClinic' component={AddClinic}/>
+                    <Route exact path='/settings/:clinicId' component={BusinessAcountSettings}/>
                     <Route exact path='/show' component={ShowClinics}/>
                     <Route exact path="/clinic/:clinicId" component={ClinicPage}/>
                     <Route exact path="/clinic/vet" component={VetPage}/>
