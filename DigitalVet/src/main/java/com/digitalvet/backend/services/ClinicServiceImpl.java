@@ -56,4 +56,25 @@ public class ClinicServiceImpl implements ClinicService{
         BeanUtils.copyProperties(clinicEntity, clinic);
         return clinic;
     }
+
+    @Override
+    public boolean deleteClinic(Long id) {
+        ClinicEntity clinic = clinicRepository.findById(id).get();
+        clinicRepository.delete(clinic);
+        return true;
+    }
+
+    @Override
+    public ClinicDto updateClinic(Long id, ClinicDto clinic) {
+        ClinicEntity clinicEntity
+                = clinicRepository.findById(id).get();
+        clinicEntity.setName(clinic.getName());
+        clinicEntity.setCity(clinic.getCity());
+        clinicEntity.setAddress(clinic.getAddress());
+        clinicEntity.setDescription(clinic.getDescription());
+        clinicEntity.setPhoto(clinic.getPhoto());
+
+        clinicRepository.save(clinicEntity);
+        return clinic;
+    }
 }

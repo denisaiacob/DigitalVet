@@ -43,6 +43,13 @@ public class VetEntity {
         this.photo = photo;
     }
 
+    public VetEntity(String name, String function, String description, String photo) {
+        this.name = name;
+        this.function = function;
+        this.description = description;
+        this.photo = photo;
+    }
+
     public VetEntity(Long vetId,Long clinicId, String name, String function, String description, String photo) {
         this.vetId = vetId;
         this.clinicId=clinicId;

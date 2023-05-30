@@ -5,6 +5,8 @@ import com.digitalvet.backend.repository.VetRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VetServiceImpl implements VetService {
 
@@ -35,5 +37,42 @@ public class VetServiceImpl implements VetService {
         VetDto vet = new VetDto();
         BeanUtils.copyProperties(vetEntity, vet);
         return vet;
+    }
+
+    @Override
+    public boolean deleteVet(Long id) {
+        VetEntity vet = vetRepository.findById(id).get();
+        vetRepository.delete(vet);
+        return true;
+    }
+
+    @Override
+    public VetDto updateVet(Long id, VetDto vet) {
+        VetEntity vetEntity
+                = vetRepository.findById(id).get();
+        vetEntity.setName(vet.getName());
+        vetEntity.setFunction(vet.getFunction());
+        vetEntity.setDescription(vet.getDescription());
+        vetEntity.setPhoto(vet.getPhoto());
+
+        vetRepository.save(vetEntity);
+        return vet;
+    }
+
+    @Override
+    public List<VetDto> getVetByClinicId(Long clinicId) {
+        List<VetEntity> vetEntities
+                = vetRepository.findByClinicId(clinicId).get();
+
+        return vetEntities
+                .stream()
+                .map(vet -> new VetDto(
+                        vet.getVetId(),
+                        vet.getClinicId(),
+                        vet.getName(),
+                        vet.getFunction(),
+                        vet.getDescription(),
+                        vet.getPhoto()))
+                .toList();
     }
 }
