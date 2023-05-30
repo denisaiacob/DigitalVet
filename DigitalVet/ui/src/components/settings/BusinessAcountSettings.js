@@ -89,6 +89,13 @@ function BusinessAcountSettings() {
         photo: ""
     }])
 
+    const [service, setService] = useState([{
+        serviceId:null,
+        vetId: "",
+        name: "",
+        price:""
+    }])
+
     useEffect(() => {
         const fetchClinic = async () => {
             try {
@@ -106,9 +113,18 @@ function BusinessAcountSettings() {
                 console.log(error);
             }
         };
+        const fetchService = async () => {
+            try {
+                const response = await ClinicService.getServicesByVetId(vet.vetId);
+                setService(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
 
         fetchClinic();
         fetchVet();
+        fetchService();
     }, []);
 
     const handleDrawerOpen = () => {
@@ -130,7 +146,7 @@ function BusinessAcountSettings() {
             stepContent = <AddVet vet={vet} setVet={setVet} update={true}/>;
             break;
         case 4:
-            stepContent =<AddServices/>;
+            stepContent =<AddServices service={service} setService={setService}/>;
             break;
         default:
             stepContent = <AddProgram/>;

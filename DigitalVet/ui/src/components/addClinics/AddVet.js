@@ -73,7 +73,7 @@ function AddVet({vet, setVet, update}) {
         e.preventDefault();
         console.log(vet);
         vet.map((x, i) => {
-            ClinicService.updateVet(vet[i], vet.clinicId)
+            ClinicService.updateVet(vet[i], vet.vetId)
                 .then((response) => {
                     // navigate("/employeeList");
                     console.log(response)

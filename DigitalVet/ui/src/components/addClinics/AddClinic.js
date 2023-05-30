@@ -143,10 +143,6 @@ function AddClinic() {
         vetName: "",
         name: "",
     }])
-    const [serviceSubmit, setServiceSubmit] = useState([{
-        vetId: null,
-        name: "",
-    }])
 
     const [activeStep, setActiveStep] = React.useState(0);
 
