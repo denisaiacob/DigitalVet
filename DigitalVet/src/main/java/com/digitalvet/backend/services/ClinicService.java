@@ -10,4 +10,8 @@ public interface ClinicService {
     List<ClinicDto> getAllClinics();
 
     ClinicDto getClinicById(Long id);
+
+    boolean deleteClinic(Long id);
+
+    ClinicDto updateClinic(Long id, ClinicDto clinic);
 }
