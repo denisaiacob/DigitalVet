@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Grid, Stack, Typography} from "@mui/material";
+import {Box, Button, Grid, Stack, Typography} from "@mui/material";
 import {useState} from "react";
 import {
     ref,
@@ -8,8 +8,9 @@ import {
 } from "firebase/storage";
 import {storage} from "./firebase";
 import {v4} from "uuid";
+import ClinicService from "../../services/ClinicService";
 
-function CreateClinicPage({clinic, setClinic}) {
+function CreateClinicPage({clinic, setClinic, update}) {
     const [state, setState] = useState({
         imageUploaded: 0,
         selectedFile: null
@@ -17,7 +18,7 @@ function CreateClinicPage({clinic, setClinic}) {
 
     const handleUploadClick = event => {
         const file = event.target.files[0];
-        const imageUpload=event.target.files[0];
+        const imageUpload = event.target.files[0];
         const reader = new FileReader();
         reader.onloadend = function (e) {
             setState(prevState => ({
@@ -44,76 +45,100 @@ function CreateClinicPage({clinic, setClinic}) {
         setClinic({...clinic, [event.target.name]: value});
     };
 
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        console.log(clinic);
+        ClinicService.updateClinic(clinic, clinic.clinicId)
+            .then((response) => {
+                // navigate("/employeeList");
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
-        <Box style={{width: '70%'}}>
-            <Typography fontWeight="bold" sx={{margin: 3}}>Information for the Clinic Page</Typography>
-            <Box sx={{textAlign: 'start'}}>
-                <Grid container style={{width: '100%'}}>
-                    <Grid item xs={6}>
-                        <Stack spacing={1} style={{width: '100%'}}>
-                            <Typography>The name of the clinic</Typography>
+        <div className="clinic-page">
+            <Box style={{width: '70%', textAlign: 'center'}}>
+                <Typography fontWeight="bold" sx={{margin: 3}}>Information for the Clinic Page</Typography>
+                <Box sx={{textAlign: 'start'}}>
+                    <Grid container style={{width: '100%'}}>
+                        <Grid item xs={6}>
+                            <Stack spacing={1} style={{width: '100%'}}>
+                                <Typography>The name of the clinic</Typography>
+                                <input
+                                    style={{marginTop: 10, marginBottom: 10, marginRight: 10, width: '80%', height: 30}}
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={clinic.name}
+                                    onChange={(event) => handleChange(event)}
+                                />
+                            </Stack>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography>City</Typography>
                             <input
-                                style={{marginTop: 10, marginBottom: 10, marginRight: 10, width: '80%', height: 30}}
+                                style={{marginTop: 10, marginBottom: 10, width: '80%', height: 30}}
                                 type="text"
-                                id="name"
-                                name="name"
-                                value={clinic.name}
+                                id="city"
+                                name="city"
+                                value={clinic.city}
                                 onChange={(event) => handleChange(event)}
                             />
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Typography>City</Typography>
-                        <input
-                            style={{marginTop: 10, marginBottom: 10, width: '80%', height: 30}}
-                            type="text"
-                            id="city"
-                            name="city"
-                            value={clinic.city}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography>Address</Typography>
-                        <input
-                            style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
-                            type="text"
-                            id="address"
-                            name="address"
-                            value={clinic.address}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography>A short description</Typography>
-                        <textarea
-                            style={{width: '90%', height: 100, marginTop: 10, marginBottom: 10}}
-                            rows={5}
-                            id="description"
-                            name="description"
-                            value={clinic.description}
-                            onChange={(event) => handleChange(event)}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <div>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography>Address</Typography>
                             <input
-                                accept="image/*"
-                                id="contained-button-file"
-                                type="file"
-                                onChange={handleUploadClick}
+                                style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
+                                type="text"
+                                id="address"
+                                name="address"
+                                value={clinic.address}
+                                onChange={(event) => handleChange(event)}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography>A short description</Typography>
+                            <textarea
+                                style={{width: '90%', height: 100, marginTop: 10, marginBottom: 10}}
+                                rows={5}
+                                id="description"
+                                name="description"
+                                value={clinic.description}
+                                onChange={(event) => handleChange(event)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <div>
+                                <input
+                                    accept="image/*"
+                                    id="contained-button-file"
+                                    type="file"
+                                    onChange={handleUploadClick}
+                                />
 
-                            {state.selectedFile !== null && (
-                                <img alt="clinic-photo" src={state.selectedFile} style={{width: 150, margin: 10}}/>
-                            )}
-                        </div>
+                                {state.selectedFile !== null && (
+                                    <img alt="clinic-photo" src={state.selectedFile} style={{width: 150, margin: 10}}/>
+                                )}
+                            </div>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Box>
+                <div style={{marginTop: 30}}>
+                    {update &&
+                        <Button
+                            onClick={handleUpdate}
+                            variant="outlined"
+                            style={{color: '#43ab98', borderColor: '#43ab98'}}
+                        >
+                            Update
+                        </Button>}
+                </div>
             </Box>
-        </Box>
-    )
-        ;
+        </div>
+    );
 }
 
 export default CreateClinicPage;

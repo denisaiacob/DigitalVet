@@ -2,7 +2,7 @@ import * as React from 'react';
 import "../../../App.css"
 import {Box, CardMedia, Checkbox, Grid, Card, Typography, Tabs, Tab} from "@mui/material";
 import {styled, useTheme} from "@mui/material/styles";
-import {useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {blue, red, yellow} from "@mui/material/colors";
@@ -44,7 +44,6 @@ const StyledTabs = styled(Tabs)`
 const StyledTab = styled(Tab)`
   && {
     color: #43ab98;
-    //font-weight: 600;
   }
 `;
 

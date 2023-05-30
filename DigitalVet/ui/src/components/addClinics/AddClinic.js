@@ -90,6 +90,7 @@ QontoStepIcon.propTypes = {
 
 function AddClinic() {
     const [createClinic, setCreateClinic] = useState(false)
+    const [clinicId,setClinicId]=useState(null)
     // const [vetsId,setVetsId]=useState([])
     const [clinic, setClinic] = useState({
         name: "",
@@ -157,6 +158,7 @@ function AddClinic() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
     const handleProgram = (clinicId) => {
+        setClinicId(clinicId);
         setProgramSubmit((prevProgramSubmit) => ({
             clinicId: clinicId,
             months: program.months1 + "-" + program.months2,
@@ -218,7 +220,7 @@ function AddClinic() {
     let stepContent;
     switch (activeStep) {
         case 0:
-            stepContent = <CreateClinicPage clinic={clinic} setClinic={setClinic}/>;
+            stepContent = <CreateClinicPage clinic={clinic} setClinic={setClinic} update={false}/>;
             break;
         case 1:
             stepContent = <AddClinicInfo info={info} setInfo={setInfo}/>;
@@ -227,7 +229,7 @@ function AddClinic() {
             stepContent = <AddProgram program={program} setProgram={setProgram}/>;
             break;
         case 3:
-            stepContent = <AddVet vet={vet} setVet={setVet}/>;
+            stepContent = <AddVet vet={vet} setVet={setVet} update={false}/>;
             break;
         default:
             stepContent = <AddServices service={service} setService={setService}/>;
@@ -288,7 +290,7 @@ function AddClinic() {
                             </Button>)}
                         {createClinic &&
                             <Button
-                                component={Link} to="/"
+                                component={Link} to={`/settings/${clinicId}`}
                                 variant="outlined"
                                 style={{color: '#43ab98', borderColor: '#43ab98'}}
                                 onClick={handleSubmit}
