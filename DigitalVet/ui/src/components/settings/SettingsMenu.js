@@ -105,7 +105,7 @@ function SettingsMenu({open, setOpen, isMatch,setTab}) {
                     <ListItemText primary="Program"/>
                 </ListItemButton>
             </List>
-            <div style={{marginTop: 35}}>
+            <div style={{marginTop: 20}}>
                 <Divider/>
                 <List sx={{width: '100%'}}
                 >

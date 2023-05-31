@@ -4,17 +4,36 @@ public class ServiceDto {
 
     private Long serviceId;
     private Long vetId;
+    private Long clinicId;
     private String name;
-
     private Double price;
+    private Integer minutes;
 
     public ServiceDto() {}
 
-    public ServiceDto(Long serviceId, Long vetId, String name,Double price) {
+    public ServiceDto(Long serviceId, Long vetId, Long clinicId, String name,Double price,Integer minutes) {
         this.serviceId = serviceId;
         this.vetId = vetId;
+        this.clinicId = clinicId;
         this.name = name;
         this.price=price;
+        this.minutes=minutes;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
+    }
+
+    public Integer getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(Integer minutes) {
+        this.minutes = minutes;
     }
 
     public Double getPrice() {

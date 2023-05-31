@@ -1,22 +1,13 @@
-import React, {useState} from "react";
-import {Box, Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {addYears} from "date-fns";
 import dayjs from 'dayjs';
-import {Link} from "react-router-dom";
-
-const cities = [
-    'Iasi',
-    'Bucuresti',
-    'Cluj'
-];
-const services = [
-    'Washing ', 'Haircut', 'Consultation', 'Deworming', 'Laboratory investigations',
-    'Microchip and Passport', 'Hormonal treatments', 'Treatments', 'Vaccinations',
-    'Surgical interventions'];
+import {useHistory} from "react-router-dom";
+import ClinicService from "../../services/ClinicService";
 
 const MenuProps = {
     PaperProps: {
@@ -27,31 +18,69 @@ const MenuProps = {
 };
 
 function ServiceFilter() {
-    const [city, setCityName] = useState('');
-    const [service, setService] = useState('');
-    const [date, setDate] = useState(null);
-    const handleLocation = (event) => {
-        setCityName(event.target.value);
-    };
-    const handleServices = (event) => {
-        setService(event.target.value);
+    const history = useHistory();
+    const initialValues = {
+        location: "",
+        service: "",
+        date: null
+    }
+    const [formValues, setFormValues] = useState(initialValues);
+
+    const [clinics, setClinics] = useState([]);
+    const uniqueCities = [...new Set(clinics.map((location) => location.city))];
+
+    const [servicesDb, setServicesDb] = useState([]);
+    const uniqueServices = [...new Set(servicesDb.map((service) => service.name))];
+
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormValues({...formValues, [name]: value});
     };
     const maxDate = String(addYears(new Date(), 1));
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (validate(formValues)) {
+            history.push("/show");
+        } else {
+            alert("Select a filter!")
+        }
+    };
+    // const datee = date ? date.toLocaleString() : '';
+
+    useEffect(() => {
+        const fetchClinics = async () => {
+            try {
+                const response = await ClinicService.getAllClinics();
+                setClinics(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        const fetchServices = async () => {
+            try {
+                const response = await ClinicService.getAllServices();
+                setServicesDb(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchClinics();
+        fetchServices();
+    }, []);
+
+    const validate = (values) => {
+        if (!values.location && !values.service && !values.date) {
+            return false;
+        }
+        return true;
+    };
 
     const buttonStyle = {
         backgroundColor: '#54d6be',
         color: 'white',
         marginTop: 10,
     };
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(
-            'Location:', city,
-            'Service:', service,
-            'Date:', datee
-        );
-    };
-    const datee = date ? date.toLocaleString() : '';
 
     return (
         <Box
@@ -63,21 +92,22 @@ function ServiceFilter() {
                 <InputLabel id="choose-location">Choose the location</InputLabel>
                 <Select
                     id="select-location"
-                    value={city}
+                    name="location"
+                    value={formValues.location}
                     label="Choose the location"
-                    onChange={handleLocation}
+                    onChange={handleChange}
                     MenuProps={MenuProps}
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
-                    {cities.map((location) => (
+                    {uniqueCities.map((city) => (
                         <MenuItem
-                            key={location}
-                            value={location}
+                            key={city}
+                            value={city}
                             id="location"
                         >
-                            {location}
+                            {city}
                         </MenuItem>
                     ))}
                 </Select>
@@ -86,19 +116,20 @@ function ServiceFilter() {
                 <InputLabel id="choose-service">Choose service</InputLabel>
                 <Select
                     id="select-services"
-                    value={service}
+                    name="service"
+                    value={formValues.service}
                     label="Choose service"
-                    onChange={handleServices}
+                    onChange={handleChange}
                     MenuProps={MenuProps}
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
-                    {services.map((s) => (
+                    {uniqueServices.map((s) => (
                         <MenuItem
                             key={s}
                             value={s}
-                            id='location'
+                            id='service'
                         >
                             {s}
                         </MenuItem>
@@ -109,9 +140,9 @@ function ServiceFilter() {
                         <DatePicker
                             format="DD/MM/YYYY"
                             label="Choose the date"
-                            value={date}
+                            value={formValues.date}
                             sx={{width: 300, mb: 2, mt: 1}}
-                            onChange={(newValue) => setDate(newValue)}
+                            onChange={(newValue) => setFormValues({...formValues, date: newValue})}
                             disablePast
                             maxDate={dayjs(maxDate)}
                             views={['day']}
@@ -120,7 +151,6 @@ function ServiceFilter() {
                 </LocalizationProvider>
             </FormControl>
             <Button
-                component={Link} to="/show"
                 variant='contained'
                 fullWidth
                 type='submit'

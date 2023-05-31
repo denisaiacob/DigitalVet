@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import React from "react";
 import ClinicService from "../../services/ClinicService";
 
-function AddServices({service, setService}) {
+function AddServices({service, setService, vets}) {
     const handleInputChange = (e, index) => {
         const {name, value} = e.target;
         const list = [...service];
@@ -45,9 +45,9 @@ function AddServices({service, setService}) {
                 {
                     service.map((x, i) => {
                         return (
-                            <Box key={i} sx={{textAlign: 'start', marginTop: 5,width: '100%'}}>
+                            <Box key={i} sx={{textAlign: 'start', marginTop: 5, width: '100%'}}>
                                 <Grid container style={{width: '100%'}}>
-                                    <Grid item xs={7}>
+                                    <Grid item xs={12}>
                                         <Typography>Service name</Typography>
                                         <input
                                             type="text"
@@ -55,30 +55,48 @@ function AddServices({service, setService}) {
                                             id="name"
                                             value={service[i].name}
                                             onChange={e => handleInputChange(e, i)}
-                                            style={{width: '80%', height: 30, marginBottom: 10}}
+                                            style={{width: '90%', height: 30, marginBottom: 10}}
                                         />
                                     </Grid>
-                                    <Grid item xs={5}>
-                                        <Typography>Price</Typography>
-                                        <input
-                                            type="number"
-                                            name="price"
-                                            id="price"
-                                            value={service[i].price}
-                                            onChange={e => handleInputChange(e, i)}
-                                            style={{width: '80%', height: 30, marginBottom: 10}}
-                                        />
+                                    <Grid item container xs={12}>
+                                        <Grid item xs={6}>
+                                            <Typography>Price</Typography>
+                                            <input
+                                                type="number"
+                                                name="price"
+                                                id="price"
+                                                value={service[i].price}
+                                                onChange={e => handleInputChange(e, i)}
+                                                style={{width: '80%', height: 30, marginBottom: 10}}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Typography>Time in minutes</Typography>
+                                            <input
+                                                type="number"
+                                                name="minutes"
+                                                id="minutes"
+                                                value={service[i].minutes}
+                                                onChange={e => handleInputChange(e, i)}
+                                                style={{width: '80%', height: 30, marginBottom: 10}}
+                                            />
+                                        </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography>Veterinarians</Typography>
-                                        <input
-                                            type="text"
+                                        <select
+                                            // type="text"
                                             name="vetName"
                                             id="vetName"
-                                            value={service[i].vetName}
+                                            value={service[i].vetId ? service[i].vetId: ''}
                                             onChange={e => handleInputChange(e, i)}
-                                            style={{width: '80%', height: 30, marginBottom: 10}}
-                                        />
+                                            style={{width: '90%', height: 30, marginBottom: 10}}
+                                        >
+                                            <option>Select a veterinarian</option>
+                                            {vets.map((o, j) => (
+                                                <option key={j}>{vets[j].name}</option>
+                                            ))}
+                                        </select>
                                     </Grid>
                                 </Grid>
                                 <div>
@@ -95,7 +113,8 @@ function AddServices({service, setService}) {
                                     }
                                 </div>
                             </Box>
-                        );
+                        )
+                            ;
                     })}
                 <div style={{marginTop: 30}}>
                     <Button

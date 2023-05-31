@@ -12,4 +12,8 @@ public interface ServiceService {
     List<ServiceDto> getServiceByVetId(Long aLong);
 
     ServiceDto updateService(Long id, ServiceDto service);
+
+    List<ServiceDto> getServiceByClinicId(Long aLong);
+
+    List<ServiceDto> getAllServices();
 }

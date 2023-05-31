@@ -1,9 +1,6 @@
 package com.digitalvet.backend.services;
-
 import com.digitalvet.backend.entity.ServiceEntity;
-import com.digitalvet.backend.entity.VetEntity;
 import com.digitalvet.backend.model.ServiceDto;
-import com.digitalvet.backend.model.VetDto;
 import com.digitalvet.backend.repository.ServiceRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -23,8 +20,10 @@ public class ServiceServiceImpl implements ServiceService {
         ServiceEntity service = new ServiceEntity(
                 serviceDto.getServiceId(),
                 serviceDto.getVetId(),
+                serviceDto.getClinicId(),
                 serviceDto.getName(),
-                serviceDto.getPrice());
+                serviceDto.getPrice(),
+                serviceDto.getMinutes());
         serviceRepository.save(service);
         return service.getServiceId();
     }
@@ -45,11 +44,13 @@ public class ServiceServiceImpl implements ServiceService {
 
         return serviceEntities
                 .stream()
-                .map(vet -> new ServiceDto(
-                        vet.getServiceId(),
-                        vet.getVetId(),
-                        vet.getName(),
-                        vet.getPrice()))
+                .map(service -> new ServiceDto(
+                        service.getServiceId(),
+                        service.getVetId(),
+                        service.getClinicId(),
+                        service.getName(),
+                        service.getPrice(),
+                        service.getMinutes()))
                 .toList();
     }
 
@@ -63,5 +64,39 @@ public class ServiceServiceImpl implements ServiceService {
 
         serviceRepository.save(serviceEntity);
         return service;
+    }
+
+    @Override
+    public List<ServiceDto> getServiceByClinicId(Long clinicId) {
+        List<ServiceEntity> serviceEntities
+                = serviceRepository.findByClinicId(clinicId).get();
+
+        return serviceEntities
+                .stream()
+                .map(service -> new ServiceDto(
+                        service.getServiceId(),
+                        service.getVetId(),
+                        service.getClinicId(),
+                        service.getName(),
+                        service.getPrice(),
+                        service.getMinutes()))
+                .toList();
+    }
+
+    @Override
+    public List<ServiceDto> getAllServices() {
+        List<ServiceEntity> serviceEntities
+                = serviceRepository.findAll();
+
+        return serviceEntities
+                .stream()
+                .map(service -> new ServiceDto(
+                        service.getServiceId(),
+                        service.getClinicId(),
+                        service.getVetId(),
+                        service.getName(),
+                        (double) service.getMinutes(),
+                        (int) service.getPrice()))
+                .toList();
     }
 }

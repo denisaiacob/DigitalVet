@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {styled, useTheme} from '@mui/material/styles';
-import {Box,CssBaseline,Toolbar,IconButton} from "@mui/material";
+import {Box, CssBaseline, Toolbar, IconButton} from "@mui/material";
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsMenu from "./SettingsMenu";
@@ -65,11 +65,11 @@ const DrawerHeader = styled('div')(({theme}) => ({
 }));
 
 function BusinessAcountSettings() {
-    const { clinicId } = useParams();
+    const {clinicId} = useParams();
     const theme2 = useTheme();
     const isMatch = useMediaQuery(theme2.breakpoints.down(650));
     const [open, setOpen] = React.useState(true);
-    const [tab,setTab]=React.useState(0);
+    const [tab, setTab] = React.useState(0);
 
     const [clinic, setClinic] = useState({
         clinicId: clinicId,
@@ -90,10 +90,12 @@ function BusinessAcountSettings() {
     }])
 
     const [service, setService] = useState([{
-        serviceId:null,
-        vetId: "",
+        serviceId: 12,
+        vetId: null,
+        clinicId: clinic.clinicId,
         name: "",
-        price:""
+        price: "",
+        minutes: ""
     }])
 
     useEffect(() => {
@@ -115,8 +117,11 @@ function BusinessAcountSettings() {
         };
         const fetchService = async () => {
             try {
-                const response = await ClinicService.getServicesByVetId(vet.vetId);
-                setService(response.data);
+                const response = await ClinicService.getServicesByClinicId(clinic.clinicId);
+                console.log(response.data);
+                if (response.data.length !== 0) {
+                    setService(response.data);
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -146,7 +151,7 @@ function BusinessAcountSettings() {
             stepContent = <AddVet vet={vet} setVet={setVet} update={true}/>;
             break;
         case 4:
-            stepContent =<AddServices service={service} setService={setService}/>;
+            stepContent = <AddServices service={service} setService={setService} vets={vet}/>;
             break;
         default:
             stepContent = <AddProgram/>;
@@ -182,11 +187,6 @@ function BusinessAcountSettings() {
                         </Link>
                     </Toolbar>
                 </AppBar>
-                {isMatch ? (
-                    <></>
-                ) : (
-                    handleDrawerOpen
-                )}
                 <SettingsMenu
                     open={open}
                     setOpen={setOpen}
@@ -195,7 +195,7 @@ function BusinessAcountSettings() {
                 />
                 <Main open={open}>
                     <DrawerHeader/>
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center',margin:5}}>
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 5}}>
                         {stepContent}
                     </div>
                 </Main>

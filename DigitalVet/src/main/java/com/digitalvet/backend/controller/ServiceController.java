@@ -1,6 +1,5 @@
 package com.digitalvet.backend.controller;
 import com.digitalvet.backend.model.ServiceDto;
-import com.digitalvet.backend.model.VetDto;
 import com.digitalvet.backend.services.ServiceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,11 @@ public class ServiceController {
         return serviceService.addService(serviceDto);
     }
 
+    @GetMapping("/service")
+    public List<ServiceDto> getAllServices() {
+        return  serviceService.getAllServices();
+    }
+
     @GetMapping("/service/{id}")
     public ResponseEntity<ServiceDto> getServiceById(@PathVariable Long id) {
         ServiceDto service = null;
@@ -32,6 +36,11 @@ public class ServiceController {
     @GetMapping("/services/{id}")
     public List<ServiceDto> getServiceByVetId(@PathVariable String id) {
         return  serviceService.getServiceByVetId(Long.valueOf(id));
+    }
+
+    @GetMapping("/cservices/{id}")
+    public List<ServiceDto> getServiceByClinicId(@PathVariable String id) {
+        return  serviceService.getServiceByClinicId(Long.valueOf(id));
     }
 
     @PutMapping("/service/{id}")

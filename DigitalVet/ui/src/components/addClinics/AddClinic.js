@@ -140,8 +140,12 @@ function AddClinic() {
         sunday: ""
     })
     const [service, setService] = useState([{
-        vetName: "",
+        serviceId:null,
+        vetId: "",
+        clinicId: "",
         name: "",
+        price:"",
+        minutes:""
     }])
 
     const [activeStep, setActiveStep] = React.useState(0);

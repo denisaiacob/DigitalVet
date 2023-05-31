@@ -18,6 +18,9 @@ public class ServiceEntity {
     @NotBlank(message = "Vet id is mandatory")
     private Long vetId;
 
+    @NotBlank(message = "Clinic id is mandatory")
+    private Long clinicId;
+
     @NotBlank(message = "Name is mandatory")
     @Pattern(regexp = "^(?=.{2,30}$)(\\w{2,}(\\s?\\w{2,})?)$", message = "Invalid name")
     private String name;
@@ -25,19 +28,41 @@ public class ServiceEntity {
     @NotBlank(message = "Price is mandatory")
     private double price;
 
+    @NotBlank(message = "Price is mandatory")
+    private int minutes;
+
     public ServiceEntity() {}
 
-    public ServiceEntity(Long vetId,String name,Double price) {
+    public ServiceEntity(Long vetId,String name,Double price,Integer minutes) {
         this.vetId=vetId;
         this.name = name;
         this.price=price;
+        this.minutes=minutes;
     }
 
-    public ServiceEntity(Long serviceId,Long vetId, String name,Double price) {
+    public ServiceEntity(Long serviceId,Long vetId,Long clinicId, String name,Double price,Integer minutes) {
         this.serviceId = serviceId;
         this.vetId = vetId;
+        this.clinicId = clinicId;
         this.name = name;
         this.price=price;
+        this.minutes=minutes;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 
     public double getPrice() {
@@ -76,12 +101,12 @@ public class ServiceEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ServiceEntity service)) return false;
-        return Double.compare(service.getPrice(), getPrice()) == 0 && Objects.equals(getServiceId(), service.getServiceId()) && Objects.equals(getVetId(), service.getVetId()) && Objects.equals(getName(), service.getName());
+        return Double.compare(service.getPrice(), getPrice()) == 0 && getMinutes() == service.getMinutes() && Objects.equals(getServiceId(), service.getServiceId()) && Objects.equals(getVetId(), service.getVetId()) && Objects.equals(getClinicId(), service.getClinicId()) && Objects.equals(getName(), service.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getServiceId(), getVetId(), getName(), getPrice());
+        return Objects.hash(getServiceId(), getVetId(), getClinicId(), getName(), getPrice(), getMinutes());
     }
 
     @Override
@@ -89,8 +114,10 @@ public class ServiceEntity {
         return "ServiceEntity{" +
                 "serviceId=" + serviceId +
                 ", vetId=" + vetId +
+                ", clinicId=" + clinicId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", minutes=" + minutes +
                 '}';
     }
 }
