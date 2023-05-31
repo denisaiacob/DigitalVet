@@ -3,13 +3,6 @@ import {styled, alpha} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-
-const cities = [
-    'Iasi',
-    'Bucuresti',
-    'Cluj'
-];
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -53,90 +46,13 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: 200,
-        },
-    },
-};
-
 function SearchFilter() {
-    const [city, setCityName] = useState('');
-    const handleLocation = (event) => {
-        setCityName(event.target.value);
-    };
     return (
-        // <Box >
-        //     <FormControl fullWidth sx={{mt: 1, mb: 2, width: 300}}>
-        //         <InputLabel id="choose-location">Choose the location</InputLabel>
-        //         <Select
-        //             id="select-location"
-        //             value={city}
-        //             label="Choose the location"
-        //             onChange={handleLocation}
-        //             MenuProps={MenuProps}
-        //         >
-        //             <MenuItem value="">
-        //                 <em>None</em>
-        //             </MenuItem>
-        //             {cities.map((location) => (
-        //                 <MenuItem
-        //                     key={location}
-        //                     value={location}
-        //                     id="location"
-        //                 >
-        //                     {location}
-        //                 </MenuItem>
-        //             ))}
-        //         </Select>
-        //     </FormControl>
-        //     <Search>
-        //         <SearchIconWrapper>
-        //             <SearchIcon/>
-        //         </SearchIconWrapper>
-        //         <StyledInputBase
-        //             placeholder="Search…"
-        //             inputProps={{'aria-label': 'search'}}
-        //         />
-        //     </Search>
-        //     <Button
-        //         variant='contained'
-        //         fullWidth
-        //         type='submit'
-        //         // style={buttonStyle}
-        //     >
-        //         Search for services
-        //     </Button>
-        // </Box>
         <Box
             component="form"
             // onSubmit={handleSubmit}
             noValidate
         >
-            <FormControl fullWidth sx={{mt: 1, mb: 2, width: 300}}>
-                <InputLabel id="choose-location">Choose the location</InputLabel>
-                <Select
-                    id="select-location"
-                    value={city}
-                    label="Choose the location"
-                    onChange={handleLocation}
-                    MenuProps={MenuProps}
-                >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    {cities.map((location) => (
-                        <MenuItem
-                            key={location}
-                            value={location}
-                            id="location"
-                        >
-                            {location}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
             <Search>
                 <SearchIconWrapper>
                     <SearchIcon/>
