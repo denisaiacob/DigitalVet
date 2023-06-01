@@ -5,7 +5,7 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import {FormControl, FormControlLabel, Radio, RadioGroup, Stack} from "@mui/material";
+import {FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Stack} from "@mui/material";
 import "../../../App.css";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
@@ -13,8 +13,9 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {TimePicker} from "@mui/x-date-pickers";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {addYears} from "date-fns";
+import ClinicService from "../../../services/ClinicService";
 
 const Accordion = styled((props) => (
     <MuiAccordion defaultExpanded disableGutters elevation={0} square {...props} />
@@ -54,27 +55,44 @@ const RoundedTypography = styled(Typography)({
     fontSize: '1.1rem',
 });
 
-function LeftSide() {
-    const [sort, setSort] = React.useState('Rating');
-    const [location, setLocation] = React.useState('Iasi');
-    const [service, setService] = React.useState('Consultation');
-    const [date, setDate] = useState(null);
-    const [time, setTime] = React.useState(dayjs('2022-04-17T15:30'));
+function LeftSide({initialValues,setInitialValues}) {
 
+    const [clinics, setClinics] = useState([]);
+    const uniqueCities = [...new Set(clinics.map((location) => location.city))];
+
+    const [servicesDb, setServicesDb] = useState([]);
+    const uniqueServices = [...new Set(servicesDb.map((service) => service.name))];
 
     const maxDate = String(addYears(new Date(), 1));
-    const handleChangeSortBy = (event) => {
-        setSort(event.target.value);
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setInitialValues({...initialValues, [name]: value});
     };
-    const handleChangeLocation = (event) => {
-        setLocation(event.target.value);
-    };
-    const handleChangeService = (event) => {
-        setService(event.target.value);
-    };
+
+    useEffect(() => {
+        const fetchClinics = async () => {
+            try {
+                const response = await ClinicService.getAllClinics();
+                setClinics(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        const fetchServices = async () => {
+            try {
+                const response = await ClinicService.getAllServices();
+                setServicesDb(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchClinics();
+        fetchServices();
+    }, []);
+
     return (
         <div>
-            <RoundedTypography variant="h5" sx={{marginTop: 3,marginBottom:1}}> Search filters</RoundedTypography>
+            <RoundedTypography variant="h5" sx={{marginTop: 3, marginBottom: 1}}> Search filters</RoundedTypography>
             <Accordion>
                 <AccordionSummary aria-controls="panel1-content" id="panel1-content">
                     <Typography>Sort by</Typography>
@@ -83,13 +101,16 @@ function LeftSide() {
                     <div className="radio-group-container" align="start">
                         <FormControl component="fieldset">
                             <RadioGroup
+                                name="sort"
                                 aria-labelledby="sort"
-                                value={sort}
-                                onChange={handleChangeSortBy}
+                                value={initialValues.sort}
+                                onChange={handleChange}
                             >
-                                <FormControlLabel value="Rating" control={<Radio size={"small"}/>} label="Rating"/>
-                                <FormControlLabel value="low" control={<Radio size={"small"}/>} label="The lowest price"/>
-                                <FormControlLabel value="high" control={<Radio size={"small"}/>} label="The highest price"/>
+                                <FormControlLabel value="rating" control={<Radio size={"small"}/>} label="Rating"/>
+                                <FormControlLabel value="low" control={<Radio size={"small"}/>}
+                                                  label="The lowest price"/>
+                                <FormControlLabel value="high" control={<Radio size={"small"}/>}
+                                                  label="The highest price"/>
                             </RadioGroup>
                         </FormControl>
                     </div>
@@ -103,14 +124,20 @@ function LeftSide() {
                     <div className="radio-group-container" align="start">
                         <FormControl component="fieldset">
                             <RadioGroup
+                                name="location"
                                 aria-labelledby="location"
-                                value={location}
-                                onChange={handleChangeLocation}
+                                value={initialValues.location}
+                                onChange={handleChange}
                             >
-                                <FormControlLabel value="Iasi" control={<Radio size={"small"}/>} label="Iasi"/>
-                                <FormControlLabel value="Cluj" control={<Radio size={"small"}/>} label="Cluj"/>
-                                <FormControlLabel value="Bucuresti" control={<Radio size={"small"}/>}
-                                                  label="Bucuresti"/>
+                                {uniqueCities.map((city) => (
+                                    <FormControlLabel
+                                        key={city}
+                                        value={city}
+                                        id="location"
+                                        control={<Radio size={"small"}/>}
+                                        label={city}
+                                    />
+                                ))}
                             </RadioGroup>
                         </FormControl>
                     </div>
@@ -124,20 +151,20 @@ function LeftSide() {
                     <div className="radio-group-container" align="start">
                         <FormControl component="fieldset">
                             <RadioGroup
+                                name="service"
                                 aria-labelledby="services"
-                                value={service}
-                                onChange={handleChangeService}
+                                value={initialValues.service}
+                                onChange={handleChange}
                             >
-                                <FormControlLabel value="Washing" control={<Radio size={"small"}/>} label="Washing"/>
-                                <FormControlLabel value="Haircut" control={<Radio size={"small"}/>} label="Haircut"/>
-                                <FormControlLabel value="Consultation" control={<Radio size={"small"}/>}
-                                                  label="Consultation"/>
-                                <FormControlLabel value="Vaccinations" control={<Radio size={"small"}/>}
-                                                  label="Vaccinations"/>
-                                <FormControlLabel value="Laboratory investigations" control={<Radio size={"small"}/>}
-                                                  label="Laboratory investigations"/>
-                                <FormControlLabel value="Surgical interventions" control={<Radio size={"small"}/>}
-                                                  label="Surgical interventions"/>
+                                {uniqueServices.map((service) => (
+                                    <FormControlLabel
+                                        key={service}
+                                        value={service}
+                                        id="service"
+                                        control={<Radio size={"small"}/>}
+                                        label={service}
+                                    />
+                                ))}
                             </RadioGroup>
                         </FormControl>
                     </div>
@@ -150,24 +177,17 @@ function LeftSide() {
                 <AccordionDetails>
                     <FormControl>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['DatePicker', 'TimePicker']}>
-                                <Stack direction="column" spacing={2}>
-                                    <DatePicker
-                                        format="DD/MM/YYYY"
-                                        label="Choose the date"
-                                        value={date}
-                                        sx={{width: 220}}
-                                        onChange={(newValue) => setDate(newValue)}
-                                        disablePast
-                                        maxDate={dayjs(maxDate)}
-                                        views={['day']}
-                                    />
-                                    <TimePicker
-                                        label="Choose the time"
-                                        value={time}
-                                        onChange={(newTime) => setTime(newTime)}
-                                    />
-                                </Stack>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker
+                                    format="DD/MM/YYYY"
+                                    label="Choose the date"
+                                    value={initialValues.date}
+                                    sx={{width: 220}}
+                                    onChange={(newValue) => setInitialValues({...initialValues, date: newValue})}
+                                    disablePast
+                                    maxDate={dayjs(maxDate)}
+                                    views={['day']}
+                                />
                             </DemoContainer>
                         </LocalizationProvider>
                     </FormControl>

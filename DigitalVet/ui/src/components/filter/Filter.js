@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import SwipeableViews from 'react-swipeable-views';
 import {useTheme} from '@mui/material/styles';
-import { Box, Tab, Tabs, AppBar} from "@mui/material";
+import {Box, Tab, Tabs, AppBar, Snackbar, Alert} from "@mui/material";
 import ServiceFilter from "./ServiceFilter";
 import SearchFilter from "./SearchFilter";
 
@@ -27,6 +27,7 @@ function TabPanel(props) {
 function Filter() {
     const theme = useTheme();
     const [value, setValue] = useState(0);
+    const [open, setOpen] = React.useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -35,9 +36,21 @@ function Filter() {
     const handleChangeIndex = (index) => {
         setValue(index);
     };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     return (
         <div className="all">
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Select a filter!
+                </Alert>
+            </Snackbar>
             <Box
                 sx={{
                     marginTop: 7,
@@ -74,7 +87,7 @@ function Filter() {
                         index={0}
                         dir={theme.direction}
                     >
-                        <ServiceFilter/>
+                        <ServiceFilter setOpen={setOpen}/>
                     </TabPanel>
                     <TabPanel
                         value={value}
