@@ -31,10 +31,19 @@ function ClinicBox({clinic}) {
     return (
         <div key={clinic.clinicId} className="show-box">
             <Grid container spacing={2}>
-                <Grid item>
+                <Grid
+                    item
+                    md={6}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: 30
+                    }}
+                >
                     <CardMedia
                         component="img"
-                        sx={{width: 360}}
+                        sx={{width: '100%'}}
                         image={clinic.photo}
                         alt="Clinic"
                         onClick={() => handleClinic(clinic.clinicId)}
@@ -54,7 +63,7 @@ function ClinicBox({clinic}) {
                                 <StarIcon sx={{color: yellow[800]}}/>
                                 5.0
                             </Typography>
-                            <Box sx={{maxWidth:120}}>
+                            <Box sx={{maxWidth: 120}}>
                                 <PointerTypography onClick={handleReviews}>
                                     30 Reviews
                                 </PointerTypography>
