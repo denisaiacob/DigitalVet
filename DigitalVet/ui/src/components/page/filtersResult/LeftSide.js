@@ -12,7 +12,6 @@ import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {TimePicker} from "@mui/x-date-pickers";
 import {useEffect, useState} from "react";
 import {addYears} from "date-fns";
 import ClinicService from "../../../services/ClinicService";
