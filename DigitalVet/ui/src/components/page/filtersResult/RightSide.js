@@ -49,7 +49,7 @@ function RightSide() {
     };
 
     return (
-        <div>
+        <div style={{width:'80%'}}>
             {!loading && (
                 <div>
                     {clinics.map((clinic) => (

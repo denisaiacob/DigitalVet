@@ -171,7 +171,7 @@ function LeftSide({initialValues,setInitialValues}) {
             </Accordion>
             <Accordion>
                 <AccordionSummary aria-controls="panel4-content" id="panel4-content">
-                    <Typography>Choose the date and time</Typography>
+                    <Typography>Choose the date</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormControl>
@@ -180,7 +180,7 @@ function LeftSide({initialValues,setInitialValues}) {
                                 <DatePicker
                                     format="DD/MM/YYYY"
                                     label="Choose the date"
-                                    value={initialValues.date}
+                                    value={dayjs(initialValues.date).isValid() ? initialValues.date : null}
                                     sx={{width: 220}}
                                     onChange={(newValue) => setInitialValues({...initialValues, date: newValue})}
                                     disablePast
