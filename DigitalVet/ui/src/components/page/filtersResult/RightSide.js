@@ -11,7 +11,7 @@ import {
 import ClinicBox from "./ClinicBox";
 import ServiceDetailsBox from "./ServiceDetailsBox";
 import {useEffect, useState} from "react";
-import AddClinicService from "../../../services/ClinicService";
+import ClinicService from "../../../services/ClinicService";
 
 const ExpandMore = styled((props) => {
     const {expand, ...other} = props;
@@ -25,48 +25,59 @@ const ExpandMore = styled((props) => {
 }));
 
 function RightSide() {
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState([]);
 
     const [loading, setLoading] = useState(true);
     const [clinics, setClinics] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchClinic = async () => {
             setLoading(true);
             try {
-                const response = await AddClinicService.getAllClinics();
+                const response = await ClinicService.getAllClinics();
                 setClinics(response.data);
             } catch (error) {
                 console.log(error);
             }
             setLoading(false);
         };
-        fetchData();
+        fetchClinic();
     }, []);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
+    const handleExpandClick = (i) => {
+        if(expanded.length===0){
+            setExpanded(Array(clinics.length).fill(false));
+        }
+        setExpanded((prevExpanded) => {
+            const newExpanded = prevExpanded.map((value, index) => {
+                if (index === i) {
+                    return !value;
+                }
+                return value;
+            });
+            return newExpanded;
+        });
     };
 
     return (
         <div style={{width:'80%'}}>
             {!loading && (
                 <div>
-                    {clinics.map((clinic) => (
-                        <div key={clinic.clinicId} style={{marginTop:30}}>
+                    {clinics.map((clinic, i) => (
+                        <div key={clinic.clinicId} style={{marginTop: 30}}>
                             <Card sx={{maxWidth: 820}}>
                                 <ClinicBox clinic={clinic}/>
                                 <CardActions disableSpacing>
                                     <ExpandMore
-                                        expand={expanded}
-                                        onClick={handleExpandClick}
-                                        aria-expanded={expanded}
+                                        expand={expanded[i]}
+                                        onClick={() => handleExpandClick(i)}
+                                        aria-expanded={expanded[i]}
                                         aria-label="show services"
                                     >
                                         <ExpandMoreIcon/>
                                     </ExpandMore>
                                 </CardActions>
-                                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <Collapse in={expanded[i]} timeout="auto" unmountOnExit>
                                     <CardContent>
                                         <ServiceDetailsBox/>
                                     </CardContent>
