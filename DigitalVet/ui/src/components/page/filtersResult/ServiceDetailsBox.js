@@ -15,37 +15,39 @@ const RoundedTypography = styled(Typography)({
     textAlign: 'start',
 });
 
-function ServiceDetailsBox() {
+function ServiceDetailsBox({service}) {
 
     return (
-        <Paper variant="outlined">
-            <Box sx={{mt: 2, ml: 5, mr: 2, mb: 1}}>
-                <Grid container direction="column" spacing={2}>
-                    <Grid item container direction="row" spacing={2}>
-                        <Grid item xs={10.8}>
-                            <RoundedTypography variant="h5">Name of the service</RoundedTypography>
+        <div key={service.serviceId}>
+            <Paper variant="outlined" style={{margin: 5}}>
+                <Box sx={{mt: 2, ml: 5, mr: 2, mb: 1}}>
+                    <Grid container direction="column" spacing={2}>
+                        <Grid item container direction="row" spacing={2}>
+                            <Grid item xs={10}>
+                                <RoundedTypography variant="h5">{service.name}</RoundedTypography>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <RoundedTypography variant="h5">{service.price} Lei</RoundedTypography>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={1.2}>
-                            <RoundedTypography variant="h5">150 Lei</RoundedTypography>
+                        <Grid item container direction="row" spacing={2}>
+                            <Grid item xs={9.5}>
+                                <Typography textAlign="start" variant="body2" color='gray'>{service.minutes} minutes</Typography>
+                            </Grid>
+                            <Grid item xs={2.5}>
+                                <Button
+                                    variant="outlined"
+                                    style={{color: '#43ab98', borderColor: '#43ab98'}}
+                                    component={Link} to="/service/${serviceId}"
+                                >
+                                    Book
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item container direction="row" spacing={2}>
-                        <Grid item xs={10.7}>
-                            <Typography textAlign="start" variant="body2">Description</Typography>
-                        </Grid>
-                        <Grid item xs={0.5}>
-                            <Button
-                                variant="outlined"
-                                style={{color:'#43ab98', borderColor: '#43ab98'}}
-                                component={Link} to="/service/${serviceId}"
-                            >
-                                Book
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Paper>
+                </Box>
+            </Paper>
+        </div>
     );
 }
 
