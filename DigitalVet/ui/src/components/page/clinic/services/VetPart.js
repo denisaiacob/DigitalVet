@@ -13,13 +13,10 @@ const StyledTypography = styled(Typography)({
     textAlign: 'center',
 });
 
-function VetPart() {
+function VetPart({vet}) {
     const history = useHistory();
-    const handleVet = (vetName) => {
-        history.push({
-            pathname: '/clinic/vet',
-            state: { vetName }
-        });
+    const handleVet = () => {
+        history.push(`/clinic/vet/${vet.vetId}`);
     };
 
     return (
@@ -40,7 +37,7 @@ function VetPart() {
                         opacity: [0.9, 0.8, 0.7],
                     },
                 }}
-                onClick={() => handleVet("Vet Name")}
+                onClick={() => handleVet()}
             >
                 <Stack
                     spacing={1}
@@ -49,19 +46,19 @@ function VetPart() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         textAlign: 'center',
-                        margin:2
+                        margin: 2
                     }}
                 >
                     <Avatar
                         alt="Vet"
-                        src={avatar}
+                        src={vet.photo !== '' ? vet.photo : avatar}
                         sx={{width: 60, height: 60}}
                     />
-                    <StyledTypography>Name Name</StyledTypography>
+                    <StyledTypography>{vet.name}</StyledTypography>
                     <Typography
                         style={{color: "grey", fontSize: '0.8rem'}}
                     >
-                        Function
+                        {vet.function}
                     </Typography>
                 </Stack>
             </Box>

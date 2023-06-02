@@ -167,7 +167,7 @@ function ClinicPage() {
                         index={0}
                         dir={theme.direction}
                     >
-                        <Services/>
+                        <Services clinicId={clinicId}/>
                     </TabPanel>
                     <TabPanel
                         value={value}

@@ -4,6 +4,8 @@ import avatar from "../../images/avatar.jpg";
 import {styled} from "@mui/material/styles";
 import Reviews from "./reviews/Reviews";
 import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import ClinicService from "../../../services/ClinicService";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',
@@ -17,6 +19,28 @@ const StyledTypography = styled(Typography)({
 
 function VetPage() {
     const {vetId} = useParams();
+    const [vet,setVet]=useState({
+        vetId: null,
+        clinicId: null,
+        name: "",
+        function: "",
+        description: "",
+        photo:""
+    });
+
+    useEffect(() => {
+        const fetchVet = async () => {
+            try {
+                const response = await ClinicService.getVetById(vetId);
+                setVet(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchVet().then();
+    }, [vetId]);
+
     return (
         <div className="clinic-page">
             <Box
@@ -35,7 +59,7 @@ function VetPage() {
                             <Avatar
                                 alt="Vet"
                                 variant="rounded"
-                                src={avatar}
+                                src={vet.photo !== '' ? vet.photo : avatar}
                                 sx={{width: 150, height: 150}}
                             />
                         </Grid>
@@ -50,11 +74,11 @@ function VetPage() {
                                     margin: 2
                                 }}
                             >
-                                <StyledTypography>Name Name</StyledTypography>
+                                <StyledTypography>{vet.name}</StyledTypography>
                                 <Typography
                                     style={{color: "grey", fontSize: '1.0rem'}}
                                 >
-                                    Function
+                                    {vet.function}
                                 </Typography>
                             </Stack>
                         </Grid>
@@ -74,7 +98,7 @@ function VetPage() {
                     width: '70%',
                 }}
             >
-                <Typography sx={{ml: 4, mr: 3}}>"About me"</Typography>
+                <Typography sx={{ml: 4, mr: 3}}>"{vet.description}"</Typography>
             </Box>
             <div style={{marginTop: 20, marginBottom: 50}}>
                 <Reviews/>

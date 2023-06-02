@@ -2,8 +2,31 @@ import * as React from 'react';
 import {Box} from "@mui/material";
 import VetPart from "./VetPart";
 import ServicePart from "./ServicePart";
+import {useEffect, useState} from "react";
+import ClinicService from "../../../../services/ClinicService";
 
-function Services() {
+function Services({clinicId}) {
+    const [vets, setVets] = useState([{
+        vetId: null,
+        clinicId: clinicId,
+        name: "",
+        function: "",
+        description: "",
+        photo:""
+    }]);
+
+    useEffect(() => {
+        const fetchVet = async () => {
+            try {
+                const response = await ClinicService.getVetsByClinicId(clinicId);
+                setVets(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchVet().then();
+    }, [clinicId]);
     return (
         <Box
             sx={{backgroundColor: "white"}}
@@ -18,8 +41,12 @@ function Services() {
                     marginRight: 6.5
                 }}
             >
-                <VetPart/>
-                <ServicePart/>
+                {vets.map((vet)=>(
+                    <div key={vet.vetId}>
+                        <VetPart vet={vet}/>
+                        <ServicePart/>
+                    </div>
+                ))}
             </Box>
         </Box>
     );
