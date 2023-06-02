@@ -4,7 +4,9 @@ import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ClinicService from "../../services/ClinicService";
-import {Card, Select} from "@mui/material";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import {Button} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -95,10 +97,18 @@ function SearchFilter({search}) {
                 />
             </Search>
             {filteredData.length !== 0 && (
-                <Box sx={{borderLeft: 1, borderRight: 1, borderColor: 'grey'}}>
+                <Box>
                     {filteredData.slice(0, 15).map((value, key) => {
                         return (
-                            <p>{value.name} </p>
+                            <Button
+                                key={value.clinicId}
+                                fullWidth
+                                startIcon={<LocationOnIcon />}
+                                color='inherit'
+                                component={Link} to={`/clinic/${value.clinicId}`}
+                            >
+                                {value.name}
+                            </Button>
                         );
                     })}
                 </Box>
