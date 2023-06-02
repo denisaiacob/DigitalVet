@@ -16,34 +16,28 @@ function ShowClinics() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const [initialValues, setInitialValues] = useState({
-        location: "",
-        service: "",
-        date: null,
+        location: queryParams.get('location') || "",
+        service: queryParams.get('service') || "",
+        date: queryParams.get('date')!=='M' ? dayjs(queryParams.get('date')) : null,
         sort: null
     });
 
     useEffect(() => {
-        const locationValue = queryParams.get('location');
-        const serviceValue = queryParams.get('service');
-        const dateValue = queryParams.get('date');
-
-        setInitialValues({
-            location: locationValue || "",
-            service: serviceValue || "",
-            date: dateValue!=='M' ? dayjs(dateValue) : null,
-            sort: 'rating'
-        });
         const fetchClinic = async () => {
             try {
                 const response = await ClinicService.getAllClinics();
-                setClinics(response.data);
+                // setClinics(response.data);
+                const newFilter = response.data.filter((value) => {
+                    return value.city===initialValues.location;
+                });
+                setClinics(newFilter);
                 console.log(response.data);
             } catch (error) {
                 console.log(error);
             }
         };
         fetchClinic().then();
-    }, []);
+    }, [initialValues]);
 
     return (
         <div>
