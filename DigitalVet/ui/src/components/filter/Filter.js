@@ -94,7 +94,7 @@ function Filter() {
                         index={1}
                         dir={theme.direction}
                     >
-                        <SearchFilter/>
+                        <SearchFilter />
                     </TabPanel>
                     <TabPanel
                         value={value}

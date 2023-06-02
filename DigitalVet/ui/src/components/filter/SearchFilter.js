@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {styled, alpha} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import ClinicService from "../../services/ClinicService";
+import {Card, Select} from "@mui/material";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -45,12 +47,42 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-function SearchFilter() {
+function SearchFilter({search}) {
+    const [clinics, setClinics] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
+    const [wordEntered, setWordEntered] = useState("");
+    const [word, setWord] = useState("");
+
+    useEffect(() => {
+        const fetchClinic = async () => {
+            try {
+                const response = await ClinicService.getAllClinics();
+                setClinics(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchClinic();
+    }, []);
+
+    const handleFilter = (event) => {
+        const searchWord = event.target.value;
+        setWordEntered(searchWord);
+        const newFilter = clinics.filter((value) => {
+            return value.name.toLowerCase().includes(searchWord.toLowerCase());
+        });
+
+        if (searchWord === "") {
+            setFilteredData([]);
+        } else {
+            setFilteredData(newFilter);
+        }
+    };
+
+
     return (
-        <Box
-            component="form"
-            noValidate
-        >
+        <Box component="form" noValidate>
             <Search>
                 <SearchIconWrapper>
                     <SearchIcon/>
@@ -58,8 +90,19 @@ function SearchFilter() {
                 <StyledInputBase
                     placeholder="Search…"
                     inputProps={{'aria-label': 'search'}}
+                    value={wordEntered}
+                    onChange={handleFilter}
                 />
             </Search>
+            {filteredData.length !== 0 && (
+                <Box sx={{borderLeft: 1, borderRight: 1, borderColor: 'grey'}}>
+                    {filteredData.slice(0, 15).map((value, key) => {
+                        return (
+                            <p>{value.name} </p>
+                        );
+                    })}
+                </Box>
+            )}
         </Box>
     );
 }
