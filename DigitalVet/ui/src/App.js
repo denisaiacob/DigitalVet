@@ -11,6 +11,7 @@ import ClinicPage from "./components/clinicPage/ClinicPage";
 import VetPage from "./components/clinicPage/VetPage";
 import AddClinic from "./components/addClinics/AddClinic";
 import BusinessAcountSettings from "./components/settings/BusinessAcountSettings";
+import BookPage from "./components/book/BookPage";
 
 function App() {
     return (
@@ -27,7 +28,7 @@ function App() {
                     <Route exact path='/show' component={ShowClinics}/>
                     <Route exact path="/clinic/:clinicId" component={ClinicPage}/>
                     <Route exact path="/clinic/vet/:vetId" component={VetPage}/>
-                    <Route exact path="/service/:serviceId" component={Filter}/>
+                    <Route exact path="/service/:serviceId" component={BookPage}/>
                 </header>
             </div>
         </BrowserRouter>

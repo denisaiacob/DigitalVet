@@ -38,7 +38,7 @@ function ServiceDetailsBox({service}) {
                                 <Button
                                     variant="outlined"
                                     style={{color: '#43ab98', borderColor: '#43ab98'}}
-                                    component={Link} to="/service/${serviceId}"
+                                    component={Link} to={`/service/${service.serviceId}`}
                                 >
                                     Book
                                 </Button>
