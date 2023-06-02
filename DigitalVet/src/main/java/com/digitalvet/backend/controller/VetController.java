@@ -23,6 +23,11 @@ public class VetController {
         return vetService.addVet(vetDto);
     }
 
+    @GetMapping("/vet")
+    public List<VetDto> getAllVets() {
+        return  vetService.getAllVets();
+    }
+
     @GetMapping("/vet/{id}")
     public ResponseEntity<VetDto> getVetById(@PathVariable Long id) {
         VetDto vet = null;

@@ -24,6 +24,9 @@ class ClinicService {
     getAllClinics(){
         return axios.get(CLINIC_API_URL);
     }
+    getAllVets(){
+        return axios.get(VET_API_URL);
+    }
     getAllServices(){
         return axios.get(SERVICE_API_URL);
     }

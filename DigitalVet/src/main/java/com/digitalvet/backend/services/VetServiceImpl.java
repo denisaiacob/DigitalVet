@@ -75,4 +75,21 @@ public class VetServiceImpl implements VetService {
                         vet.getPhoto()))
                 .toList();
     }
+
+    @Override
+    public List<VetDto> getAllVets() {
+        List<VetEntity> vetEntities
+                = vetRepository.findAll();
+
+        return vetEntities
+                .stream()
+                .map(vet -> new VetDto(
+                        vet.getVetId(),
+                        vet.getClinicId(),
+                        vet.getName(),
+                        vet.getFunction(),
+                        vet.getDescription(),
+                        vet.getPhoto()))
+                .toList();
+    }
 }

@@ -26,7 +26,7 @@ function App() {
                     <Route exact path='/settings/:clinicId' component={BusinessAcountSettings}/>
                     <Route exact path='/show' component={ShowClinics}/>
                     <Route exact path="/clinic/:clinicId" component={ClinicPage}/>
-                    <Route exact path="/clinic/vet" component={VetPage}/>
+                    <Route exact path="/clinic/vet/:vetId" component={VetPage}/>
                     <Route exact path="/service/:serviceId" component={Filter}/>
                 </header>
             </div>

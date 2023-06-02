@@ -3,6 +3,7 @@ import {Avatar, Box, Grid, Stack, Typography} from "@mui/material";
 import avatar from "../../images/avatar.jpg";
 import {styled} from "@mui/material/styles";
 import Reviews from "./reviews/Reviews";
+import {useParams} from "react-router-dom";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',
@@ -15,6 +16,7 @@ const StyledTypography = styled(Typography)({
 });
 
 function VetPage() {
+    const {vetId} = useParams();
     return (
         <div className="clinic-page">
             <Box
@@ -74,7 +76,7 @@ function VetPage() {
             >
                 <Typography sx={{ml: 4, mr: 3}}>"About me"</Typography>
             </Box>
-            <div style={{marginTop:20,marginBottom:50}}>
+            <div style={{marginTop: 20, marginBottom: 50}}>
                 <Reviews/>
             </div>
         </div>

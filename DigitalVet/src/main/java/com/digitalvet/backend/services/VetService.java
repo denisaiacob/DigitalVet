@@ -14,4 +14,6 @@ public interface VetService {
     VetDto updateVet(Long id, VetDto vet);
 
     List<VetDto> getVetByClinicId(Long clinicId);
+
+    List<VetDto> getAllVets();
 }

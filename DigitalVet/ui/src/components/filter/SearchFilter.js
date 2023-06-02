@@ -5,6 +5,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ClinicService from "../../services/ClinicService";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
 import {Button} from "@mui/material";
 import {Link} from "react-router-dom";
 
@@ -49,11 +50,11 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-function SearchFilter({search}) {
+function SearchFilter({searchClinic}) {
     const [clinics, setClinics] = useState([]);
+    const [vets, setVets] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
-    const [word, setWord] = useState("");
 
     useEffect(() => {
         const fetchClinic = async () => {
@@ -65,20 +66,40 @@ function SearchFilter({search}) {
             }
         };
 
+        const fetchVets = async () => {
+            try {
+                const response = await ClinicService.getAllVets();
+                setVets(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         fetchClinic();
+        fetchVets();
     }, []);
 
     const handleFilter = (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
-        const newFilter = clinics.filter((value) => {
-            return value.name.toLowerCase().includes(searchWord.toLowerCase());
-        });
-
-        if (searchWord === "") {
-            setFilteredData([]);
+        if (searchClinic) {
+            const newFilter = clinics.filter((value) => {
+                return value.name.toLowerCase().includes(searchWord.toLowerCase());
+            });
+            if (searchWord === "") {
+                setFilteredData([]);
+            } else {
+                setFilteredData(newFilter);
+            }
         } else {
-            setFilteredData(newFilter);
+            const newFilter = vets.filter((value) => {
+                return value.name.toLowerCase().includes(searchWord.toLowerCase());
+            });
+            if (searchWord === "") {
+                setFilteredData([]);
+            } else {
+                setFilteredData(newFilter);
+            }
         }
     };
 
@@ -100,15 +121,29 @@ function SearchFilter({search}) {
                 <Box>
                     {filteredData.slice(0, 15).map((value, key) => {
                         return (
-                            <Button
-                                key={value.clinicId}
-                                fullWidth
-                                startIcon={<LocationOnIcon />}
-                                color='inherit'
-                                component={Link} to={`/clinic/${value.clinicId}`}
-                            >
-                                {value.name}
-                            </Button>
+                            <div>
+                                {searchClinic === true ? (
+                                    <Button
+                                        key={value.clinicId}
+                                        fullWidth
+                                        startIcon={<LocationOnIcon/>}
+                                        color='inherit'
+                                        component={Link} to={`/clinic/${value.clinicId}`}
+                                    >
+                                        {value.name}
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        key={value.vetId}
+                                        fullWidth
+                                        startIcon={<PersonPinIcon/>}
+                                        color='inherit'
+                                        component={Link} to={`/clinic/vet/${value.vetId}`}
+                                    >
+                                        {value.name}
+                                    </Button>
+                                )}
+                            </div>
                         );
                     })}
                 </Box>

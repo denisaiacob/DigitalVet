@@ -94,14 +94,14 @@ function Filter() {
                         index={1}
                         dir={theme.direction}
                     >
-                        <SearchFilter />
+                        <SearchFilter searchClinic={true}/>
                     </TabPanel>
                     <TabPanel
                         value={value}
                         index={2}
                         dir={theme.direction}
                     >
-                        <SearchFilter/>
+                        <SearchFilter searchClinic={false}/>
                     </TabPanel>
                 </SwipeableViews>
             </Box>
