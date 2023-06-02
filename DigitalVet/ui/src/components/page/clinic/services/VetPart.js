@@ -5,7 +5,6 @@ import {useHistory} from "react-router-dom";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',
-    // fontWeight: 'bold',
     fontSize: '1.2rem',
     '@media (max-width:700px)': {
         fontSize: '1.0rem',

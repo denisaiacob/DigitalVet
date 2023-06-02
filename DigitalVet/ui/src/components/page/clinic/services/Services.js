@@ -20,7 +20,6 @@ function Services({clinicId}) {
             try {
                 const response = await ClinicService.getVetsByClinicId(clinicId);
                 setVets(response.data);
-                console.log(response.data)
             } catch (error) {
                 console.log(error);
             }
@@ -42,9 +41,9 @@ function Services({clinicId}) {
                 }}
             >
                 {vets.map((vet)=>(
-                    <div key={vet.vetId}>
+                    <div key={vet.vetId} style={{marginBottom:50}}>
                         <VetPart vet={vet}/>
-                        <ServicePart/>
+                        <ServicePart vetId={vet.vetId}/>
                     </div>
                 ))}
             </Box>
