@@ -1,12 +1,39 @@
 import * as React from 'react';
 import {Box, Grid, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
+import {useEffect, useState} from "react";
+import ClinicService from "../../../services/ClinicService";
 
 const ProgramTypography = styled(Typography)({
     fontSize: '1.0rem',
-    margin:5,
+    margin: 5,
 });
-function Program() {
+
+function Program({clinicId}) {
+    const [program, setProgram] = useState({
+        programId: null,
+        clinicId: clinicId,
+        months: "",
+        tuesday: "",
+        wednesday: "",
+        thursday: "",
+        friday: "",
+        saturday: "",
+        sunday: ""
+    });
+
+    useEffect(() => {
+        const fetchProgram = async () => {
+            try {
+                const response = await ClinicService.getProgramByClinicId(clinicId);
+                setProgram(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchProgram().then();
+    }, [clinicId]);
+
     return (
         <Box
             sx={{backgroundColor: "white"}}
@@ -18,7 +45,7 @@ function Program() {
                     borderBottom: 30,
                     borderColor: "white",
                     marginLeft: 6.5,
-                    marginRight:6.5
+                    marginRight: 6.5
                 }}
             >
                 <Typography
@@ -27,7 +54,7 @@ function Program() {
                 >
                     Program
                 </Typography>
-                <Grid container direction="row" spacing={2} sx={{marginTop:1}}>
+                <Grid container direction="row" spacing={2} sx={{marginTop: 1}}>
                     <Grid item xs={4}>
                         <ProgramTypography>Months</ProgramTypography>
                         <ProgramTypography>Tuesday</ProgramTypography>
@@ -38,13 +65,27 @@ function Program() {
                         <ProgramTypography>Sunday</ProgramTypography>
                     </Grid>
                     <Grid item>
-                        <ProgramTypography>10:00-18:00</ProgramTypography>
-                        <ProgramTypography>10:00-18:00</ProgramTypography>
-                        <ProgramTypography>10:00-18:00</ProgramTypography>
-                        <ProgramTypography>10:00-18:00</ProgramTypography>
-                        <ProgramTypography>10:00-18:00</ProgramTypography>
-                        <ProgramTypography>10:00-18:00</ProgramTypography>
-                        <ProgramTypography>10:00-18:00</ProgramTypography>
+                        <ProgramTypography>
+                            {program.months === '-' ? 'Closed' : program.months}
+                        </ProgramTypography>
+                        <ProgramTypography>
+                            {program.tuesday === '-' ? 'Closed' : program.tuesday}
+                        </ProgramTypography>
+                        <ProgramTypography>
+                            {program.wednesday === '-' ? 'Closed' : program.wednesday}
+                        </ProgramTypography>
+                        <ProgramTypography>
+                            {program.thursday === '-' ? 'Closed' : program.thursday}
+                        </ProgramTypography>
+                        <ProgramTypography>
+                            {program.friday=== '-' ? 'Closed' : program.friday}
+                        </ProgramTypography>
+                        <ProgramTypography>
+                            {program.saturday === '-' ? 'Closed' : program.saturday}
+                        </ProgramTypography>
+                        <ProgramTypography>
+                            {program.sunday === '-' ? 'Closed' : program.sunday}
+                        </ProgramTypography>
 
                     </Grid>
                 </Grid>
