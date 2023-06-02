@@ -25,7 +25,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function RightSide({clinics, filter}) {
-    const [expanded, setExpanded] = useState([]);
+    const [expanded, setExpanded] = useState(Array(clinics.length).fill(false));
 
     const [loadingServices, setLoadingServices] = useState(true);
     const [services, setServices] = useState([]);
@@ -51,9 +51,6 @@ function RightSide({clinics, filter}) {
     }, [clinics]);
 
     const handleExpandClick = (i) => {
-        if (expanded.length === 0) {
-            setExpanded(Array(clinics.length).fill(false));
-        }
         setExpanded((prevExpanded) => {
             const newExpanded = prevExpanded.map((value, index) => {
                 if (index === i) {

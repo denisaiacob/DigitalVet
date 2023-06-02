@@ -26,7 +26,6 @@ function ShowClinics() {
         const fetchClinic = async () => {
             try {
                 const response = await ClinicService.getAllClinics();
-                // setClinics(response.data);
                 const newFilter = response.data.filter((value) => {
                     return value.city===initialValues.location;
                 });

@@ -11,7 +11,7 @@ function ServicePart() {
             }}
         >
             <div style={{marginTop:5}}>
-                <ServiceDetailsBox/>
+                {/*<ServiceDetailsBox/>*/}
             </div>
         </Box>
     );
