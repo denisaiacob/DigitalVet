@@ -1,10 +1,17 @@
 import {Box} from "@mui/material";
-import ServiceDetailsBox from "../../filtersResult/ServiceDetailsBox";
+import ServiceDetailsBox from "../../../filtersResult/ServiceDetailsBox";
 import {useEffect, useState} from "react";
 import ClinicService from "../../../../services/ClinicService";
 
 function ServicePart({vetId}) {
-    const [services, setServices] = useState([]);
+    const [services, setServices] = useState([{
+        serviceId: "",
+        vetId: "",
+        clinicId: "",
+        name: "",
+        price: "",
+        minutes: ""
+    }]);
     useEffect(() => {
         const fetchServices = async () => {
             try {
@@ -23,10 +30,10 @@ function ServicePart({vetId}) {
                 width: '100%',
             }}
         >
-            {services.map((service)=>(
-            <div key={service.serviceId} style={{marginTop: 5}}>
-                <ServiceDetailsBox service={service}/>
-            </div>
+            {services.map((service) => (
+                <div key={service.serviceId} style={{marginTop: 5}}>
+                    <ServiceDetailsBox service={service}/>
+                </div>
             ))}
         </Box>
     );

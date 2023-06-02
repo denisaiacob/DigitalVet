@@ -5,7 +5,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsMenu from "./SettingsMenu";
 import {useMediaQuery} from "@mui/material";
-import logo from "../images/Logo.png";
+import logo from "../../images/Logo.png";
 import {Link, useParams} from "react-router-dom";
 import CreateClinicPage from "../addClinics/CreateClinicPage";
 import AddProgram from "../addClinics/AddProgram";

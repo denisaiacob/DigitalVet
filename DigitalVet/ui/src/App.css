@@ -1,5 +1,5 @@
 .all {
-    background-image: url('./components/images/Background.png');
+    background-image: url('images/Background.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

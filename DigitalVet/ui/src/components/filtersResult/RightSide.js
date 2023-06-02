@@ -11,7 +11,7 @@ import {
 import ClinicBox from "./ClinicBox";
 import ServiceDetailsBox from "./ServiceDetailsBox";
 import {useEffect, useState} from "react";
-import ClinicService from "../../../services/ClinicService";
+import ClinicService from "../../services/ClinicService";
 
 const ExpandMore = styled((props) => {
     const {expand, ...other} = props;
@@ -40,13 +40,14 @@ function RightSide({clinics, filter}) {
                     const response = await ClinicService.getServicesByClinicId(clinic.clinicId);
                     updatedServices.push(response.data);
                 }
-                console.log(updatedServices);
                 setServices(updatedServices);
             } catch (error) {
                 console.log(error);
             }
             setLoadingServices(false);
-            setExpanded(Array(clinics.length).fill(false));
+            if (clinics && clinics.length > 0) {
+                setExpanded(Array(clinics.length).fill(false));
+            }
         };
         fetchServices().then();
     }, [clinics]);

@@ -14,6 +14,7 @@ import Program from "./Program";
 import Reviews from "./reviews/Reviews";
 import Services from "./services/Services";
 import ClinicService from "../../../services/ClinicService";
+import avatar from "../../../images/ClinicAvatar.png";
 
 
 function TabPanel(props) {
@@ -93,14 +94,23 @@ function ClinicPage() {
     return (
         <div className="clinic-page">
             <RoundedTypography sx={{mt: 5}}>{clinic.name}</RoundedTypography>
-            <Card sx={{maxWidth: 930, mt: 3}}>
+            <Card sx={{width:'80%', mt: 3}}>
                 <Grid container spacing={2} sx={{margin: 3}}>
-                    <Grid item>
+                    <Grid
+                        item
+                        md={6}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight:30,
+                        }}
+                    >
                         <CardMedia
                             className="clinic-img"
                             component="img"
-                            // sx={{maxWidth: 500}}
-                            image={clinic.photo}
+                            sx={{width: '100%',marginRight:6}}
+                            image={clinic.photo === "" ? avatar : clinic.photo}
                             alt="Cabinet img"
                         />
                     </Grid>

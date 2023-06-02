@@ -11,6 +11,7 @@ import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import {yellow, red, blue} from "@mui/material/colors";
 import StarIcon from '@mui/icons-material/Star';
 import {useHistory} from "react-router-dom";
+import avatar from "../../images/ClinicAvatar.png"
 
 const PointerTypography = styled(Typography)({
     cursor: 'pointer',
@@ -44,7 +45,7 @@ function ClinicBox({clinic}) {
                     <CardMedia
                         component="img"
                         sx={{width: '100%'}}
-                        image={clinic.photo}
+                        image={clinic.photo === "" ? avatar : clinic.photo}
                         alt="Clinic"
                         onClick={() => handleClinic(clinic.clinicId)}
                     />

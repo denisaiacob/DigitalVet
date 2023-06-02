@@ -20,21 +20,21 @@ function ServiceDetailsBox({service}) {
     return (
         <div key={service.serviceId}>
             <Paper variant="outlined" style={{margin: 5}}>
-                <Box sx={{mt: 2, ml: 5, mr: 2, mb: 1}}>
+                <Box sx={{mt: 2, ml: 5, mr: 2, mb: 1,width:'90%'}}>
                     <Grid container direction="column" spacing={2}>
                         <Grid item container direction="row" spacing={2}>
-                            <Grid item xs={10}>
+                            <Grid item xs={12} md={10}>
                                 <RoundedTypography variant="h5">{service.name}</RoundedTypography>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={12} md={2}>
                                 <RoundedTypography variant="h5">{service.price} Lei</RoundedTypography>
                             </Grid>
                         </Grid>
                         <Grid item container direction="row" spacing={2}>
-                            <Grid item xs={9.5}>
+                            <Grid item md={10} xs={12}>
                                 <Typography textAlign="start" variant="body2" color='gray'>{service.minutes} minutes</Typography>
                             </Grid>
-                            <Grid item xs={2.5}>
+                            <Grid item md={2} xs={12}>
                                 <Button
                                     variant="outlined"
                                     style={{color: '#43ab98', borderColor: '#43ab98'}}

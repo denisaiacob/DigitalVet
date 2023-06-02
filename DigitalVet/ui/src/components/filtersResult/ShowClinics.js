@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
-import "../../../App.css"
+import "../../App.css"
 import LeftSide from "./LeftSide"
 import RightSide from "./RightSide";
 import {useLocation} from "react-router-dom";
 import dayjs from "dayjs";
 import {useMediaQuery, useTheme} from "@mui/material";
 import LeftResponsiveSide from "./LeftResponsiveSide";
-import ClinicService from "../../../services/ClinicService";
+import ClinicService from "../../services/ClinicService";
 
 function ShowClinics() {
     const theme2 = useTheme();
@@ -18,7 +18,7 @@ function ShowClinics() {
     const [initialValues, setInitialValues] = useState({
         location: queryParams.get('location') || "",
         service: queryParams.get('service') || "",
-        date: queryParams.get('date')!=='M' ? dayjs(queryParams.get('date')) : null,
+        date: queryParams.get('date') !== 'M' ? dayjs(queryParams.get('date')) : null,
         sort: null
     });
 
@@ -26,12 +26,13 @@ function ShowClinics() {
         const fetchClinic = async () => {
             try {
                 const response = await ClinicService.getAllClinics();
-                if(initialValues.location!=="") {
+                if (initialValues.location !== "") {
                     const newFilter = response.data.filter((value) => {
                         return value.city === initialValues.location;
                     });
                     setClinics(newFilter);
-                }else{
+                    console.log(response.data);
+                } else {
                     setClinics(response.data);
                 }
                 console.log(response.data);
@@ -48,7 +49,7 @@ function ShowClinics() {
                 <div className="responsive-container">
                     <div className="right-column" style={{marginBottom: 40}}>
                         <LeftResponsiveSide initialValues={initialValues} setInitialValues={setInitialValues}/>
-                        <RightSide filter={initialValues}/>
+                        <RightSide filter={initialValues} clinics={clinics}/>
                     </div>
                 </div>
             ) : (

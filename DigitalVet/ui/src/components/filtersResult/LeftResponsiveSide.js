@@ -19,7 +19,7 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import {useEffect, useState} from "react";
 import {addYears} from "date-fns";
-import ClinicService from "../../../services/ClinicService";
+import ClinicService from "../../services/ClinicService";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 function LeftResponsiveSide({initialValues, setInitialValues}) {

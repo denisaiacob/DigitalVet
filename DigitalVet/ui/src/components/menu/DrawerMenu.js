@@ -13,7 +13,7 @@ import {
     Stack,
     Box
 } from "@mui/material";
-import logo from "../images/Logo.png";
+import logo from "../../images/Logo.png";
 import {Link} from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import PersonIcon from '@mui/icons-material/Person';

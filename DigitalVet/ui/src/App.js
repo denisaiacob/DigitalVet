@@ -6,7 +6,7 @@ import MenuAppBar from "./components/menu/MenuAppBar";
 import Filter from "./components/filter/Filter";
 import Register from "./components/user/Register";
 import BusinessRegister from "./components/user/BusinessRegister";
-import ShowClinics from "./components/page/filtersResult/ShowClinics";
+import ShowClinics from "./components/filtersResult/ShowClinics";
 import ClinicPage from "./components/page/clinic/ClinicPage";
 import VetPage from "./components/page/clinic/VetPage";
 import AddClinic from "./components/addClinics/AddClinic";
