@@ -119,9 +119,9 @@ function SearchFilter({searchClinic}) {
             </Search>
             {filteredData.length !== 0 && (
                 <Box>
-                    {filteredData.slice(0, 15).map((value, key) => {
+                    {filteredData.slice(0, 15).map((value) => {
                         return (
-                            <div>
+                            <div key={value.clinicId}>
                                 {searchClinic === true ? (
                                     <Button
                                         key={value.clinicId}

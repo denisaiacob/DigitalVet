@@ -71,7 +71,6 @@ function ClinicPage() {
         photo:""
     });
     useEffect(() => {
-        console.log(clinicId);
         const fetchData = async () => {
             try {
                 const response = await ClinicService.getClinicById(clinicId);
@@ -81,7 +80,7 @@ function ClinicPage() {
             }
         };
         fetchData();
-    }, []);
+    }, [clinicId]);
 
     const theme = useTheme();
     const [value, setValue] = useState(0);
@@ -182,7 +181,7 @@ function ClinicPage() {
                         index={2}
                         dir={theme.direction}
                     >
-                        <Program/>
+                        <Program clinicId={clinicId}/>
                     </TabPanel>
                     <TabPanel
                         value={value}

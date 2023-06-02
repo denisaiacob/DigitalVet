@@ -2,6 +2,7 @@ import axios from "axios";
 
 const CLINIC_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic"
 const PROGRAM_API_URL = "http://localhost:8070/api/v1/digitalVet/program"
+const CLINIC_PROGRAM_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic/program"
 const VET_API_URL = "http://localhost:8070/api/v1/digitalVet/vet"
 const VETS_API_URL = "http://localhost:8070/api/v1/digitalVet/vets"
 const SERVICE_API_URL = "http://localhost:8070/api/v1/digitalVet/service"
@@ -48,6 +49,10 @@ class ClinicService {
 
     getVetsByClinicId(clinicId){
         return axios.get(VETS_API_URL + "/" + clinicId);
+    }
+
+    getProgramByClinicId(clinicId){
+        return axios.get(CLINIC_PROGRAM_API_URL + "/" + clinicId);
     }
 
     updateService(service, serviceId) {

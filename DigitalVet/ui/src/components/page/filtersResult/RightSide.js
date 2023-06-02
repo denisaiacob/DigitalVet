@@ -46,6 +46,7 @@ function RightSide({clinics, filter}) {
                 console.log(error);
             }
             setLoadingServices(false);
+            setExpanded(Array(clinics.length).fill(false));
         };
         fetchServices().then();
     }, [clinics]);

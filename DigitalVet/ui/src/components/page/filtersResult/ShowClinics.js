@@ -26,10 +26,14 @@ function ShowClinics() {
         const fetchClinic = async () => {
             try {
                 const response = await ClinicService.getAllClinics();
-                const newFilter = response.data.filter((value) => {
-                    return value.city===initialValues.location;
-                });
-                setClinics(newFilter);
+                if(initialValues.location!=="") {
+                    const newFilter = response.data.filter((value) => {
+                        return value.city === initialValues.location;
+                    });
+                    setClinics(newFilter);
+                }else{
+                    setClinics(response.data);
+                }
                 console.log(response.data);
             } catch (error) {
                 console.log(error);
