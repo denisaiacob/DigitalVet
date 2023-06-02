@@ -11,7 +11,7 @@ import CreateClinicPage from "../addClinics/CreateClinicPage";
 import AddProgram from "../addClinics/AddProgram";
 import AddVet from "../addClinics/AddVet";
 import AddServices from "../addClinics/AddServices";
-import ClinicPage from "../page/clinic/ClinicPage";
+import ClinicPage from "../clinicPage/ClinicPage";
 import Filter from "../filter/Filter";
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";

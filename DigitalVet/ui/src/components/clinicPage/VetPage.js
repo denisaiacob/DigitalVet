@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {Avatar, Box, Grid, Stack, Typography} from "@mui/material";
-import avatar from "../../../images/avatar.jpg";
+import avatar from "../../images/avatar.jpg";
 import {styled} from "@mui/material/styles";
 import Reviews from "./reviews/Reviews";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import ClinicService from "../../../services/ClinicService";
+import ClinicService from "../../services/ClinicService";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',

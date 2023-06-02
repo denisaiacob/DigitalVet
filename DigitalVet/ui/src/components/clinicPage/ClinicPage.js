@@ -1,5 +1,5 @@
 import * as React from 'react';
-import "../../../App.css"
+import "../../App.css"
 import {Box, CardMedia, Checkbox, Grid, Card, Typography, Tabs, Tab} from "@mui/material";
 import {styled, useTheme} from "@mui/material/styles";
 import {useParams} from "react-router-dom";
@@ -13,8 +13,8 @@ import Description from "./Description";
 import Program from "./Program";
 import Reviews from "./reviews/Reviews";
 import Services from "./services/Services";
-import ClinicService from "../../../services/ClinicService";
-import avatar from "../../../images/ClinicAvatar.png";
+import ClinicService from "../../services/ClinicService";
+import avatar from "../../images/ClinicAvatar.png";
 
 
 function TabPanel(props) {

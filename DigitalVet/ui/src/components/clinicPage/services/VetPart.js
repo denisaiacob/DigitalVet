@@ -1,5 +1,5 @@
 import {Avatar, Box, Stack, Typography} from "@mui/material";
-import avatar from "../../../../images/avatar.jpg";
+import avatar from "../../../images/avatar.jpg";
 import {styled} from "@mui/material/styles";
 import {useHistory} from "react-router-dom";
 

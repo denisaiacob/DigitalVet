@@ -7,8 +7,8 @@ import Filter from "./components/filter/Filter";
 import Register from "./components/user/Register";
 import BusinessRegister from "./components/user/BusinessRegister";
 import ShowClinics from "./components/filtersResult/ShowClinics";
-import ClinicPage from "./components/page/clinic/ClinicPage";
-import VetPage from "./components/page/clinic/VetPage";
+import ClinicPage from "./components/clinicPage/ClinicPage";
+import VetPage from "./components/clinicPage/VetPage";
 import AddClinic from "./components/addClinics/AddClinic";
 import BusinessAcountSettings from "./components/settings/BusinessAcountSettings";
 

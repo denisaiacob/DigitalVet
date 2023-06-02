@@ -3,7 +3,7 @@ import {Box} from "@mui/material";
 import VetPart from "./VetPart";
 import ServicePart from "./ServicePart";
 import {useEffect, useState} from "react";
-import ClinicService from "../../../../services/ClinicService";
+import ClinicService from "../../../services/ClinicService";
 
 function Services({clinicId}) {
     const [vets, setVets] = useState([{

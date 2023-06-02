@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
-import ServiceDetailsBox from "../../../filtersResult/ServiceDetailsBox";
+import ServiceDetailsBox from "../../filtersResult/ServiceDetailsBox";
 import {useEffect, useState} from "react";
-import ClinicService from "../../../../services/ClinicService";
+import ClinicService from "../../../services/ClinicService";
 
 function ServicePart({vetId}) {
     const [services, setServices] = useState([{

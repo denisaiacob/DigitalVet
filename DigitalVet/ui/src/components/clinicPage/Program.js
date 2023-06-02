@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Box, Grid, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import {useEffect, useState} from "react";
-import ClinicService from "../../../services/ClinicService";
+import ClinicService from "../../services/ClinicService";
 
 const ProgramTypography = styled(Typography)({
     fontSize: '1.0rem',
