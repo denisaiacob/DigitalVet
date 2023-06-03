@@ -16,21 +16,21 @@ public class ClinicEntity {
     private Long clinicId;
 
     @NotBlank(message = "Name is mandatory")
-//    @Pattern(regexp = "^(?=.{2,30}$)(\\w{2,}(\\s?\\w{2,})?)$", message = "Invalid name")
+    @Pattern(regexp = "^(?=.{2,30}$)(\\w{2,}(\\s?\\w{2,})?)$", message = "Invalid name")
     private String name;
     @NotBlank(message = "City is mandatory")
-//    @Pattern(regexp = "^(?=.{2,30}$)(\\w{2,}(\\s?\\w{2,})?)$", message = "Invalid city")
+    @Pattern(regexp = "^(?=.{2,30}$)(\\w{2,}(\\s?\\w{2,})?)$", message = "Invalid city")
     private String city;
 
     @NotBlank(message = "Address is mandatory")
-//    @Pattern(regexp = "[\\w\\s.,'-]*$", message = "Invalid adress")
+    @Pattern(regexp = "[\\w\\s.,'-]*$", message = "Invalid adress")
     private String address;
 
-//    @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid description")
+    @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid description")
     private String description;
 
 
-//    @Pattern(regexp = "^\\/[\\w._\\-\\/]+$", message = "Invalid path")
+    @Pattern(regexp = "^\\/[\\w._\\-\\/]+$", message = "Invalid path")
     private String photo;
 
     public ClinicEntity() {

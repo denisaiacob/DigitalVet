@@ -1,7 +1,7 @@
 import * as React from "react";
-import {Autocomplete, Box, FormControl, InputLabel, MenuItem, Rating, Select, Stack, TextField} from "@mui/material";
+import {Box, FormControl, InputLabel, MenuItem, Rating, Select, Stack, TextField} from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import ClinicService from "../../../services/ClinicService";
 
 const MenuProps = {
