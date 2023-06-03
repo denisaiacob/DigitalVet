@@ -13,9 +13,9 @@ function Reviews({clinicId}) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const [vets,setVets]=React.useState([]);
+    const [vets, setVets] = React.useState([]);
 
-    const handleAddReview= () => {
+    const handleAddReview = () => {
         setOpen(true);
     };
     const handleClose = () => {
@@ -48,12 +48,12 @@ function Reviews({clinicId}) {
                     borderBottom: 30,
                     borderColor: "white",
                     marginLeft: 6.5,
-                    marginRight:6.5
+                    marginRight: 6.5
                 }}
             >
                 <Button
-                    startIcon={<AddIcon />}
-                    sx={{color: '#43ab98',marginBottom:3}}
+                    startIcon={<AddIcon/>}
+                    sx={{color: '#43ab98', marginBottom: 3}}
                     onClick={handleAddReview}
                 >
                     Add a review
@@ -66,7 +66,11 @@ function Reviews({clinicId}) {
                         <FilterByRating/>
                     </Grid>
                 </Grid>
-                <Review/>
+                {vets.map((vet) => (
+                    <div key={vet.vetId}>
+                        <Review vet={vet}/>
+                    </div>
+                ))}
             </Box>
             <Dialog
                 fullScreen={fullScreen}
