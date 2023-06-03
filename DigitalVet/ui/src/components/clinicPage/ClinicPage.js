@@ -198,7 +198,7 @@ function ClinicPage() {
                         index={3}
                         dir={theme.direction}
                     >
-                        <Reviews/>
+                        <Reviews clinicId={clinicId}/>
                     </TabPanel>
                 </SwipeableViews>
             </Box>
