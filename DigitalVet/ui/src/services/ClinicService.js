@@ -42,6 +42,10 @@ class ClinicService {
         return axios.get(CLINIC_API_URL + "/" + id);
     }
 
+    getServiceById(id) {
+        return axios.get(SERVICE_API_URL + "/" + id);
+    }
+
     getVetById(id) {
         return axios.get(VET_API_URL + "/" + id);
     }

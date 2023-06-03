@@ -31,6 +31,15 @@ function Review({vet}) {
         fetchData().then();
     }, [vet]);
 
+    const handleDay = (date) => {
+        date = new Date(date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+
+        return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+    };
+
     return (
         <div>
             {reviews.map((review) => (
@@ -43,9 +52,12 @@ function Review({vet}) {
                             <Grid container spacing={3}>
                                 <Grid item xs={3}>
                                     <Stack spacing={1} style={{textAlign: 'center'}}>
-                                        <StyledTypography>Name</StyledTypography>
-                                        <Typography style={{color: "grey", fontSize: '0.8rem'}}>16 May
-                                            2023</Typography>
+                                        <StyledTypography>{review.user}</StyledTypography>
+                                        <Typography
+                                            style={{
+                                                color: "grey",
+                                                fontSize: '0.8rem'
+                                            }}>{handleDay(review.day)}</Typography>
                                     </Stack>
                                 </Grid>
                                 <Grid item xs={0.5}>
@@ -60,7 +72,7 @@ function Review({vet}) {
                                                 readOnly
                                             />
                                             <Chip size='small' label={vet.name}/>
-                                            <Chip size='small' label={vet.name}/>
+                                            <Chip size='small' label={review.service}/>
                                         </Stack>
                                         <Typography style={{fontSize: '0.9rem'}}>{review.description}</Typography>
                                     </Stack>

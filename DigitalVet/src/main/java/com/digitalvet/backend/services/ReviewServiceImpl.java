@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ReviewServiceImpl implements ReviewService{
+public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
 
     public ReviewServiceImpl(ReviewRepository reviewRepository) {
@@ -17,12 +17,14 @@ public class ReviewServiceImpl implements ReviewService{
 
     @Override
     public Long addReview(ReviewDto reviewDto) {
-        ReviewEntity review=new ReviewEntity(
+        ReviewEntity review = new ReviewEntity(
                 reviewDto.getReviewId(),
-                reviewDto.getServiceId(),
                 reviewDto.getVetId(),
+                reviewDto.getService(),
                 reviewDto.getStars(),
-                reviewDto.getDescription());
+                reviewDto.getDescription(),
+                reviewDto.getUser(),
+                reviewDto.getDay());
 
         reviewRepository.save(review);
         return review.getReviewId();
@@ -38,9 +40,11 @@ public class ReviewServiceImpl implements ReviewService{
                 .map(review -> new ReviewDto(
                         review.getReviewId(),
                         review.getVetId(),
-                        review.getServiceId(),
+                        review.getService(),
                         review.getStars(),
-                        review.getDescription()))
+                        review.getDescription(),
+                        review.getUser(),
+                        review.getDay()))
                 .toList();
     }
 
@@ -54,9 +58,11 @@ public class ReviewServiceImpl implements ReviewService{
                 .map(review -> new ReviewDto(
                         review.getReviewId(),
                         review.getVetId(),
-                        review.getServiceId(),
+                        review.getService(),
                         review.getStars(),
-                        review.getDescription()))
+                        review.getDescription(),
+                        review.getUser(),
+                        review.getDay()))
                 .toList();
     }
 }

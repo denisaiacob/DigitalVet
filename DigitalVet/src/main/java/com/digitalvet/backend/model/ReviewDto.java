@@ -1,20 +1,27 @@
 package com.digitalvet.backend.model;
 
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
+
 public class ReviewDto {
     private Long reviewId;
     private Long vetId;
-    private Long serviceId;
+    private String service;
     private Integer stars;
     private String description;
+    private String user;
+    private Date day;
 
     public ReviewDto() {}
 
-    public ReviewDto(Long reviewId, Long vetId, Long serviceId, Integer stars, String description) {
+    public ReviewDto(Long reviewId, Long vetId, String service, Integer stars, String description, String user, Date day) {
         this.reviewId = reviewId;
         this.vetId = vetId;
-        this.serviceId = serviceId;
+        this.service = service;
         this.stars = stars;
         this.description = description;
+        this.user = user;
+        this.day = day;
     }
 
     public Long getReviewId() {
@@ -33,12 +40,12 @@ public class ReviewDto {
         this.vetId = vetId;
     }
 
-    public Long getServiceId() {
-        return serviceId;
+    public String getService() {
+        return service;
     }
 
-    public void setServiceId(Long serviceId) {
-        this.serviceId = serviceId;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public Integer getStars() {
@@ -55,5 +62,21 @@ public class ReviewDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public Date getDay() {
+        return day;
+    }
+
+    public void setDay(Date day) {
+        this.day = day;
     }
 }
