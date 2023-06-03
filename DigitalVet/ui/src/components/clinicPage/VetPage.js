@@ -2,10 +2,10 @@ import * as React from 'react';
 import {Avatar, Box, Grid, Stack, Typography} from "@mui/material";
 import avatar from "../../images/avatar.jpg";
 import {styled} from "@mui/material/styles";
-import Reviews from "./reviews/Reviews";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
+import Review from "./reviews/Review";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',
@@ -33,7 +33,6 @@ function VetPage() {
             try {
                 const response = await ClinicService.getVetById(vetId);
                 setVet(response.data);
-                console.log(response.data)
             } catch (error) {
                 console.log(error);
             }
@@ -100,8 +99,9 @@ function VetPage() {
             >
                 <Typography sx={{ml: 4, mr: 3}}>"{vet.description}"</Typography>
             </Box>
-            <div style={{marginTop: 20, marginBottom: 50}}>
-                <Reviews/>
+            <div style={{marginTop: 20, marginBottom: 50,width:'65%'}}>
+                <StyledTypography>Reviews:</StyledTypography>
+                <Review vet={vet}/>
             </div>
         </div>
     );

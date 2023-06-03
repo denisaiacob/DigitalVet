@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box, Card, Chip, Divider, Grid, Rating, Stack, Typography} from "@mui/material";
+import {Box, Card, Chip, Divider, Grid, Hidden, Rating, Stack, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import {useEffect, useState} from "react";
 import ClinicService from "../../../services/ClinicService";
@@ -50,7 +50,7 @@ function Review({vet}) {
                     >
                         <Box sx={{margin: 2, alignItems: 'center'}}>
                             <Grid container spacing={3}>
-                                <Grid item xs={3}>
+                                <Grid item xs={12} md={3}>
                                     <Stack spacing={1} style={{textAlign: 'center'}}>
                                         <StyledTypography>{review.user}</StyledTypography>
                                         <Typography
@@ -60,22 +60,32 @@ function Review({vet}) {
                                             }}>{handleDay(review.day)}</Typography>
                                     </Stack>
                                 </Grid>
-                                <Grid item xs={0.5}>
-                                    <Divider orientation="vertical" variant="middle"></Divider>
-                                </Grid>
-                                <Grid item>
-                                    <Stack spacing={1}>
-                                        <Stack direction='row' spacing={1}>
-                                            <Rating
-                                                name="star-rating"
-                                                value={review.stars}
-                                                readOnly
-                                            />
-                                            <Chip size='small' label={vet.name}/>
-                                            <Chip size='small' label={review.service}/>
-                                        </Stack>
-                                        <Typography style={{fontSize: '0.9rem'}}>{review.description}</Typography>
-                                    </Stack>
+                                <Hidden mdDown>
+                                    <Grid item xs={0.5}>
+                                        <Divider orientation="vertical" variant="middle"></Divider>
+                                    </Grid>
+                                </Hidden>
+                                <Grid item md={8.5}>
+                                    <Grid container spacing={1}>
+                                        <Grid item container spacing={1}>
+                                            <Grid item xs={12} md={3}>
+                                                <Rating
+                                                    name="star-rating"
+                                                    value={review.stars}
+                                                    readOnly
+                                                />
+                                            </Grid>
+                                            <Grid item  xs={12} md={3}>
+                                                <Chip size='small' label={vet.name}/>
+                                            </Grid>
+                                            <Grid item >
+                                                <Chip size='small' label={review.service}/>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography style={{fontSize: '0.9rem'}}>{review.description}</Typography>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Box>
