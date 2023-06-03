@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, Snackbar} from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
-import {addYears} from "date-fns";
+import {addMonths} from "date-fns";
 import dayjs from 'dayjs';
 import {useHistory} from "react-router-dom";
 import ClinicService from "../../services/ClinicService";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 
 const MenuProps = {
     PaperProps: {
@@ -38,7 +36,7 @@ function ServiceFilter({setOpen}) {
         const {name, value} = e.target;
         setFormValues({...formValues, [name]: value});
     };
-    const maxDate = String(addYears(new Date(), 1));
+    const maxDate = String(addMonths(new Date(), 3));
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -51,7 +49,6 @@ function ServiceFilter({setOpen}) {
             setOpen(true);
         }
     };
-    // const datee = date ? date.toLocaleString() : '';
 
     useEffect(() => {
         const fetchClinics = async () => {

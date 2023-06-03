@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {styled} from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
 import {
     Grid,
     Typography,
     Box,
-    Paper, Button
+    Paper, Button, useMediaQuery, Dialog, DialogTitle, DialogContent, DialogActions
 } from "@mui/material";
-import {Link} from "react-router-dom";
+import BookPage from "../book/BookPage";
 
 const RoundedTypography = styled(Typography)({
     fontFamily: 'Century Gothic',
@@ -16,11 +16,24 @@ const RoundedTypography = styled(Typography)({
 });
 
 function ServiceDetailsBox({service}) {
+    const [open, setOpen] = React.useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleSubmit = () => {
+        setOpen(false);
+    };
 
     return (
         <div key={service.serviceId}>
             <Paper variant="outlined" style={{margin: 5}}>
-                <Box sx={{mt: 2, ml: 5, mr: 2, mb: 1,width:'90%'}}>
+                <Box sx={{mt: 2, ml: 5, mr: 2, mb: 1, width: '90%'}}>
                     <Grid container direction="column" spacing={2}>
                         <Grid item container direction="row" spacing={2}>
                             <Grid item xs={12} md={10}>
@@ -32,13 +45,14 @@ function ServiceDetailsBox({service}) {
                         </Grid>
                         <Grid item container direction="row" spacing={2}>
                             <Grid item md={10} xs={12}>
-                                <Typography textAlign="start" variant="body2" color='gray'>{service.minutes} minutes</Typography>
+                                <Typography textAlign="start" variant="body2"
+                                            color='gray'>{service.minutes} minutes</Typography>
                             </Grid>
                             <Grid item md={2} xs={12}>
                                 <Button
                                     variant="outlined"
                                     style={{color: '#43ab98', borderColor: '#43ab98'}}
-                                    component={Link} to={`/service/${service.serviceId}`}
+                                    onClick={handleClickOpen}
                                 >
                                     Book
                                 </Button>
@@ -47,6 +61,35 @@ function ServiceDetailsBox({service}) {
                     </Grid>
                 </Box>
             </Paper>
+            <Dialog
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle>
+                    {"Choose the day and time of the appointment"}
+                </DialogTitle>
+                <DialogContent>
+                    <BookPage timeSteps={service.minutes}/>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        autoFocus
+                        onClick={handleClose}
+                        style={{color: '#43ab98'}}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={handleSubmit}
+                        autoFocus
+                        style={{color: '#43ab98'}}
+                    >
+                        Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
