@@ -6,7 +6,7 @@ import Review from "./Review";
 import AddIcon from '@mui/icons-material/Add';
 import {useTheme} from "@mui/material/styles";
 import ReviewForm from "./ReviewForm";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ClinicService from "../../../services/ClinicService";
 
 function Reviews({clinicId}) {
@@ -14,6 +14,15 @@ function Reviews({clinicId}) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [vets, setVets] = React.useState([]);
+    const [submit,setSubmit]=React.useState(false);
+    const [review,setReview]=React.useState({
+        vetId: null,
+        service: "",
+        stars: null,
+        description: "",
+        user: "",
+        day: ""
+    });
 
     const handleAddReview = () => {
         setOpen(true);
@@ -21,8 +30,14 @@ function Reviews({clinicId}) {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setOpen(false);
+        try {
+            const response = await ClinicService.addReview(review);
+            setSubmit(true);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -35,7 +50,7 @@ function Reviews({clinicId}) {
             }
         };
         fetchData().then();
-    }, [clinicId]);
+    }, [clinicId,submit]);
 
     return (
         <Box
@@ -60,7 +75,7 @@ function Reviews({clinicId}) {
                 </Button>
                 <Grid container spacing={2} direction="row">
                     <Grid item>
-                        <SummaryReviews/>
+                        <SummaryReviews vets={vets}/>
                     </Grid>
                     <Grid item>
                         <FilterByRating/>
@@ -82,7 +97,7 @@ function Reviews({clinicId}) {
                     {"Add a review"}
                 </DialogTitle>
                 <DialogContent>
-                    <ReviewForm clinicId={clinicId} vets={vets}/>
+                    <ReviewForm clinicId={clinicId} vets={vets} setReview={setReview}/>
                 </DialogContent>
                 <DialogActions>
                     <Button

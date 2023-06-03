@@ -12,8 +12,8 @@ const MenuProps = {
     },
 };
 
-function ReviewForm({clinicId, vets}) {
-    const [value, setValue] = React.useState(null);
+function ReviewForm({clinicId, vets,setReview}) {
+    const [stars, setStars] = React.useState(0);
     const [service, setService] = React.useState({
         serviceId: null,
         vetId: null,
@@ -36,10 +36,38 @@ function ReviewForm({clinicId, vets}) {
     const handleChangeVet = (e) => {
         const value = e.target.value;
         setVet(value);
+        setReview((prevReview) => ({
+            ...prevReview,
+            vetId: value.vetId,
+            user:"Name",
+            day:new Date(),
+        }));
     };
     const handleChangeService = (e) => {
         const value = e.target.value;
         setService(value);
+        setReview((prevReview) => ({
+            ...prevReview,
+            service: value.name,
+        }));
+    };
+
+    const handleDescription = (e) => {
+        const value = e.target.value;
+        setDescription(value);
+        setReview((prevReview) => ({
+            ...prevReview,
+            description: value,
+        }));
+    };
+
+    const handleStars = (e) => {
+        const value = e.target.value;
+        setStars(Number(value));
+        setReview((prevReview) => ({
+            ...prevReview,
+            stars: Number(value),
+        }));
     };
 
     useEffect(() => {
@@ -63,11 +91,9 @@ function ReviewForm({clinicId, vets}) {
                     <Rating
                         size="large"
                         name="review"
-                        value={value}
+                        value={stars}
                         precision={0.5}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
+                        onChange={handleStars}
                         emptyIcon={<StarIcon style={{opacity: 0.55}} fontSize="inherit"/>}
                     />
                     <FormControl fullWidth sx={{mt: 1, mb: 2, width: 300}}>
@@ -121,7 +147,7 @@ function ReviewForm({clinicId, vets}) {
                         rows={3}
                         sx={{width:300}}
                         value={description}
-                        onChange={(newValue)=>setDescription(newValue)}
+                        onChange={handleDescription}
                     />
                 </Stack>
             </Box>

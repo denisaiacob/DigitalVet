@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {Card, Rating, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import ClinicService from "../../../services/ClinicService";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',
@@ -13,8 +14,39 @@ const StyledTypography = styled(Typography)({
     textAlign: 'center',
 });
 
-function SummaryReviews() {
-    const [average, setAverage] = useState(3.7);
+function SummaryReviews({vets}) {
+    const [average, setAverage] = useState(5);
+    const [reviewNumber, setReviewNumber] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let count = 0;
+                let avg = 0;
+
+                const promises = vets.map(async (vet) => {
+                    const response = await ClinicService.getReviewByVetId(vet.vetId);
+                    console.log(response.data);
+                    avg = avg + response.data.stars;
+                    count = count + 1;
+                });
+
+                await Promise.all(promises);
+
+                if (count !== 0) {
+                    console.log(count);
+                    setReviewNumber(count);
+                    setAverage(parseFloat(avg / count));
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, [vets]);
+
+
     return (
         <Card
             variant="outlined"
@@ -56,7 +88,7 @@ function SummaryReviews() {
                 color="text.secondary"
                 gutterBottom
             >
-                33 Reviews
+                {reviewNumber} Reviews
             </Typography>
         </Card>
     );
