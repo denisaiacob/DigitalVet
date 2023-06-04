@@ -232,7 +232,7 @@ function AddClinic() {
             stepContent = <AddVet vet={vet} setVet={setVet} update={false}/>;
             break;
         default:
-            stepContent = <AddServices service={service} setService={setService}/>;
+            stepContent = <AddServices service={service} setService={setService} update={false}/>;
     }
 
     return (

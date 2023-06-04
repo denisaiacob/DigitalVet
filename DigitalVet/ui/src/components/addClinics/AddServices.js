@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import React from "react";
 import ClinicService from "../../services/ClinicService";
 
-function AddServices({service, setService, vets}) {
+function AddServices({service, setService, vets, update}) {
     const handleInputChange = (e, index) => {
         const {name, value} = e.target;
         const list = [...service];
@@ -30,7 +30,6 @@ function AddServices({service, setService, vets}) {
         service.map((x, i) => {
             ClinicService.updateService(service[i], service.serviceId)
                 .then((response) => {
-                    // navigate("/employeeList");
                     console.log(response)
                 })
                 .catch((error) => {
@@ -83,20 +82,23 @@ function AddServices({service, setService, vets}) {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Typography>Veterinarians</Typography>
-                                        <select
-                                            // type="text"
-                                            name="vetName"
-                                            id="vetName"
-                                            value={service[i].vetId ? service[i].vetId: ''}
-                                            onChange={e => handleInputChange(e, i)}
-                                            style={{width: '90%', height: 30, marginBottom: 10}}
-                                        >
-                                            <option>Select a veterinarian</option>
-                                            {vets.map((o, j) => (
-                                                <option key={j}>{vets[j].name}</option>
-                                            ))}
-                                        </select>
+                                        {vets && (
+                                            <div>
+                                                <Typography>Veterinarians</Typography>
+                                                <select
+                                                    name="vetName"
+                                                    id="vetName"
+                                                    value={service[i].vetId ? service[i].vetId : ''}
+                                                    onChange={e => handleInputChange(e, i)}
+                                                    style={{width: '90%', height: 30, marginBottom: 10}}
+                                                >
+                                                    <option>Select a veterinarian</option>
+                                                    {vets.map((o, j) => (
+                                                        <option key={j}>{vets[j].name}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        )}
                                     </Grid>
                                 </Grid>
                                 <div>
@@ -116,15 +118,17 @@ function AddServices({service, setService, vets}) {
                         )
                             ;
                     })}
-                <div style={{marginTop: 30}}>
-                    <Button
-                        onClick={handleUpdate}
-                        variant="outlined"
-                        style={{color: '#43ab98', borderColor: '#43ab98'}}
-                    >
-                        Update
-                    </Button>
-                </div>
+                {update && (
+                    <div style={{marginTop: 30}}>
+                        <Button
+                            onClick={handleUpdate}
+                            variant="outlined"
+                            style={{color: '#43ab98', borderColor: '#43ab98'}}
+                        >
+                            Update
+                        </Button>
+                    </div>
+                )}
             </Box>
         </div>
     );
