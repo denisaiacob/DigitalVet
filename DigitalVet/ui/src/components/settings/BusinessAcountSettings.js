@@ -16,6 +16,7 @@ import Filter from "../filter/Filter";
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
 import "../../App.css";
+import UpdateProgram from "../addClinics/UpdateProgram";
 
 const drawerWidth = 240;
 
@@ -59,7 +60,6 @@ const DrawerHeader = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
 }));
@@ -80,7 +80,7 @@ function BusinessAcountSettings() {
         photo: ""
     })
 
-    const [vet, setVet] = useState([{
+    const [vets, setVets] = useState([{
         vetId: null,
         clinicId: clinic.clinicId,
         name: "",
@@ -107,10 +107,10 @@ function BusinessAcountSettings() {
                 console.log(error);
             }
         };
-        const fetchVet = async () => {
+        const fetchVets = async () => {
             try {
                 const response = await ClinicService.getVetsByClinicId(clinic.clinicId);
-                setVet(response.data);
+                setVets(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -127,10 +127,10 @@ function BusinessAcountSettings() {
             }
         };
 
-        fetchClinic();
-        fetchVet();
-        fetchService();
-    }, []);
+        fetchClinic().then();
+        fetchVets().then();
+        fetchService().then();
+    }, [clinicId]);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -148,13 +148,13 @@ function BusinessAcountSettings() {
             stepContent = <CreateClinicPage clinic={clinic} setClinic={setClinic} update={true}/>;
             break;
         case 3:
-            stepContent = <AddVet vet={vet} setVet={setVet} update={true}/>;
+            stepContent = <AddVet vet={vets} setVet={setVets} update={true}/>;
             break;
         case 4:
-            stepContent = <AddServices service={service} setService={setService} vets={vet}/>;
+            stepContent = <AddServices service={service} setService={setService} vets={vets} update={true}/>;
             break;
         default:
-            stepContent = <AddProgram/>;
+            stepContent = <UpdateProgram clinicId={clinicId}/>;
     }
 
     return (

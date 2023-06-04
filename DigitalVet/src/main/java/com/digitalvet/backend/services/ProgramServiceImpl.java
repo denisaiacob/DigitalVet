@@ -1,8 +1,7 @@
 package com.digitalvet.backend.services;
+
 import com.digitalvet.backend.entity.ProgramEntity;
-import com.digitalvet.backend.entity.VetEntity;
 import com.digitalvet.backend.model.ProgramDto;
-import com.digitalvet.backend.model.VetDto;
 import com.digitalvet.backend.repository.ProgramRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -49,6 +48,23 @@ public class ProgramServiceImpl implements ProgramService {
                 = programRepository.findByClinicId(clinicId).get();
         ProgramDto program = new ProgramDto();
         BeanUtils.copyProperties(programEntity, program);
+        return program;
+    }
+
+    @Override
+    public ProgramDto updateProgram(Long id, ProgramDto program) {
+        ProgramEntity programEntity
+                = programRepository.findById(id).get();
+        programEntity.setClinicId(program.getClinicId());
+        programEntity.setMonths(program.getMonths());
+        programEntity.setTuesday(program.getTuesday());
+        programEntity.setWednesday(program.getWednesday());
+        programEntity.setThursday(program.getThursday());
+        programEntity.setFriday(program.getFriday());
+        programEntity.setSaturday(program.getSaturday());
+        programEntity.setSunday(program.getSunday());
+
+        programRepository.save(programEntity);
         return program;
     }
 }

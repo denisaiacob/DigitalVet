@@ -184,7 +184,7 @@ function AddClinic() {
     const handleCreateClinic = (event) => {
         event.preventDefault();
         AddClinicService.addClinic((clinic)).then((response) => {
-            console.log(response);
+            console.log(response.data);
             handleProgram(response.data);
             setCreateClinic(true);
         }).catch((error) => {
@@ -197,21 +197,20 @@ function AddClinic() {
         setCreateClinic(false);
         vet.map((x, i) => {
             AddClinicService.addVet((vet[i])).then((response) => {
-                console.log(response);
-                // setVetsId((prevState) => ([...prevState,response.data]));
+                console.log(response.data);
             }).catch((error) => {
                 console.log(error);
             })
         });
-        // service.map((x, i) => {
-        //     AddClinicService.addService((serviceSubmit[i])).then((response) => {
-        //         console.log(response);
-        //     }).catch((error) => {
-        //         console.log(error);
-        //     })
-        // });
+        service.map((x, i) => {
+            AddClinicService.addService((service[i])).then((response) => {
+                console.log(response.data);
+            }).catch((error) => {
+                console.log(error);
+            })
+        });
         AddClinicService.addProgram((programSubmit)).then((response) => {
-            console.log(response);
+            console.log(response.data);
         }).catch((error) => {
             console.log(error);
         })

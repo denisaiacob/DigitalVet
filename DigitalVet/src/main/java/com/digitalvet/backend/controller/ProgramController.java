@@ -1,6 +1,6 @@
 package com.digitalvet.backend.controller;
+
 import com.digitalvet.backend.model.ProgramDto;
-import com.digitalvet.backend.model.VetDto;
 import com.digitalvet.backend.services.ProgramService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +32,12 @@ public class ProgramController {
     @GetMapping("/clinic/program/{id}")
     public ProgramDto getProgramByClinicId(@PathVariable String id) {
         return  programService.getProgramByClinicId(Long.valueOf(id));
+    }
+
+    @PutMapping("/program/{id}")
+    public ResponseEntity<ProgramDto> updateProgram(@PathVariable Long id,
+                                                  @RequestBody ProgramDto program) {
+        program = programService.updateProgram(id, program);
+        return ResponseEntity.ok(program);
     }
 }

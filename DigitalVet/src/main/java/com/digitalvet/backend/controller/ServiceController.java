@@ -38,7 +38,7 @@ public class ServiceController {
         return  serviceService.getServiceByVetId(Long.valueOf(id));
     }
 
-    @GetMapping("/cservices/{id}")
+    @GetMapping("/clinic/services/{id}")
     public List<ServiceDto> getServiceByClinicId(@PathVariable String id) {
         return  serviceService.getServiceByClinicId(Long.valueOf(id));
     }
