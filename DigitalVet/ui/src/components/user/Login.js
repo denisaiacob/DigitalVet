@@ -21,17 +21,12 @@ function Login() {
     const [isSubmit, setIsSubmit] = useState(false);
     const [open, setOpen] = React.useState(false);
     const reset = () => {
-        if(formErrors.email&& formErrors.password)
-            setUser({
-                email: "",
-                password: "",
-            });
-        else if (formErrors.email)
+        if (formErrors.email && !formErrors.password)
             setUser((prev) => ({
                 ...prev,
                 email: "",
             }));
-        else if (formErrors.password)
+        else if (formErrors.password && !formErrors.email)
             setUser((prev) => ({
                 ...prev,
                 password: "",
