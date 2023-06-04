@@ -50,7 +50,6 @@ function CreateClinicPage({clinic, setClinic, update}) {
         console.log(clinic);
         ClinicService.updateClinic(clinic, clinic.clinicId)
             .then((response) => {
-                // navigate("/employeeList");
                 console.log(response)
             })
             .catch((error) => {
@@ -119,9 +118,21 @@ function CreateClinicPage({clinic, setClinic, update}) {
                                     onChange={handleUploadClick}
                                 />
 
-                                {state.selectedFile !== null && (
-                                    <img alt="clinic-photo" src={state.selectedFile} style={{width: 150, margin: 10}}/>
+                                {state.selectedFile && (
+                                    <img
+                                        alt="clinic-photo"
+                                        src={state.selectedFile}
+                                        style={{width: 150, margin: 10}}
+                                    />
                                 )}
+                                {clinic.photo && !state.selectedFile &&(
+                                    <img
+                                        alt="clinic-photo"
+                                        src={clinic.photo}
+                                        style={{width: 150, margin: 10}}
+                                    />
+                                )}
+
                             </div>
                         </Grid>
                     </Grid>

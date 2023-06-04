@@ -30,8 +30,8 @@ public class ProgramController {
     }
 
     @GetMapping("/clinic/program/{id}")
-    public ProgramDto getProgramByClinicId(@PathVariable String id) {
-        return  programService.getProgramByClinicId(Long.valueOf(id));
+    public ProgramDto getProgramByClinicId(@PathVariable Long id) {
+        return  programService.getProgramByClinicId(id);
     }
 
     @PutMapping("/program/{id}")

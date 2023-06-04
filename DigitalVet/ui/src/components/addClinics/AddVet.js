@@ -66,21 +66,33 @@ function AddVet({vet, setVet, update}) {
     }
 
     const handleAddClick = () => {
-        setVet([...vet, {name: '', function: '', description: '', photo: ''}]);
+        setVet([...vet, {
+            clinicId:vet[0].clinicId,
+            name: '',
+            function: '',
+            description: '',
+            photo: ''
+        }]);
     }
 
-    const handleUpdate = (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
-        console.log(vet);
-        vet.map((x, i) => {
-            ClinicService.updateVet(vet[i], vet.vetId)
-                .then((response) => {
-                    // navigate("/employeeList");
-                    console.log(response)
-                })
-                .catch((error) => {
+        vet.map(async (x, i) => {
+            if (!vet[i].vetId) {
+                try {
+                    const response = await ClinicService.addVet(vet[i]);
+                    console.log(response.data);
+                } catch (error) {
                     console.log(error);
-                });
+                }
+            } else {
+                try {
+                    const response = await ClinicService.updateVet(vet[i],vet[i].vetId);
+                    console.log(response.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
         })
     };
     return (
@@ -134,8 +146,16 @@ function AddVet({vet, setVet, update}) {
                                             onChange={handleUploadClick.bind(this, i)}
                                         />
                                         {state[i] && state[i].selectedFile !== null && (
-                                            <img alt="vet-photo" src={state[i].selectedFile}
+                                            <img alt="vet-photo"
+                                                 src={state[i].selectedFile ? state[i].selectedFile : vet[i].photo}
                                                  style={{width: 150, margin: 10}}/>
+                                        )}
+                                        {vet[i].photo && !state[i].selectedFile && (
+                                            <img
+                                                alt="clinic-photo"
+                                                src={vet[i].photo}
+                                                style={{width: 150, margin: 10}}
+                                            />
                                         )}
                                     </div>
                                 </Grid>

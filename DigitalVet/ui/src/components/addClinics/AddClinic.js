@@ -140,7 +140,6 @@ function AddClinic() {
         sunday: ""
     })
     const [service, setService] = useState([{
-        serviceId:null,
         vetId: "",
         clinicId: "",
         name: "",
@@ -172,6 +171,16 @@ function AddClinic() {
         vet.map((x, index) => {
             setVet(prevVet => {
                 const newList = [...prevVet];
+                newList[index] = {
+                    ...newList[index],
+                    clinicId: clinicId
+                };
+                return newList;
+            })
+        });
+        service.map((x, index) => {
+            setService(prevService => {
+                const newList = [...prevService];
                 newList[index] = {
                     ...newList[index],
                     clinicId: clinicId

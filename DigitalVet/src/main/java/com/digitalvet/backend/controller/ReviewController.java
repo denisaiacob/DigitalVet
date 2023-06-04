@@ -28,8 +28,8 @@ public class ReviewController {
     }
 
     @GetMapping("/review/{id}")
-    public List<ReviewDto> getReviewByVetId(@PathVariable String id) {
-        return  reviewService.getReviewByVetId(Long.valueOf(id));
+    public List<ReviewDto> getReviewByVetId(@PathVariable Long id) {
+        return  reviewService.getReviewByVetId(id);
     }
 
 }

@@ -36,8 +36,8 @@ public class VetController {
     }
 
     @GetMapping("/vets/{id}")
-    public List<VetDto> getVetByClinicId(@PathVariable String id) {
-        return  vetService.getVetByClinicId(Long.valueOf(id));
+    public List<VetDto> getVetByClinicId(@PathVariable Long id) {
+        return  vetService.getVetByClinicId(id);
     }
 
     @DeleteMapping("/vet/{id}")

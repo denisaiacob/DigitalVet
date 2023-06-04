@@ -34,13 +34,13 @@ public class ServiceController {
     }
 
     @GetMapping("/services/{id}")
-    public List<ServiceDto> getServiceByVetId(@PathVariable String id) {
-        return  serviceService.getServiceByVetId(Long.valueOf(id));
+    public List<ServiceDto> getServiceByVetId(@PathVariable Long id) {
+        return  serviceService.getServiceByVetId(id);
     }
 
     @GetMapping("/clinic/services/{id}")
-    public List<ServiceDto> getServiceByClinicId(@PathVariable String id) {
-        return  serviceService.getServiceByClinicId(Long.valueOf(id));
+    public List<ServiceDto> getServiceByClinicId(@PathVariable Long id) {
+        return  serviceService.getServiceByClinicId(id);
     }
 
     @PutMapping("/service/{id}")

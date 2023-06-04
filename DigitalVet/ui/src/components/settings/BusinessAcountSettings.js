@@ -16,7 +16,8 @@ import Filter from "../filter/Filter";
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
 import "../../App.css";
-import UpdateProgram from "../addClinics/UpdateProgram";
+import UpdateProgram from "./UpdateProgram";
+import BookPage from "../book/BookPage";
 
 const drawerWidth = 240;
 
@@ -90,8 +91,8 @@ function BusinessAcountSettings() {
     }])
 
     const [service, setService] = useState([{
-        serviceId: 12,
-        vetId: null,
+        serviceId: null,
+        vetId: "",
         clinicId: clinic.clinicId,
         name: "",
         price: "",
@@ -142,7 +143,7 @@ function BusinessAcountSettings() {
             stepContent = <ClinicPage/>;
             break;
         case 1:
-            stepContent = <Filter/>;
+            stepContent = <BookPage/>;
             break;
         case 2:
             stepContent = <CreateClinicPage clinic={clinic} setClinic={setClinic} update={true}/>;
