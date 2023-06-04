@@ -84,6 +84,14 @@ function AddVet({vet, setVet, update}) {
                 try {
                     const response = await ClinicService.addVet(vet[i]);
                     console.log(response.data);
+                    setVet(prevVet => {
+                        const newList = [...prevVet];
+                        newList[i] = {
+                            ...newList[i],
+                            vetId: response.data
+                        };
+                        return newList;
+                    });
                 } catch (error) {
                     console.log(error);
                     setSuccess(false);

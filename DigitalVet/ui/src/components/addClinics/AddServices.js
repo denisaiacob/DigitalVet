@@ -46,11 +46,20 @@ function AddServices({service, setService, vets, update}) {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+        console.log(service);
         service.map(async (x, i) => {
             if (!service[i].serviceId) {
                 try {
                     const response = await ClinicService.addService(service[i]);
                     console.log(response.data);
+                    setService(prevService => {
+                        const newList = [...prevService];
+                        newList[i] = {
+                            ...newList[i],
+                            serviceId: response.data
+                        };
+                        return newList;
+                    });
                 } catch (error) {
                     console.log(error);
                     setSuccess(false);
