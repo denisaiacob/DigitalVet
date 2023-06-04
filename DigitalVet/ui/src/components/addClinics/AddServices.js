@@ -8,6 +8,7 @@ import ClinicService from "../../services/ClinicService";
 
 function AddServices({service, setService, vets, update}) {
     const [open, setOpen] = React.useState(false);
+    const [success,setSuccess]=React.useState(true);
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -19,7 +20,11 @@ function AddServices({service, setService, vets, update}) {
     const handleInputChange = (e, index) => {
         const {name, value} = e.target;
         const list = [...service];
-        list[index][name] = value;
+        if(name==='price' || name==='minutes'){
+            list[index][name]=parseInt(value,10)
+        }else {
+            list[index][name] = value;
+        }
         setService(list);
     }
 
@@ -31,41 +36,36 @@ function AddServices({service, setService, vets, update}) {
 
     const handleAddClick = () => {
         setService([...service, {
-            serviceId: null,
             clinicId:service[0].clinicId,
             vetId: "",
             name: "",
-            price: "",
-            minutes: ""
+            price: null,
+            minutes: null
         }]);
     }
 
-    const handleUpdate = (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
-        console.log(service);
-        service.map((x, i) => {
-            if (service[i].serviceId !== null) {
-                ClinicService.updateService(service[i], service.serviceId)
-                    .then((response) => {
-                        console.log(response.data)
-                        setOpen(true);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            } else {
-                ClinicService.addService(service[i])
-                    .then((response) => {
-                        console.log(response.data)
-                        setOpen(true);
-                        const updatedService = [...service];
-                        updatedService[i].serviceId = response.data;
-                        setService(updatedService);
-                    }).catch((error) => {
+        service.map(async (x, i) => {
+            if (!service[i].serviceId) {
+                try {
+                    const response = await ClinicService.addService(service[i]);
+                    console.log(response.data);
+                } catch (error) {
                     console.log(error);
-                });
+                    setSuccess(false);
+                }
+            } else {
+                try {
+                    const response = await ClinicService.updateService(service[i],service[i].serviceId);
+                    console.log(response.data);
+                } catch (error) {
+                    console.log(error);
+                    setSuccess(false);
+                }
             }
         })
+        if (success) setOpen(true);
     };
     return (
         <div className='clinic-page'>

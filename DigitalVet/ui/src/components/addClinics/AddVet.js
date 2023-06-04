@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Box, Button, Grid, Typography} from "@mui/material";
+import {Alert, Box, Button, Grid, Snackbar, Typography} from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,6 +13,8 @@ import {v4} from "uuid";
 import ClinicService from "../../services/ClinicService";
 
 function AddVet({vet, setVet, update}) {
+    const [open, setOpen] = useState(false);
+    const [success,setSuccess]=useState(true);
     const [state, setState] = useState([{
         imageUploaded: 0,
         selectedFile: null
@@ -84,6 +86,7 @@ function AddVet({vet, setVet, update}) {
                     console.log(response.data);
                 } catch (error) {
                     console.log(error);
+                    setSuccess(false);
                 }
             } else {
                 try {
@@ -91,12 +94,26 @@ function AddVet({vet, setVet, update}) {
                     console.log(response.data);
                 } catch (error) {
                     console.log(error);
+                    setSuccess(false);
                 }
             }
         })
+        if (success) setOpen(true);
     };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
     return (
         <div className="clinic-page">
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
+                    The veterinarians section has been successfully updated!
+                </Alert>
+            </Snackbar>
             <Box style={{width: '70%', textAlign: 'center'}}>
                 <Typography fontWeight="bold" sx={{marginTop: 3}}>Add veterinarians</Typography>
                 {
@@ -150,7 +167,7 @@ function AddVet({vet, setVet, update}) {
                                                  src={state[i].selectedFile ? state[i].selectedFile : vet[i].photo}
                                                  style={{width: 150, margin: 10}}/>
                                         )}
-                                        {vet[i].photo && !state[i].selectedFile && (
+                                        {vet[i].photo && !state[i] && (
                                             <img
                                                 alt="clinic-photo"
                                                 src={vet[i].photo}

@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Button, Grid, Stack, Typography} from "@mui/material";
+import {Alert, Box, Button, Grid, Snackbar, Stack, Typography} from "@mui/material";
 import {useState} from "react";
 import {
     ref,
@@ -11,6 +11,7 @@ import {v4} from "uuid";
 import ClinicService from "../../services/ClinicService";
 
 function CreateClinicPage({clinic, setClinic, update}) {
+    const [open, setOpen] = React.useState(false);
     const [state, setState] = useState({
         imageUploaded: 0,
         selectedFile: null
@@ -51,14 +52,27 @@ function CreateClinicPage({clinic, setClinic, update}) {
         ClinicService.updateClinic(clinic, clinic.clinicId)
             .then((response) => {
                 console.log(response)
+                setOpen(true);
             })
             .catch((error) => {
                 console.log(error);
             });
     };
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
     return (
         <div className="clinic-page">
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
+                    The clinic page has been successfully updated!
+                </Alert>
+            </Snackbar>
             <Box style={{width: '70%', textAlign: 'center'}}>
                 <Typography fontWeight="bold" sx={{margin: 3}}>Information for the Clinic Page</Typography>
                 <Box sx={{textAlign: 'start'}}>
