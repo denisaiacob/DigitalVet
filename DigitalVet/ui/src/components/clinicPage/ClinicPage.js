@@ -63,6 +63,8 @@ const PointerTypography = styled(Typography)({
 
 function ClinicPage() {
     const { clinicId } = useParams();
+    const [rating,setRating]=useState(5.0);
+    const [reviewsNumber,setReviewsNumber]=useState(0);
     const [clinic, setClinic] = useState({
         clinicId: clinicId,
         name: "",
@@ -74,17 +76,37 @@ function ClinicPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await ClinicService.getClinicById(clinicId);
-                setClinic(response.data);
+                const clinicResponse = await ClinicService.getClinicById(clinicId);
+                setClinic(clinicResponse.data);
+                const vetsResponse = await ClinicService.getVetsByClinicId(clinicId);
+                let count = 0;
+                let avg = 0;
+
+                const promises = vetsResponse.data.map(async (vet) => {
+                    const response = await ClinicService.getReviewByVetId(vet.vetId);
+                    response.data.map((review)=>{
+                        avg = avg + review.stars;
+                        count = count + 1;
+                    })
+                });
+
+                await Promise.all(promises);
+
+                if (count !== 0) {
+                    setReviewsNumber(count);
+                    setRating(parseFloat((avg / count).toFixed(1)));
+                }
             } catch (error) {
                 console.log(error);
             }
         };
-        fetchData();
+
+        fetchData().then();
     }, [clinicId]);
 
     const theme = useTheme();
     const [value, setValue] = useState(0);
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -125,11 +147,11 @@ function ClinicPage() {
                             <Grid item className="align-center">
                                 <Typography variant="h5" component="span">
                                     <StarIcon sx={{color: yellow[800]}}/>
-                                    5.0
+                                    {rating}
                                 </Typography>
                                 <Box sx={{maxWidth: 120}}>
                                     <PointerTypography>
-                                        30 Reviews
+                                        {reviewsNumber} Reviews
                                     </PointerTypography>
                                 </Box>
                             </Grid>

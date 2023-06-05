@@ -12,6 +12,8 @@ import {yellow, red, blue} from "@mui/material/colors";
 import StarIcon from '@mui/icons-material/Star';
 import {useHistory} from "react-router-dom";
 import avatar from "../../images/ClinicAvatar.png"
+import {useEffect, useState} from "react";
+import ClinicService from "../../services/ClinicService";
 
 const PointerTypography = styled(Typography)({
     cursor: 'pointer',
@@ -22,12 +24,43 @@ const PointerTypography = styled(Typography)({
 
 function ClinicBox({clinic}) {
     const history = useHistory();
+    const [rating,setRating]=useState(5.0);
+    const [reviewsNumber,setReviewsNumber]=useState(0);
     const handleReviews = () => {
         history.push("/");
     };
     const handleClinic = (clinicId) => {
         history.push(`/clinic/${clinicId}`);
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const vetsResponse = await ClinicService.getVetsByClinicId(clinic.clinicId);
+                let count = 0;
+                let avg = 0;
+
+                const promises = vetsResponse.data.map(async (vet) => {
+                    const response = await ClinicService.getReviewByVetId(vet.vetId);
+                    response.data.map((review)=>{
+                        avg = avg + review.stars;
+                        count = count + 1;
+                    })
+                });
+
+                await Promise.all(promises);
+
+                if (count !== 0) {
+                    setReviewsNumber(count);
+                    setRating(parseFloat((avg / count).toFixed(1)));
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData().then();
+    }, [clinic.clinicId]);
 
     return (
         <div key={clinic.clinicId} className="show-box">
@@ -62,11 +95,11 @@ function ClinicBox({clinic}) {
                         <Grid item className="align-center">
                             <Typography variant="h5" component="span">
                                 <StarIcon sx={{color: yellow[800]}}/>
-                                5.0
+                                {rating}
                             </Typography>
                             <Box sx={{maxWidth: 120}}>
                                 <PointerTypography onClick={handleReviews}>
-                                    30 Reviews
+                                    {reviewsNumber} Reviews
                                 </PointerTypography>
                             </Box>
                         </Grid>
