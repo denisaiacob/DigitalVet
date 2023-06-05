@@ -26,7 +26,6 @@ function SummaryReviews({vets}) {
 
                 const promises = vets.map(async (vet) => {
                     const response = await ClinicService.getReviewByVetId(vet.vetId);
-                    console.log(response.data);
                     response.data.map((review)=>{
                         avg = avg + review.stars;
                         count = count + 1;
@@ -36,7 +35,6 @@ function SummaryReviews({vets}) {
                 await Promise.all(promises);
 
                 if (count !== 0) {
-                    console.log(count);
                     setReviewNumber(count);
                     setAverage(parseFloat((avg / count).toFixed(1)));
                 }
@@ -45,7 +43,7 @@ function SummaryReviews({vets}) {
             }
         };
 
-        fetchData();
+        fetchData().then();
     }, [vets]);
 
 

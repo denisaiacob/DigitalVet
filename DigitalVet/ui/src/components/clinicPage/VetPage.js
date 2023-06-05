@@ -6,6 +6,9 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
 import Review from "./reviews/Review";
+import Reviews from "./reviews/Reviews";
+import SummaryReviews from "./reviews/SummaryReviews";
+import FilterByRating from "./reviews/FilterByRating";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',
@@ -100,7 +103,14 @@ function VetPage() {
                 <Typography sx={{ml: 4, mr: 3}}>"{vet.description}"</Typography>
             </Box>
             <div style={{marginTop: 20, marginBottom: 50,width:'65%'}}>
-                <StyledTypography>Reviews:</StyledTypography>
+                <Grid container spacing={2} direction="row">
+                    <Grid item>
+                        <SummaryReviews vets={[vet]}/>
+                    </Grid>
+                    <Grid item>
+                        <FilterByRating/>
+                    </Grid>
+                </Grid>
                 <Review vet={vet}/>
             </div>
         </div>
