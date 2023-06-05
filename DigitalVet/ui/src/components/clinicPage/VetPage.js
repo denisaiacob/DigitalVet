@@ -6,7 +6,6 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
 import Review from "./reviews/Review";
-import Reviews from "./reviews/Reviews";
 import SummaryReviews from "./reviews/SummaryReviews";
 import FilterByRating from "./reviews/FilterByRating";
 
@@ -29,6 +28,13 @@ function VetPage() {
         function: "",
         description: "",
         photo:""
+    });
+    const [checkedItems, setCheckedItems] = useState({
+        option5: true,
+        option4: true,
+        option3: true,
+        option2: true,
+        option1: true,
     });
 
     useEffect(() => {
@@ -108,10 +114,10 @@ function VetPage() {
                         <SummaryReviews vets={[vet]}/>
                     </Grid>
                     <Grid item>
-                        <FilterByRating/>
+                        <FilterByRating checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
                     </Grid>
                 </Grid>
-                <Review vet={vet}/>
+                <Review vet={vet} checkedItems={checkedItems}/>
             </div>
         </div>
     );

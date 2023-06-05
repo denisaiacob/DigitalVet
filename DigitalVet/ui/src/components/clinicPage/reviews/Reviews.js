@@ -23,6 +23,13 @@ function Reviews({clinicId}) {
         user: "",
         day: ""
     });
+    const [checkedItems, setCheckedItems] = useState({
+        option5: true,
+        option4: true,
+        option3: true,
+        option2: true,
+        option1: true,
+    });
 
     const handleAddReview = () => {
         setOpen(true);
@@ -78,12 +85,12 @@ function Reviews({clinicId}) {
                         <SummaryReviews vets={vets}/>
                     </Grid>
                     <Grid item>
-                        <FilterByRating/>
+                        <FilterByRating checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
                     </Grid>
                 </Grid>
                 {vets.map((vet) => (
                     <div key={vet.vetId}>
-                        <Review vet={vet}/>
+                        <Review vet={vet} checkedItems={checkedItems}/>
                     </div>
                 ))}
             </Box>

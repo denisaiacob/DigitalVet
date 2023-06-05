@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Card, Checkbox,FormGroup, Grid, Rating, Typography} from "@mui/material";
 import LinearProgress, {linearProgressClasses} from '@mui/material/LinearProgress';
 import {styled} from "@mui/material/styles";
-import {useState} from "react";
 
 const BorderLinearProgress = styled(LinearProgress)(({theme}) => ({
     height: 12,
@@ -21,18 +20,10 @@ const BorderLinearProgress = styled(LinearProgress)(({theme}) => ({
     },
 }));
 
-function FilterByRating(){
-    const [checkedItems, setCheckedItems] = useState({
-        option5: true,
-        option4: true,
-        option3: true,
-        option2: true,
-        option1: true,
-    });
+function FilterByRating({checkedItems,setCheckedItems}){
 
     const handleCheck = (event) => {
         setCheckedItems({...checkedItems, [event.target.name]: event.target.checked});
-        console.log(checkedItems);
     };
 
     return(
