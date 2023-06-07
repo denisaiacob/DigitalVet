@@ -14,10 +14,11 @@ import BusinessAcountSettings from "./components/editorMenu/BusinessAcountSettin
 import RequireAuth from "./hooks/RequireAuth";
 import Missing from "./components/wrongPath/Missing";
 import Unauthorized from "./components/wrongPath/Unauthorized";
+import FavoriteList from "./components/user/FavoriteList";
 
 const ROLES = {
     'User': 'user',
-    'Editor': 'business'
+    'Admin': 'business'
 }
 
 function App() {
@@ -38,8 +39,11 @@ function App() {
                         <Route path="clinic/:clinicId" element={<ClinicPage/>}/>
                         <Route path="clinic/vet/:vetId" element={<VetPage/>}/>
                     {/*</Route>*/}
+                    <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>
+                        <Route path='fav' element={<FavoriteList/>}/>
+                    </Route>
 
-                    <Route element={<RequireAuth allowedRoles={[ROLES.Editor]}/>}>
+                    <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>
                         <Route path='addClinic' element={<AddClinic/>}/>
                         <Route path='settings/:clinicId' element={<BusinessAcountSettings/>}/>
                     </Route>

@@ -133,8 +133,12 @@ function DrawerMenu() {
                                 sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
                                 component="nav"
                             >
-                                <ListItemButton color="inherit"
-                                                onClick={() => setOpenDrawer(!openDrawer)}>
+                                <ListItemButton
+                                    color="inherit"
+                                                onClick={() => setOpenDrawer(!openDrawer)}
+                                    component={Link} to={"/fav"}
+                                >
+
                                     <ListItemIcon>
                                         <FavoriteIcon/>
                                     </ListItemIcon>

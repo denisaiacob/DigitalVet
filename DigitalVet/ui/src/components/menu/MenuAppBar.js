@@ -116,7 +116,8 @@ function MenuAppBar() {
                                                     fullWidth
                                                     color="inherit"
                                                     startIcon={<FavoriteIcon/>}
-                                                    onClick={logout}
+                                                    component={Link} to={"/fav"}
+                                                    onClick={() => setAnchorEl(null)}
                                                 >
                                                     Favorite Clinics
                                                 </Button>
@@ -138,6 +139,7 @@ function MenuAppBar() {
                                                         color="inherit"
                                                         startIcon={<HomeIcon/>}
                                                         component={Link} to={`/settings/${auth.cId}`}
+                                                        onClick={() => setAnchorEl(null)}
                                                     >
                                                         Home
                                                     </Button>
@@ -159,7 +161,7 @@ function MenuAppBar() {
                                                     color="inherit"
                                                     component={Link} to="/login"
                                                     startIcon={<LoginIcon/>}
-                                                    onClick={handleClose}
+                                                    onClick={() => setAnchorEl(null)}
                                                 >
                                                     Login
                                                 </Button>
@@ -168,7 +170,7 @@ function MenuAppBar() {
                                                     color="inherit"
                                                     component={Link} to="/register"
                                                     startIcon={<PersonIcon/>}
-                                                    onClick={handleClose}
+                                                    onClick={() => setAnchorEl(null)}
                                                 >
                                                     Register
                                                 </Button>
