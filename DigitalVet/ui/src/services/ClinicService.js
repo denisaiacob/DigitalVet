@@ -10,6 +10,8 @@ const VETS_API_URL = "http://localhost:8070/api/v1/digitalVet/vets"
 const SERVICE_API_URL = "http://localhost:8070/api/v1/digitalVet/service"
 const SERVICES_API_URL = "http://localhost:8070/api/v1/digitalVet/services"
 const CLINIC_SERVICES_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic/services"
+const FAVORITE_USER_API_URL="http://localhost:8070/api/v1/digitalVet/user"
+const FAVORITE_API_URL="http://localhost:8070/api/v1/digitalVet/fav"
 
 class ClinicService {
     addClinic(clinic) {
@@ -31,6 +33,9 @@ class ClinicService {
     addAdmin(admin) {
         return axios.post(CLINIC_ADMIN_API_URL, admin);
     }
+    addFavorites(userId,clinic){
+        return axios.post(FAVORITE_USER_API_URL+ "/" + userId + "/fav",clinic)
+    }
 
     getAllClinics(){
         return axios.get(CLINIC_API_URL);
@@ -47,7 +52,9 @@ class ClinicService {
     getClinicById(id) {
         return axios.get(CLINIC_API_URL + "/" + id);
     }
-
+    getAllFavoriteByUser(userId){
+        return axios.get(FAVORITE_USER_API_URL+ "/" + userId + "/fav")
+    }
     getServiceById(id) {
         return axios.get(SERVICE_API_URL + "/" + id);
     }
@@ -70,6 +77,10 @@ class ClinicService {
 
     deleteVet(id) {
         return axios.delete(VET_API_URL + "/" + id);
+    }
+
+    deleteFavorites(id){
+        return axios.delete(FAVORITE_API_URL+ "/" + id)
     }
 
     deleteService(id) {

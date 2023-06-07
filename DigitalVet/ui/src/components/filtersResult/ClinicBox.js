@@ -28,6 +28,8 @@ function ClinicBox({clinic}) {
     const [rating, setRating] = useState(5.0);
     const [reviewsNumber, setReviewsNumber] = useState(0);
     const {auth} = useAuth();
+    const [checked, setChecked] = React.useState(false);
+    const [favoriteId, setFavoriteId] = useState(null);
     const handleReviews = () => {
         navigate("/");
     };
@@ -60,9 +62,42 @@ function ClinicBox({clinic}) {
                 console.log(error);
             }
         };
-
-        fetchData().then();
+        const fetchFavorites = async () => {
+            try {
+                const response = await ClinicService.getAllFavoriteByUser(auth?.user.id);
+                const favorites = response.data;
+                if (favorites.find(c => parseInt(c.clinicId) === parseInt(clinic.clinicId))) {
+                    setFavoriteId(favorites.find(c => parseInt(c.clinicId) === parseInt(clinic.clinicId)).id)
+                    setChecked(true);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        if (clinic.clinicId) {
+            fetchData().then();
+            if (auth?.user) fetchFavorites().then();
+        }
     }, [clinic.clinicId]);
+
+    const handleFavorite = async () => {
+        if (checked) {
+            try {
+                const response = await ClinicService.deleteFavorites(favoriteId);
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            try {
+                const c = {clinicId: clinic.clinicId};
+                const response = await ClinicService.addFavorites(auth?.user.id, c);
+                setFavoriteId(response.data.id);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        setChecked(!checked);
+    };
 
     return (
         <div key={clinic.clinicId} className="show-box">
@@ -117,6 +152,8 @@ function ClinicBox({clinic}) {
                                 }}
                                 icon={<FavoriteBorder/>}
                                 checkedIcon={<Favorite/>}
+                                checked={checked}
+                                onChange={handleFavorite}
                             />)}
                     </Grid>
                 </Grid>

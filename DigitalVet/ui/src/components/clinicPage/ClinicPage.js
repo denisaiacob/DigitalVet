@@ -64,9 +64,11 @@ const PointerTypography = styled(Typography)({
 
 function ClinicPage() {
     const {clinicId} = useParams();
+    const [favoriteId, setFavoriteId] = useState(null);
     const {auth} = useAuth();
     const [rating, setRating] = useState(5.0);
     const [reviewsNumber, setReviewsNumber] = useState(0);
+    const [checked, setChecked] = React.useState(false);
     const [clinic, setClinic] = useState({
         clinicId: clinicId,
         name: "",
@@ -102,8 +104,23 @@ function ClinicPage() {
                 console.log(error);
             }
         };
+        const fetchFavorites = async () => {
+            try {
+                const response = await ClinicService.getAllFavoriteByUser(auth?.user.id);
+                const favorites = response.data;
+                if (favorites.find(clinic => parseInt(clinic.clinicId) === parseInt(clinicId))) {
+                    setFavoriteId(favorites.find(clinic => parseInt(clinic.clinicId) === parseInt(clinicId)).id)
+                    setChecked(true);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
 
-        if (clinicId) fetchData().then();
+        if (clinicId) {
+            fetchData().then();
+            if (auth?.user) fetchFavorites().then();
+        }
     }, [clinicId]);
 
     const theme = useTheme();
@@ -114,6 +131,24 @@ function ClinicPage() {
     };
     const handleChangeIndex = (index) => {
         setValue(index);
+    };
+    const handleFavorite = async () => {
+        if (checked) {
+            try {
+                const response = await ClinicService.deleteFavorites(favoriteId);
+            } catch (error) {
+                console.log(error);
+            }
+        }else {
+            try {
+                const c = {clinicId: clinicId};
+                const response = await ClinicService.addFavorites(auth?.user.id, c);
+                setFavoriteId(response.data.id);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        setChecked(!checked);
     };
     return (
         <div className="clinic-page">
@@ -169,6 +204,8 @@ function ClinicPage() {
                                     }}
                                     icon={<FavoriteBorder/>}
                                     checkedIcon={<Favorite/>}
+                                    checked={checked}
+                                    onChange={handleFavorite}
                                 />
                             )}
                         </Grid>
