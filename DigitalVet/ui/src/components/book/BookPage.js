@@ -4,30 +4,29 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DemoContainer, DemoItem} from "@mui/x-date-pickers/internals/demo";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs, {Dayjs} from "dayjs";
-import {Badge, Box, FormControl, Stack, TextField} from "@mui/material";
-import {addMonths, isSameDay} from "date-fns";
+import {Box, FormControl, Stack} from "@mui/material";
+import {addMonths} from "date-fns";
 import {MultiSectionDigitalClock} from '@mui/x-date-pickers/MultiSectionDigitalClock';
-import {PickersDay, TimeView} from "@mui/x-date-pickers";
+import {TimeView} from "@mui/x-date-pickers";
 
 function BookPage({timeSteps}) {
     const [date, setDate] = React.useState(null);
     const [time, setTime] = React.useState(dayjs());
     const maxDate = String(addMonths(new Date(), 3));
 
-    // const shouldDisableDate = (date) => {
-    //     // Define your disabled dates
-    //     const disabledDates = [
-    //         new Date('2023-06-15'),
-    //         new Date('2023-06-16'),
-    //     ];
-    //
-    //     // Check if the given date is included in the disabled dates
-    //     return disabledDates.some((disabledDate) => {
-    //         return date.getDate() === disabledDate.getDate()
-    //             && date.getMonth() === disabledDate.getMonth()
-    //             && date.getFullYear() === disabledDate.getFullYear();
-    //     });
-    // };
+    const shouldDisableDate = (date) => {
+        const disabledDates = [
+            new Date('2023-07-15'),
+            new Date('2023-07-16'),
+        ];
+        const inputDate = new Date(date);
+        return disabledDates.some((disabledDate) => {
+            return inputDate.getDate() === disabledDate.getDate()
+                && inputDate.getMonth() === disabledDate.getMonth()
+                && inputDate.getFullYear() === disabledDate.getFullYear();
+        });
+    };
+
 
     const shouldDisableTime = (value: Dayjs, view: TimeView) => {
         const hour = value.hour();
@@ -58,7 +57,7 @@ function BookPage({timeSteps}) {
                                         disablePast
                                         maxDate={dayjs(maxDate)}
                                         views={['day']}
-                                        // shouldDisableDate={(newValue) => shouldDisableDate(newValue)}
+                                        shouldDisableDate={(newValue) => shouldDisableDate(newValue)}
                                     />
                                 </DemoItem>
                             </DemoContainer>

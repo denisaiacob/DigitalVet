@@ -70,7 +70,6 @@ function RegisterForm({role}) {
         const register = async () => {
             if (Object.keys(formErrors).length === 0 && isSubmit) {
                 UserService.register((userInfo)).then((response) => {
-                    console.log(response.data);
                     if (response.data) {
                         const roles=[role];
                         if (role === "business") {
@@ -85,11 +84,11 @@ function RegisterForm({role}) {
                         setOpen(true);
                         reset();
                     }
-                }).catch((error) => {
-                    console.log(error);
+                }).catch(() => {
+                    setOpen(true);
+                    reset();
                 });
             } else {
-                console.log(confirmPassword);
                 reset();
             }
         };
@@ -147,7 +146,7 @@ function RegisterForm({role}) {
         <div>
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                    There was an issue with the registration!
+                    There was an issue with the registration!Try another email!
                 </Alert>
             </Snackbar>
             <Box

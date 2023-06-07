@@ -39,8 +39,8 @@ function AddServices({service, setService, vets, update}) {
             clinicId:service[0].clinicId,
             vetId: "",
             name: "",
-            price: null,
-            minutes: null
+            price: "",
+            minutes: ""
         }]);
     }
 
@@ -152,12 +152,12 @@ function AddServices({service, setService, vets, update}) {
                                 <div>
                                     {
                                         service.length !== 1 &&
-                                        <IconButton size="large" onClick={handleRemove(i)}>
+                                        <IconButton size="large" onClick={() => handleRemove(i)}>
                                             <DeleteIcon fontSize="inherit"/>
                                         </IconButton>
                                     }
                                     {service.length - 1 === i &&
-                                        <IconButton size="large" onClick={handleAddClick}>
+                                        <IconButton size="large" onClick={() => handleAddClick()}>
                                             <AddCircleOutlineIcon fontSize="inherit"/>
                                         </IconButton>
                                     }

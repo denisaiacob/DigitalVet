@@ -187,12 +187,12 @@ function AddVet({vet, setVet, update}) {
                                 <div>
                                     {
                                         vet.length !== 1 &&
-                                        <IconButton size="large" onClick={handleRemove(i)}>
+                                        <IconButton size="large" onClick={() => handleRemove(i)}>
                                             <DeleteIcon fontSize="inherit"/>
                                         </IconButton>
                                     }
                                     {vet.length - 1 === i &&
-                                        <IconButton size="large" onClick={handleAddClick}>
+                                        <IconButton size="large" onClick={() => handleAddClick()}>
                                             <AddCircleOutlineIcon fontSize="inherit"/>
                                         </IconButton>
                                     }
