@@ -3,6 +3,7 @@ package com.digitalvet.backend.services;
 import com.digitalvet.backend.entity.UserEntity;
 import com.digitalvet.backend.model.UserDto;
 import com.digitalvet.backend.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,26 +36,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(UserDto userDto) {
+    public Optional<UserEntity> loginUser(UserDto userDto) {
         UserEntity userEntity = userRepository.findByEmail(userDto.getEmail());
         if (userEntity != null) {
             String password = userDto.getPassword();
             String encodedPassword = userEntity.getPassword();
             boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
             if (Boolean.TRUE.equals(isPwdRight)) {
-                Optional<UserEntity> employee = userRepository.findOneByEmailAndPassword(userDto.getEmail(), encodedPassword);
-                if (employee.isPresent()) {
-                    return "Success";
-                } else {
-                    return "Failed";
-                }
-            } else {
-
-                return "Password not match";
-            }
-        }else {
-            return "Email not exist";
-        }
-
+                Optional<UserEntity> user = userRepository.findOneByEmailAndPassword(userDto.getEmail(), encodedPassword);
+                if (user.isPresent()) {
+                    return user;
+                }}}
+        throw new EntityNotFoundException("User not found");
     }
 }

@@ -11,7 +11,7 @@ import {useEffect, useState} from "react";
 import SwipeableViews from "react-swipeable-views";
 import Description from "./Description";
 import Program from "./Program";
-import Reviews from "./reviews/Reviews";
+import ReviewsPart from "./reviews/ReviewsPart";
 import Services from "./services/Services";
 import ClinicService from "../../services/ClinicService";
 import avatar from "../../images/ClinicAvatar.png";
@@ -220,7 +220,7 @@ function ClinicPage() {
                         index={3}
                         dir={theme.direction}
                     >
-                        <Reviews clinicId={clinicId}/>
+                        <ReviewsPart clinicId={clinicId}/>
                     </TabPanel>
                 </SwipeableViews>
             </Box>

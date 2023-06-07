@@ -19,8 +19,10 @@ import AddProgram from "./AddProgram";
 import AddServices from "./AddServices";
 import AddVet from "./AddVet";
 import AddClinicService from "../../services/ClinicService";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Link} from "react-router-dom";
+import AuthContext from "../../context/AuthProvider";
+import useAuth from "../../hooks/UseAuth";
 
 
 const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add veterinarians', 'Add services'];
@@ -91,7 +93,8 @@ QontoStepIcon.propTypes = {
 function AddClinic() {
     const [createClinic, setCreateClinic] = useState(false)
     const [clinicId,setClinicId]=useState(null)
-    // const [vetsId,setVetsId]=useState([])
+    const { setAuth } = useContext(AuthContext);
+    const { auth } = useAuth();
     const [clinic, setClinic] = useState({
         name: "",
         city: "",
@@ -146,6 +149,10 @@ function AddClinic() {
         price:"",
         minutes:""
     }])
+    const [admin,setAdmin]=useState({
+        clinicId:null,
+        userId:null
+    })
 
     const [activeStep, setActiveStep] = React.useState(0);
 
@@ -158,7 +165,8 @@ function AddClinic() {
     };
     const handleProgram = (clinicId) => {
         setClinicId(clinicId);
-        setProgramSubmit((prevProgramSubmit) => ({
+
+        setProgramSubmit(() => ({
             clinicId: clinicId,
             months: program.months1 + "-" + program.months2,
             tuesday: program.tuesday1 + "-" + program.tuesday2,
@@ -188,6 +196,11 @@ function AddClinic() {
                 return newList;
             })
         });
+
+        setAdmin(() => ({
+            clinicId: clinicId,
+            userId: auth?.user.id
+        }));
     };
 
     const handleCreateClinic = (event) => {
@@ -202,7 +215,7 @@ function AddClinic() {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = () => {
         setCreateClinic(false);
         vet.map((x, i) => {
             AddClinicService.addVet((vet[i])).then((response) => {
@@ -220,6 +233,15 @@ function AddClinic() {
         });
         AddClinicService.addProgram((programSubmit)).then((response) => {
             console.log(response.data);
+        }).catch((error) => {
+            console.log(error);
+        })
+        AddClinicService.addAdmin((admin)).then((response)=>{
+            console.log(response.data);
+            const user= auth?.user;
+            const roles= auth?.roles;
+            const cId = response.data;
+            setAuth({user,roles,cId})
         }).catch((error) => {
             console.log(error);
         })

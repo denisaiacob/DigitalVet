@@ -6,7 +6,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {addMonths} from "date-fns";
 import dayjs from 'dayjs';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import ClinicService from "../../services/ClinicService";
 
 const MenuProps = {
@@ -18,7 +18,7 @@ const MenuProps = {
 };
 
 function ServiceFilter({setOpen}) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const initialValues = {
         location: "",
         service: "",
@@ -41,7 +41,7 @@ function ServiceFilter({setOpen}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validate(formValues)) {
-            history.push({
+            navigate({
                 pathname: '/show',
                 search: `?location=${formValues.location}&service=${formValues.service}&date=${formValues.date}`,
             });
@@ -72,10 +72,7 @@ function ServiceFilter({setOpen}) {
     }, []);
 
     const validate = (values) => {
-        if (!values.location && !values.service && !values.date) {
-            return false;
-        }
-        return true;
+        return !(!values.location && !values.service && !values.date);
     };
 
     const buttonStyle = {

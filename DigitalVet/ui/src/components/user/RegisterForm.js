@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Link, useHistory} from 'react-router-dom';
+import React, {useContext, useEffect, useState} from "react";
+import {Link, useNavigate} from 'react-router-dom';
 import {
     TextField,
     Stack,
@@ -7,15 +7,17 @@ import {
     Box, Typography, Snackbar, Alert
 } from "@mui/material";
 import UserService from "../../services/UserService";
+import AuthContext from "../../context/AuthProvider";
 
 function RegisterForm({role}) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const[confirmPassword,setConfirmPassword]=useState("");
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
     const [open, setOpen] = React.useState(false);
+    const { setAuth } = useContext(AuthContext);
 
-    const [user, setUser] = useState({
+    const [userInfo, setUserInfo] = useState({
         firstName: "",
         lastName: "",
         email: "",
@@ -25,34 +27,34 @@ function RegisterForm({role}) {
 
     const reset = () => {
         if (formErrors.firstName)
-            setUser((prev) => ({
+            setUserInfo((prev) => ({
             ...prev,
             firstName: "",
         }));
         if (formErrors.lastName)
-            setUser((prev) => ({
+            setUserInfo((prev) => ({
                 ...prev,
                 lastName: "",
             }));
         if (formErrors.email)
-            setUser((prev) => ({
+            setUserInfo((prev) => ({
                 ...prev,
                 email: "",
             }));
         if (formErrors.password)
-            setUser((prev) => ({
+            setUserInfo((prev) => ({
                 ...prev,
                 password: "",
             }));
         if (formErrors.confirmPassword)
             setConfirmPassword("");
         if(open) {
-            setUser({
+            setUserInfo({
                 firstName: "",
                 lastName: "",
                 email: "",
                 password: "",
-                role: role
+                role: role,
             });
             setConfirmPassword("");
         }
@@ -60,19 +62,25 @@ function RegisterForm({role}) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setFormErrors(validate(user));
+        setFormErrors(validate(userInfo));
         setIsSubmit(true);
     };
 
     useEffect(() => {
         const register = async () => {
             if (Object.keys(formErrors).length === 0 && isSubmit) {
-                UserService.register((user)).then((response) => {
+                UserService.register((userInfo)).then((response) => {
                     console.log(response.data);
                     if (response.data) {
+                        const roles=[role];
                         if (role === "business") {
-                            history.push("/addClinic");
-                        } else history.push("/");
+                            const user={...userInfo,id:response.data}
+                            setAuth({ user, roles });
+                            navigate("/addClinic");
+                        } else {
+                            setAuth({ userInfo, roles });
+                            navigate("/");
+                        }
                     } else {
                         setOpen(true);
                         reset();
@@ -118,7 +126,7 @@ function RegisterForm({role}) {
 
     const handleChange = (event) => {
         const value = event.target.value;
-        setUser({...user, [event.target.name]: value});
+        setUserInfo({...userInfo, [event.target.name]: value});
     };
 
     const buttonStyle = {
@@ -161,7 +169,7 @@ function RegisterForm({role}) {
                             id="firstName"
                             name="firstName"
                             label="First name"
-                            value={user.firstName}
+                            value={userInfo.firstName}
                             onChange={(event) => handleChange(event)}
                             margin='normal'
                             autoComplete='off'
@@ -177,7 +185,7 @@ function RegisterForm({role}) {
                             id="lastName"
                             name="lastName"
                             label="Last name"
-                            value={user.lastName}
+                            value={userInfo.lastName}
                             onChange={(event) => handleChange(event)}
                             margin='normal'
                             autoComplete='off'
@@ -194,7 +202,7 @@ function RegisterForm({role}) {
                     label="Email"
                     name="email"
                     type="email"
-                    value={user.email}
+                    value={userInfo.email}
                     onChange={(event) => handleChange(event)}
                     margin='normal'
                     autoComplete='off'
@@ -209,7 +217,7 @@ function RegisterForm({role}) {
                     label="Password"
                     name="password"
                     type="password"
-                    value={user.password}
+                    value={userInfo.password}
                     onChange={(event) => handleChange(event)}
                     margin='normal'
                     autoComplete='off'

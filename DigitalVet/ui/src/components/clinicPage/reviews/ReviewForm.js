@@ -3,6 +3,7 @@ import {Box, FormControl, InputLabel, MenuItem, Rating, Select, Stack, TextField
 import StarIcon from "@mui/icons-material/Star";
 import {useEffect} from "react";
 import ClinicService from "../../../services/ClinicService";
+import useAuth from "../../../hooks/UseAuth";
 
 const MenuProps = {
     PaperProps: {
@@ -32,6 +33,7 @@ function ReviewForm({clinicId, vets,setReview}) {
     });
     const [services, setServices] = React.useState([]);
     const [description,setDescription]=React.useState("");
+    const {auth} = useAuth();
 
     const handleChangeVet = (e) => {
         const value = e.target.value;
@@ -39,7 +41,7 @@ function ReviewForm({clinicId, vets,setReview}) {
         setReview((prevReview) => ({
             ...prevReview,
             vetId: value.vetId,
-            user:"Name",
+            user:auth.user.firstName,
             day:new Date(),
         }));
     };

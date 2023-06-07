@@ -25,7 +25,7 @@ function AddVet({vet, setVet, update}) {
         const imageUpload = event.target.files[0];
         const reader = new FileReader();
 
-        reader.onloadend = function (e) {
+        reader.onloadend = function () {
             setState(prevState => {
                 const newState = [...prevState];
                 newState[index] = {
@@ -187,7 +187,7 @@ function AddVet({vet, setVet, update}) {
                                 <div>
                                     {
                                         vet.length !== 1 &&
-                                        <IconButton size="large" onClick={handleRemove}>
+                                        <IconButton size="large" onClick={handleRemove(i)}>
                                             <DeleteIcon fontSize="inherit"/>
                                         </IconButton>
                                     }

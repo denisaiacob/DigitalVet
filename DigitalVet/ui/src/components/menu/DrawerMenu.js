@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {
     Drawer,
     IconButton,
@@ -14,15 +14,29 @@ import {
     Box
 } from "@mui/material";
 import logo from "../../images/Logo.png";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import AuthContext from "../../context/AuthProvider";
+import useAuth from "../../hooks/UseAuth";
+import LogoutIcon from "@mui/icons-material/Logout";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HomeIcon from "@mui/icons-material/Home";
 
 function DrawerMenu() {
     const [openDrawer, setOpenDrawer] = useState(false);
+    const {setAuth} = useContext(AuthContext);
+    const {auth} = useAuth();
+    const navigate = useNavigate();
+
+    const logout = async () => {
+        setAuth({});
+        navigate('/login');
+        setOpenDrawer(false);
+    }
 
     const FireNav = styled(List)({
         '& .MuiListItemButton-root': {
@@ -66,49 +80,102 @@ function DrawerMenu() {
                         />
                     </Stack>
                     <Divider/>
-                    <List
-                        sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
-                        component="nav"
-                        aria-labelledby="nested-list-subheader"
-                        subheader={
-                            <ListSubheader component="div" id="nested-list-subheader">
-                                Log in
-                            </ListSubheader>
-                        }
-                    >
-                        <ListItemButton color="inherit" component={Link} to="/register"
-                                        onClick={() => setOpenDrawer(!openDrawer)}>
-                            <ListItemIcon>
-                                <PersonIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="Register"/>
-                        </ListItemButton>
-                        <ListItemButton color="inherit" component={Link} to="/login"
-                                        onClick={() => setOpenDrawer(!openDrawer)}>
-                            <ListItemIcon>
-                                <LoginIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="Login"/>
-                        </ListItemButton>
-                    </List>
-                    <Divider/>
-                    <List
-                        sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
-                        component="nav"
-                        aria-labelledby="nested-list-subheader"
-                        subheader={
-                            <ListSubheader component="div" id="nested-list-subheader">
-                                Add
-                            </ListSubheader>
-                        }
-                    >
-                        <ListItemButton component={Link} to="/business">
-                            <ListItemIcon>
-                                <AddBoxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="Add your cabinet"/>
-                        </ListItemButton>
-                    </List>
+                    {!auth?.user && (
+                        <div>
+                            <List
+                                sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                                component="nav"
+                                aria-labelledby="nested-list-subheader"
+                                subheader={
+                                    <ListSubheader component="div" id="nested-list-subheader">
+                                        Log in
+                                    </ListSubheader>
+                                }
+                            >
+                                <ListItemButton color="inherit" component={Link} to="/register"
+                                                onClick={() => setOpenDrawer(!openDrawer)}>
+                                    <ListItemIcon>
+                                        <PersonIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Register"/>
+                                </ListItemButton>
+                                <ListItemButton color="inherit" component={Link} to="/login"
+                                                onClick={() => setOpenDrawer(!openDrawer)}>
+                                    <ListItemIcon>
+                                        <LoginIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Login"/>
+                                </ListItemButton>
+                            </List>
+                            <Divider/>
+                            <List
+                                sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                                component="nav"
+                                aria-labelledby="nested-list-subheader"
+                                subheader={
+                                    <ListSubheader component="div" id="nested-list-subheader">
+                                        Add
+                                    </ListSubheader>
+                                }
+                            >
+                                <ListItemButton component={Link} to="/business">
+                                    <ListItemIcon>
+                                        <AddBoxIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Add your cabinet"/>
+                                </ListItemButton>
+                            </List>
+                        </div>
+                    )}
+                    {auth?.roles?.find(role => role === 'user') && (
+                        <div>
+                            <List
+                                sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                                component="nav"
+                            >
+                                <ListItemButton color="inherit"
+                                                onClick={() => setOpenDrawer(!openDrawer)}>
+                                    <ListItemIcon>
+                                        <FavoriteIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Favorite Clinics"/>
+                                </ListItemButton>
+                                <ListItemButton color="inherit"
+                                                onClick={logout}>
+                                    <ListItemIcon>
+                                        <LogoutIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Logout"/>
+                                </ListItemButton>
+                            </List>
+                        </div>
+                    )}
+                    {auth?.roles?.find(role => role === 'business') && (
+                        <div>
+                            <List
+                                sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
+                                component="nav"
+                            >
+                                <ListItemButton
+                                    color="inherit"
+                                    component={Link} to={`/settings/${auth.cId}`}
+                                    onClick={() => setOpenDrawer(!openDrawer)}
+                                >
+                                    <ListItemIcon>
+                                        <HomeIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Home"/>
+                                </ListItemButton>
+                                <ListItemButton color="inherit"
+                                                onClick={logout}>
+                                    <ListItemIcon>
+                                        <LogoutIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Logout"/>
+                                </ListItemButton>
+                            </List>
+                        </div>
+                    )}
                 </FireNav>
 
             </Drawer>

@@ -10,7 +10,7 @@ import {
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import {yellow, red, blue} from "@mui/material/colors";
 import StarIcon from '@mui/icons-material/Star';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import avatar from "../../images/ClinicAvatar.png"
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
@@ -23,14 +23,14 @@ const PointerTypography = styled(Typography)({
 });
 
 function ClinicBox({clinic}) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [rating,setRating]=useState(5.0);
     const [reviewsNumber,setReviewsNumber]=useState(0);
     const handleReviews = () => {
-        history.push("/");
+        navigate("/");
     };
     const handleClinic = (clinicId) => {
-        history.push(`/clinic/${clinicId}`);
+        navigate(`/clinic/${clinicId}`);
     };
 
     useEffect(() => {

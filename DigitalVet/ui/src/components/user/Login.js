@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {
     TextField,
     Stack,
@@ -8,31 +8,37 @@ import {
     Typography,
     Box, Alert, Snackbar
 } from "@mui/material";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import UserService from "../../services/UserService";
+import AuthContext from "../../context/AuthProvider";
+import ClinicService from "../../services/ClinicService";
 
 function Login() {
-    const history = useHistory();
-    const [user, setUser] = useState({
+    const navigate = useNavigate();
+
+    const [userInfo, setUserInfo] = useState({
         email: "",
         password: "",
     })
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
     const [open, setOpen] = React.useState(false);
+
+    const {setAuth} = useContext(AuthContext);
+
     const reset = () => {
         if (formErrors.email && !formErrors.password)
-            setUser((prev) => ({
+            setUserInfo((prev) => ({
                 ...prev,
                 email: "",
             }));
         else if (formErrors.password && !formErrors.email)
-            setUser((prev) => ({
+            setUserInfo((prev) => ({
                 ...prev,
                 password: "",
             }));
         else
-            setUser({
+            setUserInfo({
                 email: "",
                 password: "",
             });
@@ -40,21 +46,39 @@ function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setFormErrors(validate(user));
+        setFormErrors(validate(userInfo));
         setIsSubmit(true);
     };
 
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            UserService.login((user)).then((response) => {
-                console.log(response.data);
-                if (response.data === 'Succes') history.push("/");
-                else {
+            UserService.login((userInfo)).then(async (response) => {
+                if (response.data) {
+                    const user = response.data;
+                    const roles = [user.role];
+                    if (user.role === 'user') {
+                        setAuth({user, roles});
+                        navigate("/");
+                    } else {
+                        try {
+                            const adminResponse = await ClinicService.getAdmin(user.id);
+                            const cId = adminResponse.data.clinicId;
+                            setAuth({user, roles, cId});
+                            navigate(`/settings/${cId}`);
+                        }catch (error) {
+                            setAuth({user, roles});
+                            navigate("/addClinic");
+                        }
+                    }
+                    // const accessToken = response?.data?.accessToken;
+                    // console.log(accessToken,roles);
+                } else {
                     setOpen(true);
                     reset();
                 }
-            }).catch((error) => {
-                console.log(error);
+            }).catch(() => {
+                setOpen(true);
+                reset();
             });
         } else {
             reset();
@@ -80,7 +104,7 @@ function Login() {
 
     const handleChange = (event) => {
         const value = event.target.value;
-        setUser({...user, [event.target.name]: value});
+        setUserInfo({...userInfo, [event.target.name]: value});
     };
     const buttonStyle = {
         backgroundColor: '#54d6be',
@@ -142,7 +166,7 @@ function Login() {
                                 label="Email"
                                 name="email"
                                 type="email"
-                                value={user.email}
+                                value={userInfo.email}
                                 onChange={(event) => handleChange(event)}
                                 margin='normal'
                                 color={"info"}
@@ -156,7 +180,7 @@ function Login() {
                                 label="Password"
                                 name="password"
                                 type="password"
-                                value={user.password}
+                                value={userInfo.password}
                                 onChange={(event) => handleChange(event)}
                                 margin='normal'
                                 color={"info"}

@@ -4,8 +4,7 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import {FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Stack} from "@mui/material";
+import {FormControl, FormControlLabel, Radio, RadioGroup, Typography} from "@mui/material";
 import "../../App.css";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
@@ -85,36 +84,36 @@ function LeftSide({initialValues,setInitialValues}) {
                 console.log(error);
             }
         };
-        fetchClinics();
-        fetchServices();
+        fetchClinics().then();
+        fetchServices().then();
     }, []);
 
     return (
         <div>
             <RoundedTypography variant="h5" sx={{marginTop: 3, marginBottom: 1}}> Search filters</RoundedTypography>
-            <Accordion>
-                <AccordionSummary aria-controls="panel1-content" id="panel1-content">
-                    <Typography>Sort by</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <div className="radio-group-container" align="start">
-                        <FormControl component="fieldset">
-                            <RadioGroup
-                                name="sort"
-                                aria-labelledby="sort"
-                                value={initialValues.sort}
-                                onChange={handleChange}
-                            >
-                                <FormControlLabel value="rating" control={<Radio size={"small"}/>} label="Rating"/>
-                                <FormControlLabel value="low" control={<Radio size={"small"}/>}
-                                                  label="The lowest price"/>
-                                <FormControlLabel value="high" control={<Radio size={"small"}/>}
-                                                  label="The highest price"/>
-                            </RadioGroup>
-                        </FormControl>
-                    </div>
-                </AccordionDetails>
-            </Accordion>
+            {/*<Accordion>*/}
+            {/*    <AccordionSummary aria-controls="panel1-content" id="panel1-content">*/}
+            {/*        <Typography>Sort by</Typography>*/}
+            {/*    </AccordionSummary>*/}
+            {/*    <AccordionDetails>*/}
+            {/*        <div className="radio-group-container" align="start">*/}
+            {/*            <FormControl component="fieldset">*/}
+            {/*                <RadioGroup*/}
+            {/*                    name="sort"*/}
+            {/*                    aria-labelledby="sort"*/}
+            {/*                    value={initialValues.sort}*/}
+            {/*                    onChange={handleChange}*/}
+            {/*                >*/}
+            {/*                    <FormControlLabel value="rating" control={<Radio size={"small"}/>} label="Rating"/>*/}
+            {/*                    <FormControlLabel value="low" control={<Radio size={"small"}/>}*/}
+            {/*                                      label="The lowest price"/>*/}
+            {/*                    <FormControlLabel value="high" control={<Radio size={"small"}/>}*/}
+            {/*                                      label="The highest price"/>*/}
+            {/*                </RadioGroup>*/}
+            {/*            </FormControl>*/}
+            {/*        </div>*/}
+            {/*    </AccordionDetails>*/}
+            {/*</Accordion>*/}
             <Accordion>
                 <AccordionSummary aria-controls="panel2-content" id="panel2-content">
                     <Typography>Choose the location</Typography>

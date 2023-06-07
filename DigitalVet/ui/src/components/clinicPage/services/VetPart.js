@@ -1,7 +1,7 @@
 import {Avatar, Box, Stack, Typography} from "@mui/material";
 import avatar from "../../../images/avatar.jpg";
 import {styled} from "@mui/material/styles";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const StyledTypography = styled(Typography)({
     fontFamily: 'Optima',
@@ -13,9 +13,9 @@ const StyledTypography = styled(Typography)({
 });
 
 function VetPart({vet}) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const handleVet = () => {
-        history.push(`/clinic/vet/${vet.vetId}`);
+        navigate(`/clinic/vet/${vet.vetId}`);
     };
 
     return (

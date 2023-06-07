@@ -1,9 +1,11 @@
 package com.digitalvet.backend.controller;
 
+import com.digitalvet.backend.entity.UserEntity;
 import com.digitalvet.backend.model.UserDto;
 import com.digitalvet.backend.services.UserService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -21,9 +23,8 @@ public class UserController {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String>login(@RequestBody UserDto userDto){
-        String loginMessage= userService.loginUser(userDto);
-        return ResponseEntity.ok(loginMessage);
+    public Optional<UserEntity> login(@RequestBody UserDto userDto){
+        return userService.loginUser(userDto);
     }
-}
 
+}

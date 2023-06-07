@@ -16,4 +16,6 @@ public interface ServiceService {
     List<ServiceDto> getServiceByClinicId(Long aLong);
 
     List<ServiceDto> getAllServices();
+
+    boolean deleteService(Long id);
 }

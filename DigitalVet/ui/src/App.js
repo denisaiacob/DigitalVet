@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Route, BrowserRouter} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Login from "./components/user/Login";
 import MenuAppBar from "./components/menu/MenuAppBar";
 import Filter from "./components/filter/Filter";
@@ -10,27 +10,45 @@ import ShowClinics from "./components/filtersResult/ShowClinics";
 import ClinicPage from "./components/clinicPage/ClinicPage";
 import VetPage from "./components/clinicPage/VetPage";
 import AddClinic from "./components/addClinics/AddClinic";
-import BusinessAcountSettings from "./components/settings/BusinessAcountSettings";
-import BookPage from "./components/book/BookPage";
+import BusinessAcountSettings from "./components/editorMenu/BusinessAcountSettings";
+import RequireAuth from "./hooks/RequireAuth";
+import Missing from "./components/wrongPath/Missing";
+import Unauthorized from "./components/wrongPath/Unauthorized";
+
+const ROLES = {
+    'User': 'user',
+    'Editor': 'business'
+}
 
 function App() {
     return (
-        <BrowserRouter>
-            <div className="App">
-                <MenuAppBar/>
-                <header className="App-header">
-                    <Route exact path='/' component={Filter}/>
-                    <Route exact path='/login' component={Login}/>
-                    <Route exact path='/register' component={Register}/>
-                    <Route exact path='/business' component={BusinessRegister}/>
-                    <Route exact path='/addClinic' component={AddClinic}/>
-                    <Route exact path='/settings/:clinicId' component={BusinessAcountSettings}/>
-                    <Route exact path='/show' component={ShowClinics}/>
-                    <Route exact path="/clinic/:clinicId" component={ClinicPage}/>
-                    <Route exact path="/clinic/vet/:vetId" component={VetPage}/>
-                </header>
-            </div>
-        </BrowserRouter>
+        <div className="App">
+            <MenuAppBar/>
+            <header className="App-header">
+                <Routes>
+                    {/* public routes */}
+                    <Route path='login' element={<Login/>}/>
+                    <Route path='register' element={<Register/>}/>
+                    <Route path='business' element={<BusinessRegister/>}/>
+                    <Route path='unauthorized' element={<Unauthorized/>}/>
+
+                    {/*<Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>*/}
+                        <Route path='/' element={<Filter/>}/>
+                        <Route path='show' element={<ShowClinics/>}/>
+                        <Route path="clinic/:clinicId" element={<ClinicPage/>}/>
+                        <Route path="clinic/vet/:vetId" element={<VetPage/>}/>
+                    {/*</Route>*/}
+
+                    <Route element={<RequireAuth allowedRoles={[ROLES.Editor]}/>}>
+                        <Route path='addClinic' element={<AddClinic/>}/>
+                        <Route path='settings/:clinicId' element={<BusinessAcountSettings/>}/>
+                    </Route>
+
+                    {/* catch all */}
+                    <Route path="*" element={<Missing />} />
+                </Routes>
+            </header>
+        </div>
     );
 }
 

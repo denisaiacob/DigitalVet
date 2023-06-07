@@ -4,7 +4,9 @@ import com.digitalvet.backend.services.ServiceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -48,5 +50,14 @@ public class ServiceController {
                                             @RequestBody ServiceDto service) {
         service = serviceService.updateService(id, service);
         return ResponseEntity.ok(service);
+    }
+
+    @DeleteMapping("/service/{id}")
+    public ResponseEntity<Map<String,Boolean>> deleteService(@PathVariable Long id) {
+        boolean deleted = false;
+        deleted = serviceService.deleteService(id);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("deleted", deleted);
+        return ResponseEntity.ok(response);
     }
 }

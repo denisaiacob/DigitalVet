@@ -152,7 +152,7 @@ function AddServices({service, setService, vets, update}) {
                                 <div>
                                     {
                                         service.length !== 1 &&
-                                        <IconButton size="large" onClick={handleRemove}>
+                                        <IconButton size="large" onClick={handleRemove(i)}>
                                             <DeleteIcon fontSize="inherit"/>
                                         </IconButton>
                                     }
@@ -163,8 +163,7 @@ function AddServices({service, setService, vets, update}) {
                                     }
                                 </div>
                             </Box>
-                        )
-                            ;
+                        );
                     })}
                 {update && (
                     <div style={{marginTop: 30}}>

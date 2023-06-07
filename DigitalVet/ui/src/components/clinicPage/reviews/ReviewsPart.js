@@ -8,14 +8,16 @@ import {useTheme} from "@mui/material/styles";
 import ReviewForm from "./ReviewForm";
 import {useEffect, useState} from "react";
 import ClinicService from "../../../services/ClinicService";
+import useAuth from "../../../hooks/UseAuth";
 
-function Reviews({clinicId}) {
+function ReviewsPart({clinicId}) {
+    const {auth} = useAuth();
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [vets, setVets] = React.useState([]);
-    const [submit,setSubmit]=React.useState(false);
-    const [review,setReview]=React.useState({
+    const [submit, setSubmit] = React.useState(false);
+    const [review, setReview] = React.useState({
         vetId: null,
         service: "",
         stars: null,
@@ -57,7 +59,7 @@ function Reviews({clinicId}) {
             }
         };
         fetchData().then();
-    }, [clinicId,submit]);
+    }, [clinicId, submit]);
 
     return (
         <Box
@@ -73,13 +75,15 @@ function Reviews({clinicId}) {
                     marginRight: 6.5
                 }}
             >
-                <Button
-                    startIcon={<AddIcon/>}
-                    sx={{color: '#43ab98', marginBottom: 3}}
-                    onClick={handleAddReview}
-                >
-                    Add a review
-                </Button>
+                {auth?.user && (
+                    <Button
+                        startIcon={<AddIcon/>}
+                        sx={{color: '#43ab98', marginBottom: 3}}
+                        onClick={handleAddReview}
+                    >
+                        Add a review
+                    </Button>
+                )}
                 <Grid container spacing={2} direction="row">
                     <Grid item>
                         <SummaryReviews vets={vets}/>
@@ -127,4 +131,4 @@ function Reviews({clinicId}) {
     );
 }
 
-export default Reviews;
+export default ReviewsPart;

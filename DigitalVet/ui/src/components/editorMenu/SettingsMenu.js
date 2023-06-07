@@ -19,7 +19,9 @@ import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
-import {Link} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import AuthContext from "../../context/AuthProvider";
+import {useContext} from "react";
 
 const drawerWidth = 240;
 
@@ -27,19 +29,28 @@ const DrawerHeader = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
 }));
 
 function SettingsMenu({open, setOpen, isMatch,setTab}) {
     const theme = useTheme();
+    const { setAuth } = useContext(AuthContext);
     const handleDrawerClose = () => {
         setOpen(false);
     };
     const handleTab= (param) => {
         setTab(param);
     };
+
+    const navigate = useNavigate();
+
+    const logout = async () => {
+        setAuth({});
+        navigate('/login');
+    }
+
+
     return (
         <Drawer
             sx={{
@@ -109,7 +120,7 @@ function SettingsMenu({open, setOpen, isMatch,setTab}) {
                 <Divider/>
                 <List sx={{width: '100%'}}
                 >
-                    <ListItemButton component={Link} to="/" >
+                    <ListItemButton onClick={logout} >
                         <ListItemIcon><LogoutIcon/></ListItemIcon>
                         <ListItemText primary="Log out"/>
                     </ListItemButton>
