@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Long>, JpaSpecificationExecutor<ReviewEntity> {
 
-    @Query("SELECT review FROM ReviewEntity review WHERE review.vetId = ?1")
+    @Query("SELECT review FROM ReviewEntity review WHERE review.vetId = ?1 ORDER BY review.day DESC")
     Optional<List<ReviewEntity>> findByVetId(Long vetId);
 }
