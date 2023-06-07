@@ -22,7 +22,7 @@ function UpdateProgram({clinicId}) {
                 console.log(error);
             }
         };
-        fetchData().then();
+        if (clinicId) fetchData().then();
     }, [clinicId]);
 
     const handleChange = (event) => {

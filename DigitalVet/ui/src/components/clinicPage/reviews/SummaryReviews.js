@@ -25,11 +25,13 @@ function SummaryReviews({vets}) {
                 let avg = 0;
 
                 const promises = vets.map(async (vet) => {
-                    const response = await ClinicService.getReviewByVetId(vet.vetId);
-                    response.data.map((review)=>{
-                        avg = avg + review.stars;
-                        count = count + 1;
-                    })
+                    if (vet.vetId) {
+                        const response = await ClinicService.getReviewByVetId(vet.vetId);
+                        response.data.map((review) => {
+                            avg = avg + review.stars;
+                            count = count + 1;
+                        })
+                    }
                 });
 
                 await Promise.all(promises);
@@ -43,7 +45,7 @@ function SummaryReviews({vets}) {
             }
         };
 
-        fetchData().then();
+        if (vets) fetchData().then();
     }, [vets]);
 
 

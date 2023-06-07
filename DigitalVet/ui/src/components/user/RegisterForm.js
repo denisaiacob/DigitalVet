@@ -77,7 +77,8 @@ function RegisterForm({role}) {
                             setAuth({ user, roles });
                             navigate("/addClinic");
                         } else {
-                            setAuth({ userInfo, roles });
+                            const user=userInfo;
+                            setAuth({ user, roles });
                             navigate("/");
                         }
                     } else {

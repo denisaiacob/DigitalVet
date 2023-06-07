@@ -75,8 +75,8 @@ function SearchFilter({searchClinic}) {
             }
         };
 
-        fetchClinic();
-        fetchVets();
+        if(searchClinic) fetchClinic().then();
+        else fetchVets().then();
     }, []);
 
     const handleFilter = (event) => {
@@ -119,12 +119,11 @@ function SearchFilter({searchClinic}) {
             </Search>
             {filteredData.length !== 0 && (
                 <Box>
-                    {filteredData.slice(0, 15).map((value) => {
+                    {filteredData.slice(0, 10).map((value,index) => {
                         return (
-                            <div key={value.clinicId}>
+                            <div key={index}>
                                 {searchClinic === true ? (
                                     <Button
-                                        key={value.clinicId}
                                         fullWidth
                                         startIcon={<LocationOnIcon/>}
                                         color='inherit'
@@ -134,7 +133,6 @@ function SearchFilter({searchClinic}) {
                                     </Button>
                                 ) : (
                                     <Button
-                                        key={value.vetId}
                                         fullWidth
                                         startIcon={<PersonPinIcon/>}
                                         color='inherit'

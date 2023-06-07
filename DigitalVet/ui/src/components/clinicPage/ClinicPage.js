@@ -15,6 +15,7 @@ import ReviewsPart from "./reviews/ReviewsPart";
 import Services from "./services/Services";
 import ClinicService from "../../services/ClinicService";
 import avatar from "../../images/ClinicAvatar.png";
+import useAuth from "../../hooks/UseAuth";
 
 
 function TabPanel(props) {
@@ -62,16 +63,17 @@ const PointerTypography = styled(Typography)({
 });
 
 function ClinicPage() {
-    const { clinicId } = useParams();
-    const [rating,setRating]=useState(5.0);
-    const [reviewsNumber,setReviewsNumber]=useState(0);
+    const {clinicId} = useParams();
+    const {auth} = useAuth();
+    const [rating, setRating] = useState(5.0);
+    const [reviewsNumber, setReviewsNumber] = useState(0);
     const [clinic, setClinic] = useState({
         clinicId: clinicId,
         name: "",
         city: "",
         address: "",
-        description:"",
-        photo:""
+        description: "",
+        photo: ""
     });
     useEffect(() => {
         const fetchData = async () => {
@@ -84,7 +86,7 @@ function ClinicPage() {
 
                 const promises = vetsResponse.data.map(async (vet) => {
                     const response = await ClinicService.getReviewByVetId(vet.vetId);
-                    response.data.map((review)=>{
+                    response.data.map((review) => {
                         avg = avg + review.stars;
                         count = count + 1;
                     })
@@ -101,7 +103,7 @@ function ClinicPage() {
             }
         };
 
-        fetchData().then();
+        if (clinicId) fetchData().then();
     }, [clinicId]);
 
     const theme = useTheme();
@@ -116,7 +118,7 @@ function ClinicPage() {
     return (
         <div className="clinic-page">
             <RoundedTypography sx={{mt: 5}}>{clinic.name}</RoundedTypography>
-            <Card sx={{width:'80%', mt: 3}}>
+            <Card sx={{width: '80%', mt: 3}}>
                 <Grid container spacing={2} sx={{margin: 3}}>
                     <Grid
                         item
@@ -125,13 +127,13 @@ function ClinicPage() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginRight:30,
+                            marginRight: 30,
                         }}
                     >
                         <CardMedia
                             className="clinic-img"
                             component="img"
-                            sx={{width: '100%',marginRight:6}}
+                            sx={{width: '100%', marginRight: 6}}
                             image={clinic.photo === "" ? avatar : clinic.photo}
                             alt="Cabinet img"
                         />
@@ -157,16 +159,18 @@ function ClinicPage() {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Checkbox
-                                sx={{
-                                    color: red[500],
-                                    '&.Mui-checked': {
+                            {auth?.user && !auth?.roles?.find(role => role === 'business') && (
+                                <Checkbox
+                                    sx={{
                                         color: red[500],
-                                    },
-                                }}
-                                icon={<FavoriteBorder/>}
-                                checkedIcon={<Favorite/>}
-                            />
+                                        '&.Mui-checked': {
+                                            color: red[500],
+                                        },
+                                    }}
+                                    icon={<FavoriteBorder/>}
+                                    checkedIcon={<Favorite/>}
+                                />
+                            )}
                         </Grid>
                     </Grid>
                 </Grid>

@@ -14,6 +14,7 @@ import {useNavigate} from "react-router-dom";
 import avatar from "../../images/ClinicAvatar.png"
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
+import useAuth from "../../hooks/UseAuth";
 
 const PointerTypography = styled(Typography)({
     cursor: 'pointer',
@@ -24,8 +25,9 @@ const PointerTypography = styled(Typography)({
 
 function ClinicBox({clinic}) {
     const navigate = useNavigate();
-    const [rating,setRating]=useState(5.0);
-    const [reviewsNumber,setReviewsNumber]=useState(0);
+    const [rating, setRating] = useState(5.0);
+    const [reviewsNumber, setReviewsNumber] = useState(0);
+    const {auth} = useAuth();
     const handleReviews = () => {
         navigate("/");
     };
@@ -42,7 +44,7 @@ function ClinicBox({clinic}) {
 
                 const promises = vetsResponse.data.map(async (vet) => {
                     const response = await ClinicService.getReviewByVetId(vet.vetId);
-                    response.data.map((review)=>{
+                    response.data.map((review) => {
                         avg = avg + review.stars;
                         count = count + 1;
                     })
@@ -105,16 +107,17 @@ function ClinicBox({clinic}) {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Checkbox
-                            sx={{
-                                color: red[500],
-                                '&.Mui-checked': {
+                        {auth?.user && !auth?.roles?.find(role => role === 'business') && (
+                            <Checkbox
+                                sx={{
                                     color: red[500],
-                                },
-                            }}
-                            icon={<FavoriteBorder/>}
-                            checkedIcon={<Favorite/>}
-                        />
+                                    '&.Mui-checked': {
+                                        color: red[500],
+                                    },
+                                }}
+                                icon={<FavoriteBorder/>}
+                                checkedIcon={<Favorite/>}
+                            />)}
                     </Grid>
                 </Grid>
             </Grid>

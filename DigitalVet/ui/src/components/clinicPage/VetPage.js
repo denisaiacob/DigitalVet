@@ -21,13 +21,13 @@ const StyledTypography = styled(Typography)({
 
 function VetPage() {
     const {vetId} = useParams();
-    const [vet,setVet]=useState({
+    const [vet, setVet] = useState({
         vetId: null,
         clinicId: null,
         name: "",
         function: "",
         description: "",
-        photo:""
+        photo: ""
     });
     const [checkedItems, setCheckedItems] = useState({
         option5: true,
@@ -46,7 +46,7 @@ function VetPage() {
                 console.log(error);
             }
         };
-        fetchVet().then();
+        if(vetId) fetchVet().then();
     }, [vetId]);
 
     return (
@@ -108,7 +108,7 @@ function VetPage() {
             >
                 <Typography sx={{ml: 4, mr: 3}}>"{vet.description}"</Typography>
             </Box>
-            <div style={{marginTop: 20, marginBottom: 50,width:'65%'}}>
+            <div style={{marginTop: 20, marginBottom: 50, width: '65%'}}>
                 <Grid container spacing={2} direction="row">
                     <Grid item>
                         <SummaryReviews vets={[vet]}/>

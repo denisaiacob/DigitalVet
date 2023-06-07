@@ -14,7 +14,7 @@ import ClinicService from "../../services/ClinicService";
 
 function AddVet({vet, setVet, update}) {
     const [open, setOpen] = useState(false);
-    const [success,setSuccess]=useState(true);
+    const [success, setSuccess] = useState(true);
     const [state, setState] = useState([{
         imageUploaded: 0,
         selectedFile: null
@@ -69,7 +69,7 @@ function AddVet({vet, setVet, update}) {
 
     const handleAddClick = () => {
         setVet([...vet, {
-            clinicId:vet[0].clinicId,
+            clinicId: vet[0].clinicId,
             name: '',
             function: '',
             description: '',
@@ -83,7 +83,6 @@ function AddVet({vet, setVet, update}) {
             if (!vet[i].vetId) {
                 try {
                     const response = await ClinicService.addVet(vet[i]);
-                    console.log(response.data);
                     setVet(prevVet => {
                         const newList = [...prevVet];
                         newList[i] = {
@@ -93,20 +92,17 @@ function AddVet({vet, setVet, update}) {
                         return newList;
                     });
                 } catch (error) {
-                    console.log(error);
                     setSuccess(false);
                 }
             } else {
                 try {
-                    const response = await ClinicService.updateVet(vet[i],vet[i].vetId);
-                    console.log(response.data);
+                    const response = await ClinicService.updateVet(vet[i], vet[i].vetId);
                 } catch (error) {
-                    console.log(error);
                     setSuccess(false);
                 }
             }
         })
-        if (success) setOpen(true);
+        setOpen(true);
     };
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -118,9 +114,15 @@ function AddVet({vet, setVet, update}) {
     return (
         <div className="clinic-page">
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                    The veterinarians section has been successfully updated!
-                </Alert>
+                {success ? (
+                    <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
+                        The veterinarians section has been successfully updated!
+                    </Alert>
+                ) : (
+                    <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
+                        An error occurred during the update!
+                    </Alert>
+                )}
             </Snackbar>
             <Box style={{width: '70%', textAlign: 'center'}}>
                 <Typography fontWeight="bold" sx={{marginTop: 3}}>Add veterinarians</Typography>
@@ -212,7 +214,8 @@ function AddVet({vet, setVet, update}) {
                 </div>
             </Box>
         </div>
-    );
+    )
+        ;
 }
 
 export default AddVet;

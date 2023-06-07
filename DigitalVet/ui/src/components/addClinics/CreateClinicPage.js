@@ -12,6 +12,7 @@ import ClinicService from "../../services/ClinicService";
 
 function CreateClinicPage({clinic, setClinic, update}) {
     const [open, setOpen] = React.useState(false);
+    const [success, setSuccess] = React.useState(true);
     const [state, setState] = useState({
         imageUploaded: 0,
         selectedFile: null
@@ -48,15 +49,12 @@ function CreateClinicPage({clinic, setClinic, update}) {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        console.log(clinic);
         ClinicService.updateClinic(clinic, clinic.clinicId)
-            .then((response) => {
-                console.log(response)
-                setOpen(true);
-            })
+            .then()
             .catch((error) => {
-                console.log(error);
+                setSuccess(false);
             });
+        setOpen(true);
     };
 
     const handleClose = (event, reason) => {
@@ -69,9 +67,15 @@ function CreateClinicPage({clinic, setClinic, update}) {
     return (
         <div className="clinic-page">
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                    The clinic page has been successfully updated!
-                </Alert>
+                {success ? (
+                    <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
+                        The clinic page has been successfully updated!
+                    </Alert>
+                ) : (
+                    <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
+                        An error occurred during the update!
+                    </Alert>
+                )}
             </Snackbar>
             <Box style={{width: '70%', textAlign: 'center'}}>
                 <Typography fontWeight="bold" sx={{margin: 3}}>Information for the Clinic Page</Typography>
@@ -139,7 +143,7 @@ function CreateClinicPage({clinic, setClinic, update}) {
                                         style={{width: 150, margin: 10}}
                                     />
                                 )}
-                                {clinic.photo && !state.selectedFile &&(
+                                {clinic.photo && !state.selectedFile && (
                                     <img
                                         alt="clinic-photo"
                                         src={clinic.photo}

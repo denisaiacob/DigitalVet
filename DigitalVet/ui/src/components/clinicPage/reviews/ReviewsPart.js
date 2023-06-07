@@ -58,7 +58,7 @@ function ReviewsPart({clinicId}) {
                 console.log(error);
             }
         };
-        fetchData().then();
+        if (clinicId) fetchData().then();
     }, [clinicId, submit]);
 
     return (
@@ -75,7 +75,7 @@ function ReviewsPart({clinicId}) {
                     marginRight: 6.5
                 }}
             >
-                {auth?.user && (
+                {auth?.user && !auth?.roles?.find(role => role === 'business') &&(
                     <Button
                         startIcon={<AddIcon/>}
                         sx={{color: '#43ab98', marginBottom: 3}}

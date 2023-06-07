@@ -89,7 +89,7 @@ function BusinessAcountSettings() {
     }])
 
     const [service, setService] = useState([{
-        serviceId: null,
+        serviceId: "",
         vetId: "",
         clinicId: clinic.clinicId,
         name: "",

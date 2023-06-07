@@ -31,11 +31,9 @@ function ShowClinics() {
                         return value.city === initialValues.location;
                     });
                     setClinics(newFilter);
-                    console.log(response.data);
                 } else {
                     setClinics(response.data);
                 }
-                console.log(response.data);
             } catch (error) {
                 console.log(error);
             }

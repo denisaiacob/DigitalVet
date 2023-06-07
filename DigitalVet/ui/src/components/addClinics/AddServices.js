@@ -8,7 +8,7 @@ import ClinicService from "../../services/ClinicService";
 
 function AddServices({service, setService, vets, update}) {
     const [open, setOpen] = React.useState(false);
-    const [success,setSuccess]=React.useState(true);
+    const [success, setSuccess] = React.useState(true);
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -20,9 +20,9 @@ function AddServices({service, setService, vets, update}) {
     const handleInputChange = (e, index) => {
         const {name, value} = e.target;
         const list = [...service];
-        if(name==='price' || name==='minutes'){
-            list[index][name]=parseInt(value,10)
-        }else {
+        if (name === 'price' || name === 'minutes') {
+            list[index][name] = parseInt(value, 10)
+        } else {
             list[index][name] = value;
         }
         setService(list);
@@ -36,7 +36,7 @@ function AddServices({service, setService, vets, update}) {
 
     const handleAddClick = () => {
         setService([...service, {
-            clinicId:service[0].clinicId,
+            clinicId: service[0].clinicId,
             vetId: "",
             name: "",
             price: "",
@@ -46,12 +46,10 @@ function AddServices({service, setService, vets, update}) {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        console.log(service);
         service.map(async (x, i) => {
             if (!service[i].serviceId) {
                 try {
                     const response = await ClinicService.addService(service[i]);
-                    console.log(response.data);
                     setService(prevService => {
                         const newList = [...prevService];
                         newList[i] = {
@@ -61,27 +59,30 @@ function AddServices({service, setService, vets, update}) {
                         return newList;
                     });
                 } catch (error) {
-                    console.log(error);
                     setSuccess(false);
                 }
             } else {
                 try {
-                    const response = await ClinicService.updateService(service[i],service[i].serviceId);
-                    console.log(response.data);
+                    const response = await ClinicService.updateService(service[i], service[i].serviceId);
                 } catch (error) {
-                    console.log(error);
                     setSuccess(false);
                 }
             }
         })
-        if (success) setOpen(true);
+        setOpen(true);
     };
     return (
         <div className='clinic-page'>
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                    The services have been successfully updated!
-                </Alert>
+                {success ? (
+                    <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
+                        The services have been successfully updated!
+                    </Alert>
+                ) : (
+                    <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
+                        An error occurred during the update!
+                    </Alert>
+                )}
             </Snackbar>
             <Box style={{width: '90%', textAlign: 'center'}}>
                 <Typography fontWeight="bold" sx={{marginTop: 3}}>Add services</Typography>
@@ -135,7 +136,7 @@ function AddServices({service, setService, vets, update}) {
                                                     value={service[i].vetId}
                                                     onChange={(event) => {
                                                         const updatedService = [...service];
-                                                        updatedService[i].vetId = parseInt(event.target.value,10);
+                                                        updatedService[i].vetId = parseInt(event.target.value, 10);
                                                         setService(updatedService);
                                                     }}
                                                     style={{width: '90%', height: 30, marginBottom: 10}}
@@ -178,7 +179,8 @@ function AddServices({service, setService, vets, update}) {
                 )}
             </Box>
         </div>
-    );
+    )
+        ;
 }
 
 export default AddServices;

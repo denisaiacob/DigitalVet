@@ -6,7 +6,7 @@ import ClinicService from "../../../services/ClinicService";
 function ServicePart({vetId}) {
     const [services, setServices] = useState([{
         serviceId: "",
-        vetId: "",
+        vetId: null,
         clinicId: "",
         name: "",
         price: "",
@@ -21,7 +21,7 @@ function ServicePart({vetId}) {
                 console.log(error);
             }
         };
-        fetchServices().then();
+        if (vetId) fetchServices().then();
     }, [vetId]);
     return (
         <Box

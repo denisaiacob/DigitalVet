@@ -20,7 +20,7 @@ import AddServices from "./AddServices";
 import AddVet from "./AddVet";
 import AddClinicService from "../../services/ClinicService";
 import {useContext, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
 import useAuth from "../../hooks/UseAuth";
 
@@ -91,10 +91,11 @@ QontoStepIcon.propTypes = {
 };
 
 function AddClinic() {
+    const navigate = useNavigate();
     const [createClinic, setCreateClinic] = useState(false)
-    const [clinicId,setClinicId]=useState(null)
-    const { setAuth } = useContext(AuthContext);
-    const { auth } = useAuth();
+    const [clinicId, setClinicId] = useState(null)
+    const {setAuth} = useContext(AuthContext);
+    const {auth} = useAuth();
     const [clinic, setClinic] = useState({
         name: "",
         city: "",
@@ -146,12 +147,12 @@ function AddClinic() {
         vetId: "",
         clinicId: "",
         name: "",
-        price:"",
-        minutes:""
+        price: "",
+        minutes: ""
     }])
-    const [admin,setAdmin]=useState({
-        clinicId:null,
-        userId:null
+    const [admin, setAdmin] = useState({
+        clinicId: null,
+        userId: null
     })
 
     const [activeStep, setActiveStep] = React.useState(0);
@@ -206,45 +207,43 @@ function AddClinic() {
     const handleCreateClinic = (event) => {
         event.preventDefault();
         AddClinicService.addClinic((clinic)).then((response) => {
-            console.log(response.data);
             handleProgram(response.data);
             setCreateClinic(true);
         }).catch((error) => {
-            console.log(error);
+            alert('An error occurred while processing the request');
         });
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
     const handleSubmit = () => {
+        let success = true;
         setCreateClinic(false);
         vet.map((x, i) => {
-            AddClinicService.addVet((vet[i])).then((response) => {
-                console.log(response.data);
-            }).catch((error) => {
-                console.log(error);
+            AddClinicService.addVet((vet[i])).then().catch(() => {
+                alert('An error occurred while processing the request');
+                success = false;
             })
         });
         service.map((x, i) => {
-            AddClinicService.addService((service[i])).then((response) => {
-                console.log(response.data);
-            }).catch((error) => {
-                console.log(error);
+            AddClinicService.addService((service[i])).then().catch(() => {
+                alert('An error occurred while processing the request');
+                success = false;
             })
         });
-        AddClinicService.addProgram((programSubmit)).then((response) => {
-            console.log(response.data);
-        }).catch((error) => {
-            console.log(error);
+        AddClinicService.addProgram((programSubmit)).then().catch(() => {
+            alert('An error occurred while processing the request');
+            success = false;
         })
-        AddClinicService.addAdmin((admin)).then((response)=>{
-            console.log(response.data);
-            const user= auth?.user;
-            const roles= auth?.roles;
+        AddClinicService.addAdmin((admin)).then((response) => {
+            const user = auth?.user;
+            const roles = auth?.roles;
             const cId = response.data;
-            setAuth({user,roles,cId})
+            setAuth({user, roles, cId})
         }).catch((error) => {
-            console.log(error);
+            alert('An error occurred while processing the request');
+            success = false;
         })
+        if (success) navigate(`/settings/${clinicId}`)
     };
 
     let stepContent;
@@ -320,7 +319,6 @@ function AddClinic() {
                             </Button>)}
                         {createClinic &&
                             <Button
-                                component={Link} to={`/settings/${clinicId}`}
                                 variant="outlined"
                                 style={{color: '#43ab98', borderColor: '#43ab98'}}
                                 onClick={handleSubmit}
