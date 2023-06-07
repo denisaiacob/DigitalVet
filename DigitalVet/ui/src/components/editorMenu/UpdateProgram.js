@@ -33,7 +33,7 @@ function UpdateProgram({clinicId}) {
     const handleUpdate = (e) => {
         e.preventDefault();
         ClinicService.updateProgram(program, program.programId)
-            .then((response) => {
+            .then(() => {
                 setOpen(true);
             })
             .catch((error) => {
