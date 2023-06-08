@@ -101,6 +101,8 @@ function ServiceDetailsBox({service}) {
                     <BookPage
                         timeSteps={service.minutes}
                         setAppointment={setAppointment}
+                        appointment={appointment}
+                        serviceId={service.serviceId}
                     />
                 </DialogContent>
                 <DialogActions>

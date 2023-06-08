@@ -25,6 +25,7 @@ import useAuth from "../../hooks/UseAuth";
 import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
+import EventIcon from '@mui/icons-material/Event';
 
 function DrawerMenu() {
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -138,11 +139,20 @@ function DrawerMenu() {
                                                 onClick={() => setOpenDrawer(!openDrawer)}
                                     component={Link} to={"/fav"}
                                 >
-
                                     <ListItemIcon>
                                         <FavoriteIcon/>
                                     </ListItemIcon>
                                     <ListItemText primary="Favorite Clinics"/>
+                                </ListItemButton>
+                                <ListItemButton
+                                    color="inherit"
+                                    onClick={() => setOpenDrawer(!openDrawer)}
+                                    component={Link} to={"/myAppointments"}
+                                >
+                                    <ListItemIcon>
+                                        <EventIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="My appointments"/>
                                 </ListItemButton>
                                 <ListItemButton color="inherit"
                                                 onClick={logout}>

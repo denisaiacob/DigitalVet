@@ -15,4 +15,7 @@ public interface AppointmentsRepository extends JpaRepository<AppointmentsEntity
     @Query("SELECT appointment FROM AppointmentsEntity appointment WHERE appointment.serviceId = ?1 ORDER BY appointment.day")
     Optional<List<AppointmentsEntity>> findByServiceId(Long serviceId);
 
+    @Query("SELECT appointment FROM AppointmentsEntity appointment WHERE appointment.userId = ?1 ORDER BY appointment.day")
+    Optional<List<AppointmentsEntity>> findByUserId(Long serviceId);
+
 }

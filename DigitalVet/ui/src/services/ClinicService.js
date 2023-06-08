@@ -13,6 +13,7 @@ const CLINIC_SERVICES_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic/
 const FAVORITE_USER_API_URL = "http://localhost:8070/api/v1/digitalVet/user"
 const FAVORITE_API_URL = "http://localhost:8070/api/v1/digitalVet/fav"
 const APPOINTMENT_API_URL = "http://localhost:8070/api/v1/digitalVet/appointment"
+const APPOINTMENT_USER_API_URL = "http://localhost:8070/api/v1/digitalVet/user/appointment"
 
 class ClinicService {
     addClinic(clinic) {
@@ -124,6 +125,9 @@ class ClinicService {
     }
     getAppointmentByServiceId(serviceId){
         return axios.get(APPOINTMENT_API_URL+ "/" +serviceId);
+    }
+    getAppointmentByUserId(userId){
+        return axios.get(APPOINTMENT_USER_API_URL+ "/" +userId);
     }
 
     updateService(service, serviceId) {

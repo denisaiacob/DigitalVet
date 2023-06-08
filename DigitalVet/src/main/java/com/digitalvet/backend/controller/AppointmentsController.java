@@ -27,4 +27,8 @@ public class AppointmentsController {
         return  appointmentsService.getAppointmentByServiceId(id);
     }
 
+    @GetMapping("/user/appointment/{id}")
+    public List<AppointmentDto> getAppointmentByUserId(@PathVariable Long id) {
+        return  appointmentsService.getAppointmentByUserId(id);
+    }
 }

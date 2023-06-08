@@ -7,4 +7,6 @@ public interface AppointmentService {
     Long addAppointment(AppointmentDto appointmentDto);
 
     List<AppointmentDto> getAppointmentByServiceId(Long id);
+
+    List<AppointmentDto> getAppointmentByUserId(Long id);
 }

@@ -15,6 +15,7 @@ import RequireAuth from "./hooks/RequireAuth";
 import Missing from "./components/wrongPath/Missing";
 import Unauthorized from "./components/wrongPath/Unauthorized";
 import FavoriteList from "./components/user/FavoriteList";
+import MyAppointments from "./components/user/MyAppointments";
 
 const ROLES = {
     'User': 'user',
@@ -41,6 +42,7 @@ function App() {
                     {/*</Route>*/}
                     <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>
                         <Route path='fav' element={<FavoriteList/>}/>
+                        <Route path='myAppointments' element={<MyAppointments/>}/>
                     </Route>
 
                     <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>

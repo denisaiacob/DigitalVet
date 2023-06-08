@@ -25,6 +25,7 @@ import useAuth from "../../hooks/UseAuth";
 import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from "@mui/icons-material/Home";
+import EventIcon from '@mui/icons-material/Event';
 
 function MenuAppBar() {
     const theme2 = useTheme();
@@ -120,6 +121,15 @@ function MenuAppBar() {
                                                     onClick={() => setAnchorEl(null)}
                                                 >
                                                     Favorite Clinics
+                                                </Button>
+                                                <Button
+                                                    fullWidth
+                                                    color="inherit"
+                                                    startIcon={<EventIcon/>}
+                                                    component={Link} to={"/myAppointments"}
+                                                    onClick={() => setAnchorEl(null)}
+                                                >
+                                                    My appointments
                                                 </Button>
                                                 <Button
                                                     fullWidth

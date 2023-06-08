@@ -49,4 +49,22 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
     }
+
+    @Override
+    public List<AppointmentDto> getAppointmentByUserId(Long id) {
+        Optional<List<AppointmentsEntity>> appointmentsOptional = appointmentsRepository.findByUserId(id);
+        if (appointmentsOptional.isPresent()) {
+            List<AppointmentsEntity> appointmentsEntities = appointmentsOptional.get();
+            return appointmentsEntities.stream()
+                    .map(appointment -> new AppointmentDto(
+                            appointment.getId(),
+                            appointment.getDay(),
+                            appointment.getTime(),
+                            appointment.getServiceId(),
+                            appointment.getUserId()))
+                    .toList();
+        } else {
+            throw new EntityNotFoundException("User not found for user ID: " + id);
+        }
+    }
 }

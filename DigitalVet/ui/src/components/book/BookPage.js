@@ -8,18 +8,32 @@ import {Box, FormControl, Stack} from "@mui/material";
 import {addMonths} from "date-fns";
 import {MultiSectionDigitalClock} from '@mui/x-date-pickers/MultiSectionDigitalClock';
 import {TimeView} from "@mui/x-date-pickers";
+import {useEffect} from "react";
+import ClinicService from "../../services/ClinicService";
 
-function BookPage({timeSteps, setAppointment}) {
+function BookPage({timeSteps, setAppointment,serviceId}) {
     const maxDate = String(addMonths(new Date(), 3));
     const [date, setDate] = React.useState(null);
     const [time, setTime] = React.useState(dayjs());
+    const [disabledDates,setDisabledDates]=React.useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await ClinicService.getAppointmentByServiceId(serviceId);
+                const filterData=response.data.map(item => new Date(item.day));
+                setDisabledDates(filterData);
+                setDisabledDates(filterData)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        if (serviceId) fetchData().then();
+    }, [serviceId]);
 
     const shouldDisableDate = (date) => {
-        const disabledDates = [
-            new Date('2023-07-15'),
-            new Date('2023-07-16'),
-        ];
         const inputDate = new Date(date);
+        if(inputDate.getDay() === 0) return true;
         return disabledDates.some((disabledDate) => {
             return inputDate.getDate() === disabledDate.getDate()
                 && inputDate.getMonth() === disabledDate.getMonth()
@@ -58,11 +72,7 @@ function BookPage({timeSteps, setAppointment}) {
     const shouldDisableTime = (value: Dayjs, view: TimeView) => {
         const hour = value.hour();
         if (view === 'hours') {
-            return hour < 9 || hour > 13;
-        }
-        if (view === 'minutes') {
-            const minute = value.minute();
-            return minute > 20 && hour === 13;
+            return hour < 8 || hour > 20;
         }
         return false;
     };
