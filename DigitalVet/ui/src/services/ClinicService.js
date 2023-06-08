@@ -10,51 +10,67 @@ const VETS_API_URL = "http://localhost:8070/api/v1/digitalVet/vets"
 const SERVICE_API_URL = "http://localhost:8070/api/v1/digitalVet/service"
 const SERVICES_API_URL = "http://localhost:8070/api/v1/digitalVet/services"
 const CLINIC_SERVICES_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic/services"
-const FAVORITE_USER_API_URL="http://localhost:8070/api/v1/digitalVet/user"
-const FAVORITE_API_URL="http://localhost:8070/api/v1/digitalVet/fav"
+const FAVORITE_USER_API_URL = "http://localhost:8070/api/v1/digitalVet/user"
+const FAVORITE_API_URL = "http://localhost:8070/api/v1/digitalVet/fav"
+const APPOINTMENT_API_URL = "http://localhost:8070/api/v1/digitalVet/appointment"
 
 class ClinicService {
     addClinic(clinic) {
         return axios.post(CLINIC_API_URL, clinic);
     }
+
     addReview(review) {
         return axios.post(REVIEW_API_URL, review);
     }
+
     addProgram(program) {
         return axios.post(PROGRAM_API_URL, program);
     }
+
     addService(service) {
         return axios.post(SERVICE_API_URL, service);
     }
+
     addVet(vet) {
         return axios.post(VET_API_URL, vet);
+    }
+
+    addAppointment(appointment) {
+        return axios.post(APPOINTMENT_API_URL, appointment);
     }
 
     addAdmin(admin) {
         return axios.post(CLINIC_ADMIN_API_URL, admin);
     }
-    addFavorites(userId,clinic){
-        return axios.post(FAVORITE_USER_API_URL+ "/" + userId + "/fav",clinic)
+
+    addFavorites(userId, clinic) {
+        return axios.post(FAVORITE_USER_API_URL + "/" + userId + "/fav", clinic)
     }
 
-    getAllClinics(){
+    getAllClinics() {
         return axios.get(CLINIC_API_URL);
     }
-    getAllReviews(){
+
+    getAllReviews() {
         return axios.get(REVIEW_API_URL);
     }
-    getAllVets(){
+
+    getAllVets() {
         return axios.get(VET_API_URL);
     }
-    getAllServices(){
+
+    getAllServices() {
         return axios.get(SERVICE_API_URL);
     }
+
     getClinicById(id) {
         return axios.get(CLINIC_API_URL + "/" + id);
     }
-    getAllFavoriteByUser(userId){
-        return axios.get(FAVORITE_USER_API_URL+ "/" + userId + "/fav")
+
+    getAllFavoriteByUser(userId) {
+        return axios.get(FAVORITE_USER_API_URL + "/" + userId + "/fav")
     }
+
     getServiceById(id) {
         return axios.get(SERVICE_API_URL + "/" + id);
     }
@@ -79,8 +95,8 @@ class ClinicService {
         return axios.delete(VET_API_URL + "/" + id);
     }
 
-    deleteFavorites(id){
-        return axios.delete(FAVORITE_API_URL+ "/" + id)
+    deleteFavorites(id) {
+        return axios.delete(FAVORITE_API_URL + "/" + id)
     }
 
     deleteService(id) {
@@ -99,23 +115,26 @@ class ClinicService {
         return axios.put(PROGRAM_API_URL + "/" + id, program);
     }
 
-    getVetsByClinicId(clinicId){
+    getVetsByClinicId(clinicId) {
         return axios.get(VETS_API_URL + "/" + clinicId);
     }
 
-    getProgramByClinicId(clinicId){
+    getProgramByClinicId(clinicId) {
         return axios.get(CLINIC_PROGRAM_API_URL + "/" + clinicId);
+    }
+    getAppointmentByServiceId(serviceId){
+        return axios.get(APPOINTMENT_API_URL+ "/" +serviceId);
     }
 
     updateService(service, serviceId) {
         return axios.put(SERVICE_API_URL + "/" + serviceId, service);
     }
 
-    getServicesByVetId(vetId){
+    getServicesByVetId(vetId) {
         return axios.get(SERVICES_API_URL + "/" + vetId);
     }
 
-    getServicesByClinicId(clinicId){
+    getServicesByClinicId(clinicId) {
         return axios.get(CLINIC_SERVICES_API_URL + "/" + clinicId);
     }
 }

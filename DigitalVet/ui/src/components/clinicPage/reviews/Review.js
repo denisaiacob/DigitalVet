@@ -9,10 +9,8 @@ function Review({vet, checkedItems}) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // if (vet.vetId !== null) {
                     const response = await ClinicService.getReviewByVetId(vet.vetId);
                     setReviews(response.data);
-                // }
             } catch (error) {
                 console.log(error);
             }

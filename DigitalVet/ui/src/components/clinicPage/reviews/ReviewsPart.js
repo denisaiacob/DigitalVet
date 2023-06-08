@@ -1,5 +1,14 @@
 import * as React from 'react';
-import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, useMediaQuery} from "@mui/material";
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Grid,
+    useMediaQuery
+} from "@mui/material";
 import FilterByRating from "./FilterByRating";
 import SummaryReviews from "./SummaryReviews";
 import Review from "./Review";
@@ -32,6 +41,12 @@ function ReviewsPart({clinicId}) {
         option2: true,
         option1: true,
     });
+    // const pageSize=1;
+    // const[pagination,setPagination]=React.useState({
+    //     number:0,
+    //     from:0,
+    //     to:pageSize
+    // })
 
     const handleAddReview = () => {
         setOpen(true);
@@ -48,6 +63,14 @@ function ReviewsPart({clinicId}) {
             console.log(error);
         }
     };
+    // const handlePage = (event,page) => {
+    //     const from=(page-1)*pageSize;
+    //     const to=(page-1)*pageSize+pageSize;
+    //     setPagination({...pagination,
+    //     from:from,
+    //     to:to
+    //     })
+    // };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,7 +98,7 @@ function ReviewsPart({clinicId}) {
                     marginRight: 6.5
                 }}
             >
-                {auth?.user && !auth?.roles?.find(role => role === 'business') &&(
+                {auth?.user && !auth?.roles?.find(role => role === 'business') && (
                     <Button
                         startIcon={<AddIcon/>}
                         sx={{color: '#43ab98', marginBottom: 3}}
@@ -94,9 +117,20 @@ function ReviewsPart({clinicId}) {
                 </Grid>
                 {vets.map((vet) => (
                     <div key={vet.vetId}>
-                        <Review vet={vet} checkedItems={checkedItems}/>
+                        <Review
+                            vet={vet}
+                            checkedItems={checkedItems}
+                            // pagination={pagination}
+                            // setPagination={setPagination}
+                        />
                     </div>
                 ))}
+                {/*<div style={{display:'flex',justifyContent:'center',marginTop:25}}>*/}
+                {/*    <Pagination*/}
+                {/*        count={Math.ceil(pagination.number/pageSize)}*/}
+                {/*        onChange={handlePage}*/}
+                {/*    />*/}
+                {/*</div>*/}
             </Box>
             <Dialog
                 fullScreen={fullScreen}

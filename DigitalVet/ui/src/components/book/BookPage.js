@@ -9,10 +9,10 @@ import {addMonths} from "date-fns";
 import {MultiSectionDigitalClock} from '@mui/x-date-pickers/MultiSectionDigitalClock';
 import {TimeView} from "@mui/x-date-pickers";
 
-function BookPage({timeSteps}) {
+function BookPage({timeSteps, setAppointment}) {
+    const maxDate = String(addMonths(new Date(), 3));
     const [date, setDate] = React.useState(null);
     const [time, setTime] = React.useState(dayjs());
-    const maxDate = String(addMonths(new Date(), 3));
 
     const shouldDisableDate = (date) => {
         const disabledDates = [
@@ -25,6 +25,33 @@ function BookPage({timeSteps}) {
                 && inputDate.getMonth() === disabledDate.getMonth()
                 && inputDate.getFullYear() === disabledDate.getFullYear();
         });
+    };
+
+    const handleChangeDate = (value) => {
+        setDate(value);
+        const selectedDate = value.toISOString().split('T')[0];
+        setAppointment((prevAppointment) => ({
+            ...prevAppointment,
+            day: selectedDate,
+        }));
+    };
+
+    const handleChangeTime = (date) => {
+        setTime(date);
+        date=new Date(date);
+
+        const currentDate = new Date();
+        currentDate.setHours(date.getHours());
+        currentDate.setMinutes(date.getMinutes());
+        currentDate.setSeconds(0);
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        const seconds = currentDate.getSeconds();
+        const formattedTime = `${hours}:${minutes}:${seconds}`;
+        setAppointment((prevAppointment) => ({
+            ...prevAppointment,
+            time: formattedTime
+        }));
     };
 
 
@@ -53,7 +80,7 @@ function BookPage({timeSteps}) {
                                         label="Choose the date"
                                         value={date}
                                         sx={{width: '100%'}}
-                                        onChange={(newValue) => setDate(newValue)}
+                                        onChange={(newValue) => handleChangeDate(newValue)}
                                         disablePast
                                         maxDate={dayjs(maxDate)}
                                         views={['day']}
@@ -69,7 +96,7 @@ function BookPage({timeSteps}) {
                                 <DemoItem label="Choose the time">
                                     <MultiSectionDigitalClock
                                         value={time}
-                                        onChange={(newValue) => setTime(newValue)}
+                                        onChange={(newValue) => handleChangeTime(newValue)}
                                         timeSteps={{minutes: timeSteps}}
                                         skipDisabled
                                         shouldDisableTime={shouldDisableTime}

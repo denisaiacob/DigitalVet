@@ -7,6 +7,9 @@ import {
     Paper, Button, useMediaQuery, Dialog, DialogTitle, DialogContent, DialogActions
 } from "@mui/material";
 import BookPage from "../book/BookPage";
+import useAuth from "../../hooks/UseAuth";
+import {useEffect} from "react";
+import ClinicService from "../../services/ClinicService";
 
 const RoundedTypography = styled(Typography)({
     fontFamily: 'Century Gothic',
@@ -18,7 +21,23 @@ const RoundedTypography = styled(Typography)({
 function ServiceDetailsBox({service}) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
+    const {auth} = useAuth();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const [appointment, setAppointment] = React.useState({
+        day: null,
+        time: null,
+        serviceId: service.serviceId,
+        userId: null
+    });
+
+    useEffect(() => {
+        if(auth?.user){
+            setAppointment((prevAppointment) => ({
+                ...prevAppointment,
+                userId: auth?.user.id,
+            }));
+        }
+    }, []);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -26,7 +45,13 @@ function ServiceDetailsBox({service}) {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        try {
+            const response = await ClinicService.addAppointment(appointment);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
         setOpen(false);
     };
 
@@ -49,13 +74,15 @@ function ServiceDetailsBox({service}) {
                                             color='gray'>{service.minutes} minutes</Typography>
                             </Grid>
                             <Grid item md={2} xs={12}>
-                                <Button
-                                    variant="outlined"
-                                    style={{color: '#43ab98', borderColor: '#43ab98'}}
-                                    onClick={handleClickOpen}
-                                >
-                                    Book
-                                </Button>
+                                {auth?.roles?.find(role => role === 'user') &&
+                                    <Button
+                                        variant="outlined"
+                                        style={{color: '#43ab98', borderColor: '#43ab98'}}
+                                        onClick={handleClickOpen}
+                                    >
+                                        Book
+                                    </Button>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
@@ -71,7 +98,10 @@ function ServiceDetailsBox({service}) {
                     {"Choose the day and time of the appointment"}
                 </DialogTitle>
                 <DialogContent>
-                    <BookPage timeSteps={service.minutes}/>
+                    <BookPage
+                        timeSteps={service.minutes}
+                        setAppointment={setAppointment}
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button

@@ -15,7 +15,7 @@ import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
 import "../../App.css";
 import UpdateProgram from "./UpdateProgram";
-import BookPage from "../book/BookPage";
+import Appointments from "./Appointments";
 
 const drawerWidth = 240;
 
@@ -117,7 +117,6 @@ function BusinessAcountSettings() {
         const fetchService = async () => {
             try {
                 const response = await ClinicService.getServicesByClinicId(clinic.clinicId);
-                console.log(response.data);
                 if (response.data.length !== 0) {
                     setService(response.data);
                 }
@@ -141,7 +140,7 @@ function BusinessAcountSettings() {
             stepContent = <ClinicPage/>;
             break;
         case 1:
-            stepContent = <BookPage/>;
+            stepContent = <Appointments services={service}/>;
             break;
         case 2:
             stepContent = <CreateClinicPage clinic={clinic} setClinic={setClinic} update={true}/>;
