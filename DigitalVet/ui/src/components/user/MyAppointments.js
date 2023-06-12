@@ -7,7 +7,7 @@ function MyAppointments() {
     const {auth} = useAuth();
     const [vetName, setVetName] = useState([]);
     const [appointments, setAppointments] = useState([]);
-    const [serviceName,setServiceName]=useState([]);
+    const [serviceName, setServiceName] = useState([]);
 
     useEffect(() => {
         const fetchService = async (serviceId) => {
@@ -29,11 +29,11 @@ function MyAppointments() {
             }
         };
 
-       appointments.forEach((appointment) => {
+        appointments.forEach((appointment) => {
             fetchService(appointment.serviceId).then();
         });
         fetchAppointments().then();
-    }, []);
+    }, [appointments, auth?.user]);
 
     const handleDay = (date) => {
         date = new Date(date);
@@ -46,8 +46,8 @@ function MyAppointments() {
 
     return (
         <div className='clinic-page'>
-            <Grid container spacing={2} style={{margin:3,display:'flex',justifyContent:'center'}}>
-                {appointments.map((appointment,index) => (
+            <Grid container spacing={2} style={{margin: 3, display: 'flex', justifyContent: 'center'}}>
+                {appointments.map((appointment, index) => (
                     <Grid item key={appointment.id}>
                         <Card variant="outlined" sx={{width: 250, marginTop: 2}}>
                             <CardContent>

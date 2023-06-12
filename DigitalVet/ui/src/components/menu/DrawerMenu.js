@@ -178,7 +178,7 @@ function DrawerMenu() {
                                     <ListItemIcon>
                                         <HomeIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Home"/>
+                                    <ListItemText primary="Clinic Profile"/>
                                 </ListItemButton>
                                 <ListItemButton color="inherit"
                                                 onClick={logout}>

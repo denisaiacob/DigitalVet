@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {
     TextField,
     Stack,
@@ -137,7 +137,7 @@ function Login() {
             >
                 <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                        The entered data is incorrect!
+                        No account found with this email.
                     </Alert>
                 </Snackbar>
                 <Container component="main" maxWidth="xs">

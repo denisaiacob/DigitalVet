@@ -28,18 +28,15 @@ function App() {
             <MenuAppBar/>
             <header className="App-header">
                 <Routes>
-                    {/* public routes */}
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='business' element={<BusinessRegister/>}/>
                     <Route path='unauthorized' element={<Unauthorized/>}/>
+                    <Route path='/' element={<Filter/>}/>
+                    <Route path='show' element={<ShowClinics/>}/>
+                    <Route path="clinic/:clinicId" element={<ClinicPage/>}/>
+                    <Route path="clinic/vet/:vetId" element={<VetPage/>}/>
 
-                    {/*<Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>*/}
-                        <Route path='/' element={<Filter/>}/>
-                        <Route path='show' element={<ShowClinics/>}/>
-                        <Route path="clinic/:clinicId" element={<ClinicPage/>}/>
-                        <Route path="clinic/vet/:vetId" element={<VetPage/>}/>
-                    {/*</Route>*/}
                     <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>
                         <Route path='fav' element={<FavoriteList/>}/>
                         <Route path='myAppointments' element={<MyAppointments/>}/>
@@ -50,8 +47,7 @@ function App() {
                         <Route path='settings/:clinicId' element={<BusinessAcountSettings/>}/>
                     </Route>
 
-                    {/* catch all */}
-                    <Route path="*" element={<Missing />} />
+                    <Route path="*" element={<Missing/>}/>
                 </Routes>
             </header>
         </div>

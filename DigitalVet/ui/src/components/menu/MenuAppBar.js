@@ -151,7 +151,7 @@ function MenuAppBar() {
                                                         component={Link} to={`/settings/${auth.cId}`}
                                                         onClick={() => setAnchorEl(null)}
                                                     >
-                                                        Home
+                                                        Clinic Profile
                                                     </Button>
                                                     <Button
                                                         fullWidth

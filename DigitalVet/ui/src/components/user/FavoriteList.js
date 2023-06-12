@@ -1,21 +1,32 @@
 import RightSide from "../filtersResult/RightSide";
 import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
+import useAuth from "../../hooks/UseAuth";
 
 function FavoriteList() {
+    const {auth} = useAuth();
     const [clinics, setClinics] = useState([]);
 
     useEffect(() => {
-        const fetchClinic = async () => {
+        const fetchFavorites = async () => {
             try {
-                const response = await ClinicService.getAllClinics();
-                setClinics(response.data);
+                const response = await ClinicService.getAllFavoriteByUser(auth?.user.id);
+                const favorites = response.data;
+                let clinicData = [];
+
+                for (const f of favorites) {
+                    const clinicResponse = await ClinicService.getClinicById(f.clinicId);
+                    clinicData.push(clinicResponse.data);
+                }
+                setClinics(clinicData);
             } catch (error) {
                 console.log(error);
             }
         };
-        fetchClinic().then();
-    }, []);
+
+        fetchFavorites().then();
+    }, [auth?.user]);
+
 
     return (
         <div className="clinic-page">
