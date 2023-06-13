@@ -23,7 +23,7 @@ public class FavoriteClinicsController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/user/{userId}/fav")
+    @GetMapping("/user/{userId}/favorites")
     public ResponseEntity<List<FavoriteClinicsEntity>> getAllFavoritesByUserId(@PathVariable(value = "userId") Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new ResourceNotFoundException("Not found User with id = " + userId);
@@ -33,9 +33,9 @@ public class FavoriteClinicsController {
         return new ResponseEntity<>(favorites, HttpStatus.OK);
     }
 
-    @PostMapping("/user/{userId}/fav")
+    @PostMapping("/user/{userId}/favorites")
     public ResponseEntity<FavoriteClinicsEntity> addFavorite(@PathVariable(value = "userId") Long userId,
-                                                 @RequestBody FavoriteClinicsEntity requestEntity) {
+                                                             @RequestBody FavoriteClinicsEntity requestEntity) {
         FavoriteClinicsEntity fav = userRepository.findById(userId).map(user -> {
             requestEntity.setUser(user);
             return favoriteClinicsRepository.save(requestEntity);
@@ -44,7 +44,7 @@ public class FavoriteClinicsController {
         return new ResponseEntity<>(fav, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/fav/{id}")
+    @DeleteMapping("/favorites/{id}")
     public ResponseEntity<HttpStatus> deleteFavorite(@PathVariable("id") long id) {
         favoriteClinicsRepository.deleteById(id);
 

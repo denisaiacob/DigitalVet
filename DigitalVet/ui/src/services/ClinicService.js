@@ -1,145 +1,148 @@
 import axios from "axios";
 
-const CLINIC_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic"
-const CLINIC_ADMIN_API_URL = "http://localhost:8070/api/v1/digitalVet/admin"
-const REVIEW_API_URL = "http://localhost:8070/api/v1/digitalVet/review"
-const PROGRAM_API_URL = "http://localhost:8070/api/v1/digitalVet/program"
-const CLINIC_PROGRAM_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic/program"
-const VET_API_URL = "http://localhost:8070/api/v1/digitalVet/vet"
+const CLINICS_API_URL = "http://localhost:8070/api/v1/digitalVet/clinics"
+const CLINICS_ADMINS_API_URL = "http://localhost:8070/api/v1/digitalVet/admins"
+const REVIEWS_API_URL = "http://localhost:8070/api/v1/digitalVet/reviews"
+const REVIEWS_VET_API_URL = "http://localhost:8070/api/v1/digitalVet/reviews/vet"
+const PROGRAMS_API_URL = "http://localhost:8070/api/v1/digitalVet/programs"
+const CLINICS_PROGRAM_API_URL = "http://localhost:8070/api/v1/digitalVet/programs/clinic"
 const VETS_API_URL = "http://localhost:8070/api/v1/digitalVet/vets"
-const SERVICE_API_URL = "http://localhost:8070/api/v1/digitalVet/service"
+const VETS_CLINIC_API_URL = "http://localhost:8070/api/v1/digitalVet/vets/clinic"
 const SERVICES_API_URL = "http://localhost:8070/api/v1/digitalVet/services"
-const CLINIC_SERVICES_API_URL = "http://localhost:8070/api/v1/digitalVet/clinic/services"
-const FAVORITE_USER_API_URL = "http://localhost:8070/api/v1/digitalVet/user"
-const FAVORITE_API_URL = "http://localhost:8070/api/v1/digitalVet/fav"
-const APPOINTMENT_API_URL = "http://localhost:8070/api/v1/digitalVet/appointment"
-const APPOINTMENT_USER_API_URL = "http://localhost:8070/api/v1/digitalVet/user/appointment"
+const SERVICES_CLINIC_API_URL = "http://localhost:8070/api/v1/digitalVet/services/clinic"
+const SERVICES_VET_API_URL = "http://localhost:8070/api/v1/digitalVet/services/vet"
+const FAVORITES_USER_API_URL = "http://localhost:8070/api/v1/digitalVet/user"
+const FAVORITES_API_URL = "http://localhost:8070/api/v1/digitalVet/favorites"
+const APPOINTMENTS_API_URL = "http://localhost:8070/api/v1/digitalVet/appointments"
+const APPOINTMENTS_USER_API_URL = "http://localhost:8070/api/v1/digitalVet/appointments/user"
 
 class ClinicService {
     addClinic(clinic) {
-        return axios.post(CLINIC_API_URL, clinic);
+        return axios.post(CLINICS_API_URL, clinic);
     }
 
     addReview(review) {
-        return axios.post(REVIEW_API_URL, review);
+        return axios.post(REVIEWS_API_URL, review);
     }
 
     addProgram(program) {
-        return axios.post(PROGRAM_API_URL, program);
+        return axios.post(PROGRAMS_API_URL, program);
     }
 
     addService(service) {
-        return axios.post(SERVICE_API_URL, service);
+        return axios.post(SERVICES_API_URL, service);
     }
 
     addVet(vet) {
-        return axios.post(VET_API_URL, vet);
+        return axios.post(VETS_API_URL, vet);
     }
 
     addAppointment(appointment) {
-        return axios.post(APPOINTMENT_API_URL, appointment);
+        return axios.post(APPOINTMENTS_API_URL, appointment);
     }
 
     addAdmin(admin) {
-        return axios.post(CLINIC_ADMIN_API_URL, admin);
+        return axios.post(CLINICS_ADMINS_API_URL, admin);
     }
 
     addFavorites(userId, clinic) {
-        return axios.post(FAVORITE_USER_API_URL + "/" + userId + "/fav", clinic)
+        return axios.post(FAVORITES_USER_API_URL + "/" + userId + "/favorites", clinic)
     }
 
     getAllClinics() {
-        return axios.get(CLINIC_API_URL);
+        return axios.get(CLINICS_API_URL);
     }
 
     getAllReviews() {
-        return axios.get(REVIEW_API_URL);
+        return axios.get(REVIEWS_API_URL);
     }
 
     getAllVets() {
-        return axios.get(VET_API_URL);
+        return axios.get(VETS_API_URL);
     }
 
     getAllServices() {
-        return axios.get(SERVICE_API_URL);
+        return axios.get(SERVICES_API_URL);
     }
 
     getClinicById(id) {
-        return axios.get(CLINIC_API_URL + "/" + id);
+        return axios.get(CLINICS_API_URL + "/" + id);
     }
 
     getAllFavoriteByUser(userId) {
-        return axios.get(FAVORITE_USER_API_URL + "/" + userId + "/fav")
+        return axios.get(FAVORITES_USER_API_URL + "/" + userId + "/favorites")
     }
 
     getServiceById(id) {
-        return axios.get(SERVICE_API_URL + "/" + id);
+        return axios.get(SERVICES_API_URL + "/" + id);
     }
 
     getVetById(id) {
-        return axios.get(VET_API_URL + "/" + id);
+        return axios.get(VETS_API_URL + "/" + id);
     }
 
     getAdmin(id) {
-        return axios.get(CLINIC_ADMIN_API_URL + "/" + id);
+        return axios.get(CLINICS_ADMINS_API_URL + "/" + id);
     }
 
     getReviewByVetId(id) {
-        return axios.get(REVIEW_API_URL + "/" + id);
+        return axios.get(REVIEWS_VET_API_URL + "/" + id);
     }
 
     deleteClinic(id) {
-        return axios.delete(CLINIC_API_URL + "/" + id);
+        return axios.delete(CLINICS_API_URL + "/" + id);
     }
 
     deleteVet(id) {
-        return axios.delete(VET_API_URL + "/" + id);
+        return axios.delete(VETS_API_URL + "/" + id);
     }
 
     deleteFavorites(id) {
-        return axios.delete(FAVORITE_API_URL + "/" + id)
+        return axios.delete(FAVORITES_API_URL + "/" + id)
     }
 
     deleteService(id) {
-        return axios.delete(SERVICE_API_URL + "/" + id);
+        return axios.delete(SERVICES_API_URL + "/" + id);
     }
 
     updateClinic(clinic, id) {
-        return axios.put(CLINIC_API_URL + "/" + id, clinic);
+        return axios.put(CLINICS_API_URL + "/" + id, clinic);
     }
 
     updateVet(vet, vetId) {
-        return axios.put(VET_API_URL + "/" + vetId, vet);
+        return axios.put(VETS_API_URL + "/" + vetId, vet);
     }
 
     updateProgram(program, id) {
-        return axios.put(PROGRAM_API_URL + "/" + id, program);
+        return axios.put(PROGRAMS_API_URL + "/" + id, program);
     }
 
     getVetsByClinicId(clinicId) {
-        return axios.get(VETS_API_URL + "/" + clinicId);
+        return axios.get(VETS_CLINIC_API_URL + "/" + clinicId);
     }
 
     getProgramByClinicId(clinicId) {
-        return axios.get(CLINIC_PROGRAM_API_URL + "/" + clinicId);
+        return axios.get(CLINICS_PROGRAM_API_URL + "/" + clinicId);
     }
-    getAppointmentByServiceId(serviceId){
-        return axios.get(APPOINTMENT_API_URL+ "/" +serviceId);
+
+    getAppointmentByServiceId(serviceId) {
+        return axios.get(APPOINTMENTS_API_URL + "/" + serviceId);
     }
-    getAppointmentByUserId(userId){
-        return axios.get(APPOINTMENT_USER_API_URL+ "/" +userId);
+
+    getAppointmentByUserId(userId) {
+        return axios.get(APPOINTMENTS_USER_API_URL + "/" + userId);
     }
 
     updateService(service, serviceId) {
-        return axios.put(SERVICE_API_URL + "/" + serviceId, service);
+        return axios.put(SERVICES_API_URL + "/" + serviceId, service);
     }
 
     getServicesByVetId(vetId) {
-        return axios.get(SERVICES_API_URL + "/" + vetId);
+        return axios.get(SERVICES_VET_API_URL + "/" + vetId);
     }
 
     getServicesByClinicId(clinicId) {
-        return axios.get(CLINIC_SERVICES_API_URL + "/" + clinicId);
+        return axios.get(SERVICES_CLINIC_API_URL + "/" + clinicId);
     }
 }
 

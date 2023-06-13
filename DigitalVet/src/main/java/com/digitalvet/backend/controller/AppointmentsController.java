@@ -12,23 +12,23 @@ import java.util.List;
 public class AppointmentsController {
     private final AppointmentService appointmentsService;
 
-    public AppointmentsController( AppointmentService appointmentsService) {
+    public AppointmentsController(AppointmentService appointmentsService) {
         this.appointmentsService = appointmentsService;
     }
 
 
-    @PostMapping(path = "/appointment")
+    @PostMapping(path = "/appointments")
     public Long addAppointment(@RequestBody AppointmentDto appointmentDto) {
         return appointmentsService.addAppointment(appointmentDto);
     }
 
-    @GetMapping("/appointment/{id}")
+    @GetMapping("/appointments/{id}")
     public List<AppointmentDto> getAppointmentByServiceId(@PathVariable Long id) {
-        return  appointmentsService.getAppointmentByServiceId(id);
+        return appointmentsService.getAppointmentByServiceId(id);
     }
 
-    @GetMapping("/user/appointment/{id}")
-    public List<AppointmentDto> getAppointmentByUserId(@PathVariable Long id) {
-        return  appointmentsService.getAppointmentByUserId(id);
+    @GetMapping("/appointments/user/{userId}")
+    public List<AppointmentDto> getAppointmentByUserId(@PathVariable Long userId) {
+        return appointmentsService.getAppointmentByUserId(userId);
     }
 }

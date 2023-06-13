@@ -28,31 +28,14 @@ public class VetEntity {
     @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid description")
     private String description;
 
-
-    @Pattern(regexp = "^\\/[\\w._\\-\\/]+$", message = "Invalid path")
+    @Pattern(regexp = "^[\\w._\\-\\/]+$", message = "Invalid path")
     private String photo;
 
-    public VetEntity() {
-    }
+    public VetEntity() {}
 
-    public VetEntity(Long clinicId,String name, String function, String description, String photo) {
-        this.clinicId=clinicId;
-        this.name = name;
-        this.function = function;
-        this.description = description;
-        this.photo = photo;
-    }
-
-    public VetEntity(String name, String function, String description, String photo) {
-        this.name = name;
-        this.function = function;
-        this.description = description;
-        this.photo = photo;
-    }
-
-    public VetEntity(Long vetId,Long clinicId, String name, String function, String description, String photo) {
+    public VetEntity(Long vetId, Long clinicId, String name, String function, String description, String photo) {
         this.vetId = vetId;
-        this.clinicId=clinicId;
+        this.clinicId = clinicId;
         this.name = name;
         this.function = function;
         this.description = description;

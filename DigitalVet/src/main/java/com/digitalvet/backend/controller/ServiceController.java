@@ -1,4 +1,5 @@
 package com.digitalvet.backend.controller;
+
 import com.digitalvet.backend.model.ServiceDto;
 import com.digitalvet.backend.services.ServiceService;
 import org.springframework.http.ResponseEntity;
@@ -18,45 +19,43 @@ public class ServiceController {
         this.serviceService = serviceService;
     }
 
-    @PostMapping(path = "/service")
+    @PostMapping(path = "/services")
     public Long addService(@RequestBody ServiceDto serviceDto) {
         return serviceService.addService(serviceDto);
     }
 
-    @GetMapping("/service")
+    @GetMapping("/services")
     public List<ServiceDto> getAllServices() {
-        return  serviceService.getAllServices();
+        return serviceService.getAllServices();
     }
 
-    @GetMapping("/service/{id}")
-    public ResponseEntity<ServiceDto> getServiceById(@PathVariable Long id) {
-        ServiceDto service = null;
-        service = serviceService.getServiceById(id);
+    @GetMapping("/services/{serviceId}")
+    public ResponseEntity<ServiceDto> getServiceById(@PathVariable Long serviceId) {
+        ServiceDto service = serviceService.getServiceById(serviceId);
         return ResponseEntity.ok(service);
     }
 
-    @GetMapping("/services/{id}")
-    public List<ServiceDto> getServiceByVetId(@PathVariable Long id) {
-        return  serviceService.getServiceByVetId(id);
+    @GetMapping("/services/vet/{vetId}")
+    public List<ServiceDto> getServiceByVetId(@PathVariable Long vetId) {
+        return serviceService.getServiceByVetId(vetId);
     }
 
-    @GetMapping("/clinic/services/{id}")
-    public List<ServiceDto> getServiceByClinicId(@PathVariable Long id) {
-        return  serviceService.getServiceByClinicId(id);
+    @GetMapping("/services/clinic/{clinicId}")
+    public List<ServiceDto> getServiceByClinicId(@PathVariable Long clinicId) {
+        return serviceService.getServiceByClinicId(clinicId);
     }
 
-    @PutMapping("/service/{id}")
+    @PutMapping("/services/{id}")
     public ResponseEntity<ServiceDto> updateService(@PathVariable Long id,
-                                            @RequestBody ServiceDto service) {
+                                                    @RequestBody ServiceDto service) {
         service = serviceService.updateService(id, service);
         return ResponseEntity.ok(service);
     }
 
-    @DeleteMapping("/service/{id}")
-    public ResponseEntity<Map<String,Boolean>> deleteService(@PathVariable Long id) {
-        boolean deleted = false;
-        deleted = serviceService.deleteService(id);
-        Map<String,Boolean> response = new HashMap<>();
+    @DeleteMapping("/services/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteService(@PathVariable Long id) {
+        boolean deleted = serviceService.deleteService(id);
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", deleted);
         return ResponseEntity.ok(response);
     }

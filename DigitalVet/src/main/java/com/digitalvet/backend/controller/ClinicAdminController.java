@@ -16,12 +16,12 @@ public class ClinicAdminController {
         this.clinicAdminService = clinicAdminService;
     }
 
-    @PostMapping(path = "/admin")
+    @PostMapping(path = "/admins")
     public Long addClinic(@RequestBody ClinicAdminDto clinicAdminDto) {
         return clinicAdminService.addAdmin(clinicAdminDto);
     }
 
-    @GetMapping("/admin/{id}")
+    @GetMapping("/admins/{id}")
     public ResponseEntity<ClinicAdminDto> getClinicByUserId(@PathVariable Long id) {
         ClinicAdminDto admin;
         admin = clinicAdminService.getClinicByUserId(id);

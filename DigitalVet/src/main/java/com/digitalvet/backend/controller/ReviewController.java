@@ -17,19 +17,19 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @PostMapping(path = "/review")
+    @PostMapping(path = "/reviews")
     public Long addReview(@RequestBody ReviewDto reviewDto) {
         return reviewService.addReview(reviewDto);
     }
 
-    @GetMapping("/review")
+    @GetMapping("/reviews")
     public List<ReviewDto> getAllReviews() {
-        return  reviewService.getAllReviews();
+        return reviewService.getAllReviews();
     }
 
-    @GetMapping("/review/{id}")
-    public List<ReviewDto> getReviewByVetId(@PathVariable Long id) {
-        return  reviewService.getReviewByVetId(id);
+    @GetMapping("/reviews/vet/{vetId}")
+    public List<ReviewDto> getReviewByVetId(@PathVariable Long vetId) {
+        return reviewService.getReviewByVetId(vetId);
     }
 
 }

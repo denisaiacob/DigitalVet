@@ -19,35 +19,34 @@ public class ClinicController {
         this.clinicService = clinicService;
     }
 
-    @PostMapping(path = "/clinic")
+    @PostMapping(path = "/clinics")
     public Long addClinic(@RequestBody ClinicDto clinicDto) {
         return clinicService.addClinic(clinicDto);
     }
 
-    @GetMapping("/clinic")
+    @GetMapping("/clinics")
     public List<ClinicDto> getAllClinics() {
-        return  clinicService.getAllClinics();
+        return clinicService.getAllClinics();
     }
 
-    @GetMapping("/clinic/{id}")
+    @GetMapping("/clinics/{id}")
     public ResponseEntity<ClinicDto> getClinicById(@PathVariable Long id) {
         ClinicDto clinic;
         clinic = clinicService.getClinicById(id);
         return ResponseEntity.ok(clinic);
     }
 
-    @DeleteMapping("/clinic/{id}")
-    public ResponseEntity<Map<String,Boolean>> deleteClinic(@PathVariable Long id) {
-        boolean deleted = false;
-        deleted = clinicService.deleteClinic(id);
-        Map<String,Boolean> response = new HashMap<>();
+    @DeleteMapping("/clinics/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteClinic(@PathVariable Long id) {
+        boolean deleted = clinicService.deleteClinic(id);
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", deleted);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/clinic/{id}")
+    @PutMapping("/clinics/{id}")
     public ResponseEntity<ClinicDto> updateClinic(@PathVariable Long id,
-                                                   @RequestBody ClinicDto clinic) {
+                                                  @RequestBody ClinicDto clinic) {
         clinic = clinicService.updateClinic(id, clinic);
         return ResponseEntity.ok(clinic);
     }
