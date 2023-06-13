@@ -8,7 +8,7 @@ import {
     uploadBytes,
     getDownloadURL,
 } from "firebase/storage";
-import {storage} from "./firebase";
+import {storage} from "../../config/firebase";
 import {v4} from "uuid";
 import ClinicService from "../../services/ClinicService";
 

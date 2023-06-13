@@ -2,7 +2,7 @@ import React from "react";
 import {Alert, Box, Button, Grid, Snackbar, Stack, Typography} from "@mui/material";
 import {useState} from "react";
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
-import {storage} from "./firebase";
+import {storage} from "../../config/firebase";
 import {v4} from "uuid";
 import ClinicService from "../../services/ClinicService";
 
