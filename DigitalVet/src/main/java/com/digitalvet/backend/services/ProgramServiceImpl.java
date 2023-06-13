@@ -6,7 +6,7 @@ import com.digitalvet.backend.repository.ProgramRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
@@ -21,7 +21,7 @@ public class ProgramServiceImpl implements ProgramService {
         ProgramEntity program = new ProgramEntity(
                 programDto.getProgramId(),
                 programDto.getClinicId(),
-                programDto.getMonths(),
+                programDto.getMonday(),
                 programDto.getTuesday(),
                 programDto.getWednesday(),
                 programDto.getThursday(),
@@ -35,36 +35,51 @@ public class ProgramServiceImpl implements ProgramService {
 
     @Override
     public ProgramDto getProgramById(Long id) {
-        ProgramEntity programEntity
-                = programRepository.findById(id).get();
-        ProgramDto program = new ProgramDto();
-        BeanUtils.copyProperties(programEntity, program);
-        return program;
+        Optional<ProgramEntity> programEntityOptional = programRepository.findById(id);
+        if (programEntityOptional.isPresent()) {
+            ProgramEntity programEntity = programEntityOptional.get();
+            ProgramDto program = new ProgramDto();
+            BeanUtils.copyProperties(programEntity, program);
+            return program;
+        } else {
+            return null;
+        }
     }
+
 
     @Override
     public ProgramDto getProgramByClinicId(Long clinicId) {
-        ProgramEntity programEntity
-                = programRepository.findByClinicId(clinicId).get();
-        ProgramDto program = new ProgramDto();
-        BeanUtils.copyProperties(programEntity, program);
-        return program;
+        Optional<ProgramEntity> programEntityOptional = programRepository.findByClinicId(clinicId);
+        if (programEntityOptional.isPresent()) {
+            ProgramEntity programEntity = programEntityOptional.get();
+            ProgramDto program = new ProgramDto();
+            BeanUtils.copyProperties(programEntity, program);
+            return program;
+        } else {
+            return null;
+        }
+
     }
 
     @Override
     public ProgramDto updateProgram(Long id, ProgramDto program) {
-        ProgramEntity programEntity
-                = programRepository.findById(id).get();
-        programEntity.setClinicId(program.getClinicId());
-        programEntity.setMonths(program.getMonths());
-        programEntity.setTuesday(program.getTuesday());
-        programEntity.setWednesday(program.getWednesday());
-        programEntity.setThursday(program.getThursday());
-        programEntity.setFriday(program.getFriday());
-        programEntity.setSaturday(program.getSaturday());
-        programEntity.setSunday(program.getSunday());
+        Optional<ProgramEntity> programEntityOptional = programRepository.findById(id);
+        if (programEntityOptional.isPresent()) {
+            ProgramEntity programEntity = programEntityOptional.get();
+            programEntity.setClinicId(program.getClinicId());
+            programEntity.setMonday(program.getMonday());
+            programEntity.setTuesday(program.getTuesday());
+            programEntity.setWednesday(program.getWednesday());
+            programEntity.setThursday(program.getThursday());
+            programEntity.setFriday(program.getFriday());
+            programEntity.setSaturday(program.getSaturday());
+            programEntity.setSunday(program.getSunday());
 
-        programRepository.save(programEntity);
-        return program;
+            programRepository.save(programEntity);
+            return program;
+        } else {
+            return null;
+        }
     }
+
 }

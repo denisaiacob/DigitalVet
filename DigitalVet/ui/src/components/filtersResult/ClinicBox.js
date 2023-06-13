@@ -114,7 +114,7 @@ function ClinicBox({clinic}) {
                 >
                     <CardMedia
                         component="img"
-                        sx={{width: '100%'}}
+                        sx={{width: '100%',maxHeight:300}}
                         image={clinic.photo === "" ? avatar : clinic.photo}
                         alt="Clinic"
                         onClick={() => handleClinic(clinic.clinicId)}

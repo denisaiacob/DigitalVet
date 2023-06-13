@@ -4,7 +4,7 @@ import {
     Grid,
     Typography,
     Box,
-    Paper, Button, useMediaQuery, Dialog, DialogTitle, DialogContent, DialogActions
+    Paper, Button, useMediaQuery, Dialog, DialogTitle, DialogContent, DialogActions, Alert, Snackbar
 } from "@mui/material";
 import BookPage from "../book/BookPage";
 import useAuth from "../../hooks/UseAuth";
@@ -20,6 +20,7 @@ const RoundedTypography = styled(Typography)({
 
 function ServiceDetailsBox({service}) {
     const [open, setOpen] = React.useState(false);
+    const [openError, setOpenError] = React.useState(false);
     const theme = useTheme();
     const {auth} = useAuth();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -45,14 +46,39 @@ function ServiceDetailsBox({service}) {
     const handleClose = () => {
         setOpen(false);
     };
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
     const handleSubmit = async () => {
         try {
-            const response = await ClinicService.addAppointment(appointment);
-            console.log(response.data);
+            if (appointment.day && appointment.time) {
+                const previousDate = new Date(appointment.day);
+                previousDate.setDate(previousDate.getDate() - 1);
+                const selectedDate = previousDate.toISOString().split('T')[0];
+                const response = await ClinicService.getAppointmentByServiceId(service.serviceId);
+                const unique = response.data.some((item) => {
+                    return (
+                        item.day.split('T')[0] === selectedDate &&
+                        item.time.substring(0, 4) === appointment.time.substring(0, 4)
+                    );
+                });
+                if (!unique) {
+                    try {
+                        const response = await ClinicService.addAppointment(appointment);
+                        setOpen(false);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                } else {
+                    setOpenError(true);
+                }
+            }
         } catch (error) {
             console.log(error);
         }
-        setOpen(false);
     };
 
     return (
@@ -101,9 +127,13 @@ function ServiceDetailsBox({service}) {
                     <BookPage
                         timeSteps={service.minutes}
                         setAppointment={setAppointment}
-                        appointment={appointment}
-                        serviceId={service.serviceId}
+                        service={service}
                     />
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="error" sx={{width: '100%'}}>
+                            This date and time are not available
+                        </Alert>
+                    </Snackbar>
                 </DialogContent>
                 <DialogActions>
                     <Button

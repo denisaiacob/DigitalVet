@@ -168,7 +168,7 @@ function ClinicPage() {
                         <CardMedia
                             className="clinic-img"
                             component="img"
-                            sx={{width: '100%', marginRight: 6}}
+                            sx={{width: '100%', marginRight: 6,maxHeight:300}}
                             image={clinic.photo === "" ? avatar : clinic.photo}
                             alt="Cabinet img"
                         />

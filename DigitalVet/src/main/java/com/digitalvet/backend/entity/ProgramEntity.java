@@ -20,7 +20,7 @@ public class ProgramEntity {
 
     @NotBlank(message = "Program is mandatory")
     @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid program")
-    private String months;
+    private String monday;
 
     @NotBlank(message = "Program is mandatory")
     @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid program")
@@ -48,10 +48,10 @@ public class ProgramEntity {
 
     public ProgramEntity() {}
 
-    public ProgramEntity(Long programId, Long clinicId, String months, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
+    public ProgramEntity(Long programId, Long clinicId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
         this.programId = programId;
         this.clinicId = clinicId;
-        this.months = months;
+        this.monday = monday;
         this.tuesday = tuesday;
         this.wednesday = wednesday;
         this.thursday = thursday;
@@ -60,9 +60,9 @@ public class ProgramEntity {
         this.sunday = sunday;
     }
 
-    public ProgramEntity(Long clinicId, String months, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
+    public ProgramEntity(Long clinicId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
         this.clinicId = clinicId;
-        this.months = months;
+        this.monday = monday;
         this.tuesday = tuesday;
         this.wednesday = wednesday;
         this.thursday = thursday;
@@ -87,12 +87,12 @@ public class ProgramEntity {
         this.clinicId = clinicId;
     }
 
-    public String getMonths() {
-        return months;
+    public String getMonday() {
+        return monday;
     }
 
-    public void setMonths(String months) {
-        this.months = months;
+    public void setMonday(String monday) {
+        this.monday = monday;
     }
 
     public String getTuesday() {
@@ -147,12 +147,12 @@ public class ProgramEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ProgramEntity that)) return false;
-        return Objects.equals(getProgramId(), that.getProgramId()) && Objects.equals(getClinicId(), that.getClinicId()) && Objects.equals(getMonths(), that.getMonths()) && Objects.equals(getTuesday(), that.getTuesday()) && Objects.equals(getWednesday(), that.getWednesday()) && Objects.equals(getThursday(), that.getThursday()) && Objects.equals(getFriday(), that.getFriday()) && Objects.equals(getSaturday(), that.getSaturday()) && Objects.equals(getSunday(), that.getSunday());
+        return Objects.equals(getProgramId(), that.getProgramId()) && Objects.equals(getClinicId(), that.getClinicId()) && Objects.equals(getMonday(), that.getMonday()) && Objects.equals(getTuesday(), that.getTuesday()) && Objects.equals(getWednesday(), that.getWednesday()) && Objects.equals(getThursday(), that.getThursday()) && Objects.equals(getFriday(), that.getFriday()) && Objects.equals(getSaturday(), that.getSaturday()) && Objects.equals(getSunday(), that.getSunday());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProgramId(), getClinicId(), getMonths(), getTuesday(), getWednesday(), getThursday(), getFriday(), getSaturday(), getSunday());
+        return Objects.hash(getProgramId(), getClinicId(), getMonday(), getTuesday(), getWednesday(), getThursday(), getFriday(), getSaturday(), getSunday());
     }
 
     @Override
@@ -160,7 +160,7 @@ public class ProgramEntity {
         return "ProgramEntity{" +
                 "programId=" + programId +
                 ", clinicId=" + clinicId +
-                ", months='" + months + '\'' +
+                ", monday='" + monday + '\'' +
                 ", tuesday='" + tuesday + '\'' +
                 ", wednesday='" + wednesday + '\'' +
                 ", thursday='" + thursday + '\'' +

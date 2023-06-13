@@ -20,7 +20,7 @@ import AddServices from "./AddServices";
 import AddVet from "./AddVet";
 import AddClinicService from "../../services/ClinicService";
 import {useContext, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
 import useAuth from "../../hooks/UseAuth";
 
@@ -118,14 +118,14 @@ function AddClinic() {
     }])
     const [program, setProgram] = useState({
         clinicId: null,
-        months1: "",
+        monday1: "",
         tuesday1: "",
         wednesday1: "",
         thursday1: "",
         friday1: "",
         saturday1: "",
         sunday1: "",
-        months2: "",
+        monday2: "",
         tuesday2: "",
         wednesday2: "",
         thursday2: "",
@@ -135,7 +135,7 @@ function AddClinic() {
     })
     const [programSubmit, setProgramSubmit] = useState({
         clinicId: null,
-        months: "",
+        monday: "",
         tuesday: "",
         wednesday: "",
         thursday: "",
@@ -169,7 +169,7 @@ function AddClinic() {
 
         setProgramSubmit(() => ({
             clinicId: clinicId,
-            months: program.months1 + "-" + program.months2,
+            monday: program.monday1 + "-" + program.monday2,
             tuesday: program.tuesday1 + "-" + program.tuesday2,
             wednesday: program.wednesday1 + "-" + program.wednesday2,
             thursday: program.thursday1 + "-" + program.thursday2,
@@ -209,7 +209,7 @@ function AddClinic() {
         AddClinicService.addClinic((clinic)).then((response) => {
             handleProgram(response.data);
             setCreateClinic(true);
-        }).catch((error) => {
+        }).catch(() => {
             alert('An error occurred while processing the request');
         });
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -239,7 +239,7 @@ function AddClinic() {
             const roles = auth?.roles;
             const cId = response.data;
             setAuth({user, roles, cId})
-        }).catch((error) => {
+        }).catch(() => {
             alert('An error occurred while processing the request');
             success = false;
         })

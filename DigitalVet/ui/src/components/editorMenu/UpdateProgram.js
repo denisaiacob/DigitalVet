@@ -64,13 +64,13 @@ function UpdateProgram({clinicId}) {
                           style={{width: '100%', display: 'flex', alignItems: 'start', justifyContent: 'start'}}>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Months</MiniTypography>
+                                <MiniTypography>Monday</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
-                                    id="months1"
-                                    name="months1"
-                                    value={program.months}
+                                    id="monday"
+                                    name="monday"
+                                    value={program.monday}
                                     onChange={(event) => handleChange(event)}
                                     type="text"
                                 />

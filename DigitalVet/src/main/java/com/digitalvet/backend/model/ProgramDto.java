@@ -3,7 +3,7 @@ package com.digitalvet.backend.model;
 public class ProgramDto {
     private Long programId;
     private Long clinicId;
-    private String months;
+    private String monday;
     private String tuesday;
     private String wednesday;
     private String thursday;
@@ -13,10 +13,10 @@ public class ProgramDto {
 
     public ProgramDto() {}
 
-    public ProgramDto(Long programId, Long clinicId, String months, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
+    public ProgramDto(Long programId, Long clinicId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
         this.programId = programId;
         this.clinicId = clinicId;
-        this.months = months;
+        this.monday = monday;
         this.tuesday = tuesday;
         this.wednesday = wednesday;
         this.thursday = thursday;
@@ -41,12 +41,12 @@ public class ProgramDto {
         this.clinicId = clinicId;
     }
 
-    public String getMonths() {
-        return months;
+    public String getMonday() {
+        return monday;
     }
 
-    public void setMonths(String months) {
-        this.months = months;
+    public void setMonday(String monday) {
+        this.monday = monday;
     }
 
     public String getTuesday() {

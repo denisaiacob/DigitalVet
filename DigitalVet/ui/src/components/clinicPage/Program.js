@@ -13,7 +13,7 @@ function Program({clinicId}) {
     const [program, setProgram] = useState({
         programId: null,
         clinicId: clinicId,
-        months: "",
+        monday: "",
         tuesday: "",
         wednesday: "",
         thursday: "",
@@ -56,7 +56,7 @@ function Program({clinicId}) {
                 </Typography>
                 <Grid container direction="row" spacing={2} sx={{marginTop: 1}}>
                     <Grid item xs={4}>
-                        <ProgramTypography>Months</ProgramTypography>
+                        <ProgramTypography>Monday</ProgramTypography>
                         <ProgramTypography>Tuesday</ProgramTypography>
                         <ProgramTypography>Wednesday</ProgramTypography>
                         <ProgramTypography>Thursday</ProgramTypography>
@@ -66,7 +66,7 @@ function Program({clinicId}) {
                     </Grid>
                     <Grid item>
                         <ProgramTypography>
-                            {program.months === '-' ? 'Closed' : program.months}
+                            {program.monday === '-' ? 'Closed' : program.monday}
                         </ProgramTypography>
                         <ProgramTypography>
                             {program.tuesday === '-' ? 'Closed' : program.tuesday}

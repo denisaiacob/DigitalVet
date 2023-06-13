@@ -32,22 +32,22 @@ function AddProgram({program, setProgram}) {
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Months</MiniTypography>
+                            <MiniTypography>Monday</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
-                                id="months1"
-                                name="months1"
-                                value={program.months1}
+                                id="monday1"
+                                name="monday1"
+                                value={program.monday1}
                                 onChange={(event) => handleChange(event)}
                                 type="time"
                             />
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
-                                id="months2"
-                                name="months2"
-                                value={program.months2}
+                                id="monday2"
+                                name="monday2"
+                                value={program.monday2}
                                 onChange={(event) => handleChange(event)}
                                 type="time"
                             />
