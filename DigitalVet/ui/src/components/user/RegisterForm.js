@@ -11,11 +11,11 @@ import AuthContext from "../../context/AuthProvider";
 
 function RegisterForm({role}) {
     const navigate = useNavigate();
-    const[confirmPassword,setConfirmPassword]=useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
     const [open, setOpen] = React.useState(false);
-    const { setAuth } = useContext(AuthContext);
+    const {setAuth} = useContext(AuthContext);
 
     const [userInfo, setUserInfo] = useState({
         firstName: "",
@@ -28,9 +28,9 @@ function RegisterForm({role}) {
     const reset = () => {
         if (formErrors.firstName)
             setUserInfo((prev) => ({
-            ...prev,
-            firstName: "",
-        }));
+                ...prev,
+                firstName: "",
+            }));
         if (formErrors.lastName)
             setUserInfo((prev) => ({
                 ...prev,
@@ -48,7 +48,7 @@ function RegisterForm({role}) {
             }));
         if (formErrors.confirmPassword)
             setConfirmPassword("");
-        if(open) {
+        if (open) {
             setUserInfo({
                 firstName: "",
                 lastName: "",
@@ -71,14 +71,14 @@ function RegisterForm({role}) {
             if (Object.keys(formErrors).length === 0 && isSubmit) {
                 UserService.register((userInfo)).then((response) => {
                     if (response.data) {
-                        const roles=[role];
+                        const roles = [role];
                         if (role === "business") {
-                            const user={...userInfo,id:response.data}
-                            setAuth({ user, roles });
+                            const user = {...userInfo, id: response.data}
+                            setAuth({user, roles});
                             navigate("/addClinic");
                         } else {
-                            const user=userInfo;
-                            setAuth({ user, roles });
+                            const user = userInfo;
+                            setAuth({user, roles});
                             navigate("/");
                         }
                     } else {
@@ -110,16 +110,16 @@ function RegisterForm({role}) {
         } else if (!passwordRegex.test(values.password)) {
             errors.password = "Password must be more than 8 characters and at least one digit";
         }
-        if(!confirmPassword){
+        if (!confirmPassword) {
             errors.confirmPassword = "Confirm Password is required";
-        }else if (confirmPassword!==values.password){
-            errors.confirmPassword= "Passwords don't match"
+        } else if (confirmPassword !== values.password) {
+            errors.confirmPassword = "Passwords don't match"
         }
-        if (!values.firstName){
-            errors.firstName="First name is required!"
+        if (!values.firstName) {
+            errors.firstName = "First name is required!"
         }
-        if (!values.lastName){
-            errors.lastName="Last name is required!"
+        if (!values.lastName) {
+            errors.lastName = "Last name is required!"
         }
         return errors;
     };

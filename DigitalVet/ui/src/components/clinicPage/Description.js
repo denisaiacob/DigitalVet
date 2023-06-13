@@ -10,10 +10,10 @@ function Description({description}) {
                 sx={{
                     textAlign: "start",
                     borderTop: 30,
-                    borderBottom:30,
+                    borderBottom: 30,
                     borderColor: "white",
                     marginLeft: 6.5,
-                    marginRight:6.5
+                    marginRight: 6.5
                 }}
             >
                 <Typography
@@ -23,10 +23,12 @@ function Description({description}) {
                     About us
                 </Typography>
                 <Typography
-                    sx={{marginTop:2,
+                    sx={{
+                        marginTop: 2,
                         '@media (max-width:700px)': {
                             fontSize: '0.7rem',
-                        },}}
+                        },
+                    }}
                 >
                     {description}
                 </Typography>

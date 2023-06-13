@@ -75,7 +75,7 @@ function SearchFilter({searchClinic}) {
             }
         };
 
-        if(searchClinic) fetchClinic().then();
+        if (searchClinic) fetchClinic().then();
         else fetchVets().then();
     }, []);
 
@@ -119,7 +119,7 @@ function SearchFilter({searchClinic}) {
             </Search>
             {filteredData.length !== 0 && (
                 <Box>
-                    {filteredData.slice(0, 10).map((value,index) => {
+                    {filteredData.slice(0, 10).map((value, index) => {
                         return (
                             <div key={index}>
                                 {searchClinic === true ? (

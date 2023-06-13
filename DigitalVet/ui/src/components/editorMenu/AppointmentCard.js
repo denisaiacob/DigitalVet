@@ -40,7 +40,7 @@ function AppointmentCard({service}) {
     return (
         <div>
             {appointments.map((appointment) => (
-                <Card key={appointment.id} variant="outlined" sx={{width: 250,marginTop:2}}>
+                <Card key={appointment.id} variant="outlined" sx={{width: 250, marginTop: 2}}>
                     <CardContent>
                         <Typography sx={{mt: 3}} variant="h5" component="div">
                             {service.name}

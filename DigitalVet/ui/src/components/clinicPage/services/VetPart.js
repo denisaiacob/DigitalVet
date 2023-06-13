@@ -14,6 +14,7 @@ const StyledTypography = styled(Typography)({
 
 function VetPart({vet}) {
     const navigate = useNavigate();
+
     const handleVet = () => {
         navigate(`/clinic/vet/${vet.vetId}`);
     };

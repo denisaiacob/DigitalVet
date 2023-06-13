@@ -64,6 +64,8 @@ const PointerTypography = styled(Typography)({
 
 function ClinicPage() {
     const {clinicId} = useParams();
+    const theme = useTheme();
+    const [value, setValue] = useState(0);
     const [favoriteId, setFavoriteId] = useState(null);
     const {auth} = useAuth();
     const [rating, setRating] = useState(5.0);
@@ -77,6 +79,7 @@ function ClinicPage() {
         description: "",
         photo: ""
     });
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -123,9 +126,6 @@ function ClinicPage() {
         }
     }, [clinicId]);
 
-    const theme = useTheme();
-    const [value, setValue] = useState(0);
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -135,11 +135,11 @@ function ClinicPage() {
     const handleFavorite = async () => {
         if (checked) {
             try {
-                const response = await ClinicService.deleteFavorites(favoriteId);
+                await ClinicService.deleteFavorites(favoriteId);
             } catch (error) {
                 console.log(error);
             }
-        }else {
+        } else {
             try {
                 const c = {clinicId: clinicId};
                 const response = await ClinicService.addFavorites(auth?.user.id, c);
@@ -150,6 +150,7 @@ function ClinicPage() {
         }
         setChecked(!checked);
     };
+
     return (
         <div className="clinic-page">
             <RoundedTypography sx={{mt: 5}}>{clinic.name}</RoundedTypography>
@@ -168,7 +169,7 @@ function ClinicPage() {
                         <CardMedia
                             className="clinic-img"
                             component="img"
-                            sx={{width: '100%', marginRight: 6,maxHeight:300}}
+                            sx={{width: '100%', marginRight: 6, maxHeight: 300}}
                             image={clinic.photo === "" ? avatar : clinic.photo}
                             alt="Cabinet img"
                         />

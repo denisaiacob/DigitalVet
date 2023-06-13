@@ -1,4 +1,5 @@
 package com.digitalvet.backend.services;
+
 import com.digitalvet.backend.entity.ServiceEntity;
 import com.digitalvet.backend.model.ServiceDto;
 import com.digitalvet.backend.repository.ServiceRepository;
@@ -46,20 +47,24 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public List<ServiceDto> getServiceByVetId(Long vetId) {
-        List<ServiceEntity> serviceEntities
-                = serviceRepository.findByVetId(vetId).get();
-
-        return serviceEntities
-                .stream()
-                .map(service -> new ServiceDto(
-                        service.getServiceId(),
-                        service.getVetId(),
-                        service.getClinicId(),
-                        service.getName(),
-                        service.getPrice(),
-                        service.getMinutes()))
-                .toList();
+        Optional<List<ServiceEntity>> serviceEntitiesOptional = serviceRepository.findByVetId(vetId);
+        if (serviceEntitiesOptional.isPresent()) {
+            List<ServiceEntity> serviceEntities = serviceEntitiesOptional.get();
+            return serviceEntities
+                    .stream()
+                    .map(service -> new ServiceDto(
+                            service.getServiceId(),
+                            service.getVetId(),
+                            service.getClinicId(),
+                            service.getName(),
+                            service.getPrice(),
+                            service.getMinutes()))
+                    .toList();
+        } else {
+            throw new EntityNotFoundException("Service not found for vet: " + vetId);
+        }
     }
+
 
     @Override
     public ServiceDto updateService(Long id, ServiceDto service) {
@@ -81,20 +86,24 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public List<ServiceDto> getServiceByClinicId(Long clinicId) {
-        List<ServiceEntity> serviceEntities
-                = serviceRepository.findByClinicId(clinicId).get();
-
-        return serviceEntities
-                .stream()
-                .map(service -> new ServiceDto(
-                        service.getServiceId(),
-                        service.getVetId(),
-                        service.getClinicId(),
-                        service.getName(),
-                        service.getPrice(),
-                        service.getMinutes()))
-                .toList();
+        Optional<List<ServiceEntity>> serviceEntitiesOptional = serviceRepository.findByClinicId(clinicId);
+        if (serviceEntitiesOptional.isPresent()) {
+            List<ServiceEntity> serviceEntities = serviceEntitiesOptional.get();
+            return serviceEntities
+                    .stream()
+                    .map(service -> new ServiceDto(
+                            service.getServiceId(),
+                            service.getVetId(),
+                            service.getClinicId(),
+                            service.getName(),
+                            service.getPrice(),
+                            service.getMinutes()))
+                    .toList();
+        } else {
+            throw new EntityNotFoundException("Service not found for clinic: " + clinicId);
+        }
     }
+
 
     @Override
     public List<ServiceDto> getAllServices() {

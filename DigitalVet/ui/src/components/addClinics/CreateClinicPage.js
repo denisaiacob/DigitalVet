@@ -1,11 +1,7 @@
 import React from "react";
 import {Alert, Box, Button, Grid, Snackbar, Stack, Typography} from "@mui/material";
 import {useState} from "react";
-import {
-    ref,
-    uploadBytes,
-    getDownloadURL,
-} from "firebase/storage";
+import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import {storage} from "./firebase";
 import {v4} from "uuid";
 import ClinicService from "../../services/ClinicService";
@@ -22,7 +18,7 @@ function CreateClinicPage({clinic, setClinic, update}) {
         const file = event.target.files[0];
         const imageUpload = event.target.files[0];
         const reader = new FileReader();
-        reader.onloadend = function (e) {
+        reader.onloadend = function () {
             setState(prevState => ({
                 ...prevState,
                 selectedFile: [reader.result],
@@ -51,7 +47,7 @@ function CreateClinicPage({clinic, setClinic, update}) {
         e.preventDefault();
         ClinicService.updateClinic(clinic, clinic.clinicId)
             .then()
-            .catch((error) => {
+            .catch(() => {
                 setSuccess(false);
             });
         setOpen(true);

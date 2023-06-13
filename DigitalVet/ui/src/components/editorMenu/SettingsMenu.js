@@ -19,7 +19,7 @@ import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
 import {useContext} from "react";
 
@@ -33,13 +33,13 @@ const DrawerHeader = styled('div')(({theme}) => ({
     justifyContent: 'flex-end',
 }));
 
-function SettingsMenu({open, setOpen, isMatch,setTab}) {
+function SettingsMenu({open, setOpen, isMatch, setTab}) {
     const theme = useTheme();
-    const { setAuth } = useContext(AuthContext);
+    const {setAuth} = useContext(AuthContext);
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const handleTab= (param) => {
+    const handleTab = (param) => {
         setTab(param);
     };
 
@@ -100,7 +100,7 @@ function SettingsMenu({open, setOpen, isMatch,setTab}) {
                 }
             >
                 <ListItemButton onClick={() => handleTab(2)}>
-                    <ListItemIcon ><DisplaySettingsIcon/></ListItemIcon>
+                    <ListItemIcon><DisplaySettingsIcon/></ListItemIcon>
                     <ListItemText primary="Clinic Page"/>
                 </ListItemButton>
                 <ListItemButton onClick={() => handleTab(3)}>
@@ -120,7 +120,7 @@ function SettingsMenu({open, setOpen, isMatch,setTab}) {
                 <Divider/>
                 <List sx={{width: '100%'}}
                 >
-                    <ListItemButton onClick={logout} >
+                    <ListItemButton onClick={logout}>
                         <ListItemIcon><LogoutIcon/></ListItemIcon>
                         <ListItemText primary="Log out"/>
                     </ListItemButton>

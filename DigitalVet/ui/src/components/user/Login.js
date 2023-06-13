@@ -65,7 +65,7 @@ function Login() {
                             const cId = adminResponse.data.clinicId;
                             setAuth({user, roles, cId});
                             navigate(`/settings/${cId}`);
-                        }catch (error) {
+                        } catch (error) {
                             setAuth({user, roles});
                             navigate("/addClinic");
                         }

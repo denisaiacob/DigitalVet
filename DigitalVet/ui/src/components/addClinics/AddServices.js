@@ -28,7 +28,14 @@ function AddServices({service, setService, vets, update}) {
         setService(list);
     }
 
-    const handleRemove = index => {
+    const handleRemove = async index => {
+        if (service[index].serviceId) {
+            try {
+                await ClinicService.deleteService(service[index].serviceId);
+            } catch (error) {
+                console.log(error);
+            }
+        }
         const list = [...service];
         list.splice(index, 1);
         setService(list);
@@ -63,7 +70,7 @@ function AddServices({service, setService, vets, update}) {
                 }
             } else {
                 try {
-                    const response = await ClinicService.updateService(service[i], service[i].serviceId);
+                    await ClinicService.updateService(service[i], service[i].serviceId);
                 } catch (error) {
                     setSuccess(false);
                 }

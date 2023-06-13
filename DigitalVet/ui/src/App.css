@@ -12,13 +12,14 @@
     min-height: 100vh;
     height: 100%;
 }
-    @media (max-width: 800px) {
-      .all {
+
+@media (max-width: 800px) {
+    .all {
         background-image: none;
         background-size: contain;
         background-color: #f9d3bc;
-      }
     }
+}
 
 .container {
     margin-top: 64px;
@@ -54,15 +55,18 @@
     max-height: 200px;
     overflow-y: auto;
 }
-.show-box{
+
+.show-box {
     margin-top: 40px;
     margin-left: 30px;
 }
+
 .align-center {
     justify-self: center;
     align-self: center;
 }
-.clinic-page{
+
+.clinic-page {
     margin-top: 60px;
     text-align: center;
     height: 100%;
@@ -73,7 +77,7 @@
     background-color: #fdf1ea;
 }
 
-.page{
+.page {
     margin-top: -60px;
     text-align: center;
     height: 100%;
@@ -84,28 +88,32 @@
     background-color: #fdf1ea;
 }
 
-.tabs-view{
+.tabs-view {
     width: 970px;
 }
+
 @media (max-width: 800px) {
     .tabs-view {
-       width: 600px;
-    }
-}
-@media (max-width: 700px) {
-    .tabs-view {
-       width: 400px;
+        width: 600px;
     }
 }
 
-.clinic-img{
+@media (max-width: 700px) {
+    .tabs-view {
+        width: 400px;
+    }
+}
+
+.clinic-img {
     max-width: 500px;
 }
+
 @media (max-width: 700px) {
     .clinic-view {
         width: 300px;
     }
 }
+
 .services {
     width: 100%;
     display: flex;

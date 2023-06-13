@@ -46,7 +46,7 @@ function VetPage() {
                 console.log(error);
             }
         };
-        if(vetId) fetchVet().then();
+        if (vetId) fetchVet().then();
     }, [vetId]);
 
     return (

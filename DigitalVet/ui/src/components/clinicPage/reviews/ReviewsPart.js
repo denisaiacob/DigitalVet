@@ -41,12 +41,6 @@ function ReviewsPart({clinicId}) {
         option2: true,
         option1: true,
     });
-    // const pageSize=1;
-    // const[pagination,setPagination]=React.useState({
-    //     number:0,
-    //     from:0,
-    //     to:pageSize
-    // })
 
     const handleAddReview = () => {
         setOpen(true);
@@ -57,20 +51,12 @@ function ReviewsPart({clinicId}) {
     const handleSubmit = async () => {
         setOpen(false);
         try {
-            const response = await ClinicService.addReview(review);
+            await ClinicService.addReview(review);
             setSubmit(true);
         } catch (error) {
             console.log(error);
         }
     };
-    // const handlePage = (event,page) => {
-    //     const from=(page-1)*pageSize;
-    //     const to=(page-1)*pageSize+pageSize;
-    //     setPagination({...pagination,
-    //     from:from,
-    //     to:to
-    //     })
-    // };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -120,17 +106,9 @@ function ReviewsPart({clinicId}) {
                         <Review
                             vet={vet}
                             checkedItems={checkedItems}
-                            // pagination={pagination}
-                            // setPagination={setPagination}
                         />
                     </div>
                 ))}
-                {/*<div style={{display:'flex',justifyContent:'center',marginTop:25}}>*/}
-                {/*    <Pagination*/}
-                {/*        count={Math.ceil(pagination.number/pageSize)}*/}
-                {/*        onChange={handlePage}*/}
-                {/*    />*/}
-                {/*</div>*/}
             </Box>
             <Dialog
                 fullScreen={fullScreen}

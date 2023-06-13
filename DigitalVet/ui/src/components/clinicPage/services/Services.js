@@ -12,7 +12,7 @@ function Services({clinicId}) {
         name: "",
         function: "",
         description: "",
-        photo:""
+        photo: ""
     }]);
 
     useEffect(() => {
@@ -40,8 +40,8 @@ function Services({clinicId}) {
                     marginRight: 6.5
                 }}
             >
-                {vets.map((vet)=>(
-                    <div key={vet.vetId} style={{marginBottom:50}}>
+                {vets.map((vet) => (
+                    <div key={vet.vetId} style={{marginBottom: 50}}>
                         <VetPart vet={vet}/>
                         <ServicePart vetId={vet.vetId}/>
                     </div>

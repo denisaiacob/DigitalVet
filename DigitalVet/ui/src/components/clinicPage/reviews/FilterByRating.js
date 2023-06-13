@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Card, Checkbox,FormGroup, Grid, Rating, Typography} from "@mui/material";
+import {Card, Checkbox, FormGroup, Grid, Rating, Typography} from "@mui/material";
 import LinearProgress, {linearProgressClasses} from '@mui/material/LinearProgress';
 import {styled} from "@mui/material/styles";
 
@@ -20,13 +20,13 @@ const BorderLinearProgress = styled(LinearProgress)(({theme}) => ({
     },
 }));
 
-function FilterByRating({checkedItems,setCheckedItems}){
+function FilterByRating({checkedItems, setCheckedItems}) {
 
     const handleCheck = (event) => {
         setCheckedItems({...checkedItems, [event.target.name]: event.target.checked});
     };
 
-    return(
+    return (
         <Card
             variant="outlined"
             sx={{
@@ -226,4 +226,5 @@ function FilterByRating({checkedItems,setCheckedItems}){
         </Card>
     );
 }
+
 export default FilterByRating;

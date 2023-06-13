@@ -3,9 +3,11 @@ package com.digitalvet.backend.services;
 import com.digitalvet.backend.entity.ReviewEntity;
 import com.digitalvet.backend.model.ReviewDto;
 import com.digitalvet.backend.repository.ReviewRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -50,19 +52,23 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<ReviewDto> getReviewByVetId(Long vetId) {
-        List<ReviewEntity> reviewEntities
-                = reviewRepository.findByVetId(vetId).get();
-
-        return reviewEntities
-                .stream()
-                .map(review -> new ReviewDto(
-                        review.getReviewId(),
-                        review.getVetId(),
-                        review.getService(),
-                        review.getStars(),
-                        review.getDescription(),
-                        review.getUser(),
-                        review.getDay()))
-                .toList();
+        Optional<List<ReviewEntity>> reviewEntitiesOptional = reviewRepository.findByVetId(vetId);
+        if (reviewEntitiesOptional.isPresent()) {
+            List<ReviewEntity> reviewEntities = reviewEntitiesOptional.get();
+            return reviewEntities
+                    .stream()
+                    .map(review -> new ReviewDto(
+                            review.getReviewId(),
+                            review.getVetId(),
+                            review.getService(),
+                            review.getStars(),
+                            review.getDescription(),
+                            review.getUser(),
+                            review.getDay()))
+                    .toList();
+        } else {
+            throw new EntityNotFoundException("Review not found");
+        }
     }
+
 }

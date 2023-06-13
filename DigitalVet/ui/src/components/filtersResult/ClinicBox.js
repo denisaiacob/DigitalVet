@@ -33,6 +33,7 @@ function ClinicBox({clinic}) {
     const handleReviews = () => {
         navigate("/");
     };
+
     const handleClinic = (clinicId) => {
         navigate(`/clinic/${clinicId}`);
     };
@@ -83,7 +84,7 @@ function ClinicBox({clinic}) {
     const handleFavorite = async () => {
         if (checked) {
             try {
-                const response = await ClinicService.deleteFavorites(favoriteId);
+                await ClinicService.deleteFavorites(favoriteId);
             } catch (error) {
                 console.log(error);
             }
@@ -114,7 +115,7 @@ function ClinicBox({clinic}) {
                 >
                     <CardMedia
                         component="img"
-                        sx={{width: '100%',maxHeight:300}}
+                        sx={{width: '100%', maxHeight: 300}}
                         image={clinic.photo === "" ? avatar : clinic.photo}
                         alt="Clinic"
                         onClick={() => handleClinic(clinic.clinicId)}

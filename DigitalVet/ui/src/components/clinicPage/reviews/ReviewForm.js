@@ -13,7 +13,7 @@ const MenuProps = {
     },
 };
 
-function ReviewForm({clinicId, vets,setReview}) {
+function ReviewForm({vets, setReview}) {
     const [stars, setStars] = React.useState(0);
     const [service, setService] = React.useState({
         serviceId: null,
@@ -32,7 +32,7 @@ function ReviewForm({clinicId, vets,setReview}) {
         photo: ""
     });
     const [services, setServices] = React.useState([]);
-    const [description,setDescription]=React.useState("");
+    const [description, setDescription] = React.useState("");
     const {auth} = useAuth();
 
     const handleChangeVet = (e) => {
@@ -41,10 +41,11 @@ function ReviewForm({clinicId, vets,setReview}) {
         setReview((prevReview) => ({
             ...prevReview,
             vetId: value.vetId,
-            user:auth.user.firstName,
-            day:new Date(),
+            user: auth.user.firstName,
+            day: new Date(),
         }));
     };
+
     const handleChangeService = (e) => {
         const value = e.target.value;
         setService(value);
@@ -128,7 +129,7 @@ function ReviewForm({clinicId, vets,setReview}) {
                                     label="Select a service"
                                     onChange={handleChangeService}
                                     MenuProps={MenuProps}
-                                    sx={{width:'100%'}}
+                                    sx={{width: '100%'}}
                                 >
                                     {services.map((s) => (
                                         <MenuItem
@@ -147,7 +148,7 @@ function ReviewForm({clinicId, vets,setReview}) {
                         label="Review"
                         multiline
                         rows={3}
-                        sx={{width:300}}
+                        sx={{width: 300}}
                         value={description}
                         onChange={handleDescription}
                     />

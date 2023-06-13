@@ -53,7 +53,7 @@ const RoundedTypography = styled(Typography)({
     fontSize: '1.1rem',
 });
 
-function LeftSide({initialValues,setInitialValues}) {
+function LeftSide({initialValues, setInitialValues}) {
 
     const [clinics, setClinics] = useState([]);
     const uniqueCities = [...new Set(clinics.map((location) => location.city))];
@@ -91,29 +91,6 @@ function LeftSide({initialValues,setInitialValues}) {
     return (
         <div>
             <RoundedTypography variant="h5" sx={{marginTop: 3, marginBottom: 1}}> Search filters</RoundedTypography>
-            {/*<Accordion>*/}
-            {/*    <AccordionSummary aria-controls="panel1-content" id="panel1-content">*/}
-            {/*        <Typography>Sort by</Typography>*/}
-            {/*    </AccordionSummary>*/}
-            {/*    <AccordionDetails>*/}
-            {/*        <div className="radio-group-container" align="start">*/}
-            {/*            <FormControl component="fieldset">*/}
-            {/*                <RadioGroup*/}
-            {/*                    name="sort"*/}
-            {/*                    aria-labelledby="sort"*/}
-            {/*                    value={initialValues.sort}*/}
-            {/*                    onChange={handleChange}*/}
-            {/*                >*/}
-            {/*                    <FormControlLabel value="rating" control={<Radio size={"small"}/>} label="Rating"/>*/}
-            {/*                    <FormControlLabel value="low" control={<Radio size={"small"}/>}*/}
-            {/*                                      label="The lowest price"/>*/}
-            {/*                    <FormControlLabel value="high" control={<Radio size={"small"}/>}*/}
-            {/*                                      label="The highest price"/>*/}
-            {/*                </RadioGroup>*/}
-            {/*            </FormControl>*/}
-            {/*        </div>*/}
-            {/*    </AccordionDetails>*/}
-            {/*</Accordion>*/}
             <Accordion>
                 <AccordionSummary aria-controls="panel2-content" id="panel2-content">
                     <Typography>Choose the location</Typography>

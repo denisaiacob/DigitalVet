@@ -32,7 +32,7 @@ function ServiceDetailsBox({service}) {
     });
 
     useEffect(() => {
-        if(auth?.user){
+        if (auth?.user) {
             setAppointment((prevAppointment) => ({
                 ...prevAppointment,
                 userId: auth?.user.id,
@@ -67,7 +67,7 @@ function ServiceDetailsBox({service}) {
                 });
                 if (!unique) {
                     try {
-                        const response = await ClinicService.addAppointment(appointment);
+                        await ClinicService.addAppointment(appointment);
                         setOpen(false);
                     } catch (error) {
                         console.log(error);

@@ -12,6 +12,7 @@ function AddProgram({program, setProgram}) {
         const value = event.target.value;
         setProgram({...program, [event.target.name]: value});
     };
+
     return (
         <Box
             style={{width: '70%', textAlign: 'center'}}

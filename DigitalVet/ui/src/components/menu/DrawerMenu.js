@@ -136,7 +136,7 @@ function DrawerMenu() {
                             >
                                 <ListItemButton
                                     color="inherit"
-                                                onClick={() => setOpenDrawer(!openDrawer)}
+                                    onClick={() => setOpenDrawer(!openDrawer)}
                                     component={Link} to={"/fav"}
                                 >
                                     <ListItemIcon>

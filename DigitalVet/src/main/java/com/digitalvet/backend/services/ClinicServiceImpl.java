@@ -3,10 +3,12 @@ package com.digitalvet.backend.services;
 import com.digitalvet.backend.entity.ClinicEntity;
 import com.digitalvet.backend.model.ClinicDto;
 import com.digitalvet.backend.repository.ClinicRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClinicServiceImpl implements ClinicService{
@@ -50,31 +52,47 @@ public class ClinicServiceImpl implements ClinicService{
 
     @Override
     public ClinicDto getClinicById(Long id) {
-        ClinicEntity clinicEntity
-                = clinicRepository.findById(id).get();
-        ClinicDto clinic = new ClinicDto();
-        BeanUtils.copyProperties(clinicEntity, clinic);
-        return clinic;
+        Optional<ClinicEntity> clinicOptional = clinicRepository.findById(id);
+        if (clinicOptional.isPresent()) {
+            ClinicEntity clinicEntity = clinicOptional.get();
+            ClinicDto clinic = new ClinicDto();
+            BeanUtils.copyProperties(clinicEntity, clinic);
+            return clinic;
+        } else {
+            throw new EntityNotFoundException("Clinic not found");
+        }
     }
+
 
     @Override
     public boolean deleteClinic(Long id) {
-        ClinicEntity clinic = clinicRepository.findById(id).get();
-        clinicRepository.delete(clinic);
-        return true;
+        Optional<ClinicEntity> clinicOptional = clinicRepository.findById(id);
+        if (clinicOptional.isPresent()) {
+            ClinicEntity clinic = clinicOptional.get();
+            clinicRepository.delete(clinic);
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
     @Override
     public ClinicDto updateClinic(Long id, ClinicDto clinic) {
-        ClinicEntity clinicEntity
-                = clinicRepository.findById(id).get();
-        clinicEntity.setName(clinic.getName());
-        clinicEntity.setCity(clinic.getCity());
-        clinicEntity.setAddress(clinic.getAddress());
-        clinicEntity.setDescription(clinic.getDescription());
-        clinicEntity.setPhoto(clinic.getPhoto());
+        Optional<ClinicEntity> clinicOptional = clinicRepository.findById(id);
+        if (clinicOptional.isPresent()) {
+            ClinicEntity clinicEntity = clinicOptional.get();
+            clinicEntity.setName(clinic.getName());
+            clinicEntity.setCity(clinic.getCity());
+            clinicEntity.setAddress(clinic.getAddress());
+            clinicEntity.setDescription(clinic.getDescription());
+            clinicEntity.setPhoto(clinic.getPhoto());
 
-        clinicRepository.save(clinicEntity);
-        return clinic;
+            clinicRepository.save(clinicEntity);
+            return clinic;
+        } else {
+            throw new EntityNotFoundException("Clinic not found");
+        }
     }
+
 }

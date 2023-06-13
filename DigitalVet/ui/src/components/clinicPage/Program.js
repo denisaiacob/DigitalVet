@@ -78,7 +78,7 @@ function Program({clinicId}) {
                             {program.thursday === '-' ? 'Closed' : program.thursday}
                         </ProgramTypography>
                         <ProgramTypography>
-                            {program.friday=== '-' ? 'Closed' : program.friday}
+                            {program.friday === '-' ? 'Closed' : program.friday}
                         </ProgramTypography>
                         <ProgramTypography>
                             {program.saturday === '-' ? 'Closed' : program.saturday}

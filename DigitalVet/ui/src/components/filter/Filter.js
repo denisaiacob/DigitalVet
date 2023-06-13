@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, {useState} from "react";
 import SwipeableViews from 'react-swipeable-views';
 import {useTheme} from '@mui/material/styles';
 import {Box, Tab, Tabs, AppBar, Snackbar, Alert} from "@mui/material";
@@ -47,7 +47,7 @@ function Filter() {
     return (
         <div className="all">
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
                     Select a filter!
                 </Alert>
             </Snackbar>

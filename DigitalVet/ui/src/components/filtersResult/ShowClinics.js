@@ -12,7 +12,6 @@ function ShowClinics() {
     const theme2 = useTheme();
     const isMatch = useMediaQuery(theme2.breakpoints.down(550));
     const [clinics, setClinics] = useState([]);
-
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const [initialValues, setInitialValues] = useState({

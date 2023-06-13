@@ -1,8 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
+import {initializeApp} from "firebase/app";
+import {getStorage} from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDtfUh-2cRwm-YBpq02y_iVSsBMKOBx84k",
+    apiKey: "",
     authDomain: "licenta-c5734.firebaseapp.com",
     projectId: "licenta-c5734",
     storageBucket: "licenta-c5734.appspot.com",
@@ -11,6 +11,5 @@ const firebaseConfig = {
     measurementId: "G-GQ2F2V11NY"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);

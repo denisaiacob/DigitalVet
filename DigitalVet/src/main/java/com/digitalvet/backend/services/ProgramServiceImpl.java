@@ -3,6 +3,7 @@ package com.digitalvet.backend.services;
 import com.digitalvet.backend.entity.ProgramEntity;
 import com.digitalvet.backend.model.ProgramDto;
 import com.digitalvet.backend.repository.ProgramRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class ProgramServiceImpl implements ProgramService {
             BeanUtils.copyProperties(programEntity, program);
             return program;
         } else {
-            return null;
+            throw new EntityNotFoundException("Program not found");
         }
     }
 
@@ -78,7 +79,7 @@ public class ProgramServiceImpl implements ProgramService {
             programRepository.save(programEntity);
             return program;
         } else {
-            return null;
+            throw new EntityNotFoundException("Program not found");
         }
     }
 

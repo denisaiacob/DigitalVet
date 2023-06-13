@@ -9,8 +9,8 @@ function Review({vet, checkedItems}) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                    const response = await ClinicService.getReviewByVetId(vet.vetId);
-                    setReviews(response.data);
+                const response = await ClinicService.getReviewByVetId(vet.vetId);
+                setReviews(response.data);
             } catch (error) {
                 console.log(error);
             }

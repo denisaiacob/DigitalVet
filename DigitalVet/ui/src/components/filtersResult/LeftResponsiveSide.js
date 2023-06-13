@@ -24,17 +24,15 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 function LeftResponsiveSide({initialValues, setInitialValues}) {
     const [state, setState] = React.useState(false);
-
-    const toggleDrawer = (open) => (event) => {
+    const toggleDrawer = (open) => () => {
         setState(open);
     };
     const [clinics, setClinics] = useState([]);
     const uniqueCities = [...new Set(clinics.map((location) => location.city))];
-
     const [servicesDb, setServicesDb] = useState([]);
     const uniqueServices = [...new Set(servicesDb.map((service) => service.name))];
-
     const maxDate = String(addYears(new Date(), 1));
+
     const handleChange = (e) => {
         const {name, value} = e.target;
         setInitialValues({...initialValues, [name]: value});

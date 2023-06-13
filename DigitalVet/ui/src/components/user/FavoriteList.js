@@ -30,7 +30,7 @@ function FavoriteList() {
 
     return (
         <div className="clinic-page">
-            <div style={{marginLeft:'10%'}}>
+            <div style={{marginLeft: '10%'}}>
                 <RightSide clinics={clinics}/>
             </div>
         </div>

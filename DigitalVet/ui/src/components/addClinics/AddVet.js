@@ -61,7 +61,14 @@ function AddVet({vet, setVet, update}) {
         setVet(list);
     }
 
-    const handleRemove = index => {
+    const handleRemove = async index => {
+        if (vet[index].vetId) {
+            try {
+                await ClinicService.deleteVet(vet[index].vetId);
+            } catch (error) {
+                console.log(error);
+            }
+        }
         const list = [...vet];
         list.splice(index, 1);
         setVet(list);
@@ -96,7 +103,7 @@ function AddVet({vet, setVet, update}) {
                 }
             } else {
                 try {
-                    const response = await ClinicService.updateVet(vet[i], vet[i].vetId);
+                    await ClinicService.updateVet(vet[i], vet[i].vetId);
                 } catch (error) {
                     setSuccess(false);
                 }

@@ -1,6 +1,6 @@
 import {Box, Grid, Typography} from "@mui/material";
 
-function AddClinicInfo({info,setInfo}) {
+function AddClinicInfo({info, setInfo}) {
     const handleChange = (event) => {
         const value = event.target.value;
         setInfo({...info, [event.target.name]: value});
