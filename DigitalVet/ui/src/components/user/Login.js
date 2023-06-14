@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {
     TextField,
     Stack,
@@ -15,6 +15,8 @@ import ClinicService from "../../services/ClinicService";
 
 function Login() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const [userInfo, setUserInfo] = useState({
         email: "",
@@ -58,7 +60,7 @@ function Login() {
                     const roles = [user.role];
                     if (user.role === 'user') {
                         setAuth({user, roles});
-                        navigate("/");
+                        navigate(from, { replace: true });
                     } else {
                         try {
                             const adminResponse = await ClinicService.getAdmin(user.id);
@@ -70,8 +72,6 @@ function Login() {
                             navigate("/addClinic");
                         }
                     }
-                    // const accessToken = response?.data?.accessToken;
-                    // console.log(accessToken,roles);
                 } else {
                     setOpen(true);
                     reset();
