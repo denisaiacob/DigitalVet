@@ -147,7 +147,7 @@ function RegisterForm({role}) {
         <div>
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                    There was an issue with the registration!Try another email!
+                    This email address is already associated with an account!
                 </Alert>
             </Snackbar>
             <Box
