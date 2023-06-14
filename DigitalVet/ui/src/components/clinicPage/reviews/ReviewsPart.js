@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
+    Alert,
     Box,
     Button,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
-    Grid,
+    Grid, Snackbar,
     useMediaQuery
 } from "@mui/material";
 import FilterByRating from "./FilterByRating";
@@ -22,6 +23,7 @@ import useAuth from "../../../hooks/UseAuth";
 function ReviewsPart({clinicId}) {
     const {auth} = useAuth();
     const [open, setOpen] = React.useState(false);
+    const [openError, setOpenError] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [vets, setVets] = React.useState([]);
@@ -48,14 +50,22 @@ function ReviewsPart({clinicId}) {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleSubmit = async () => {
-        setOpen(false);
-        try {
-            await ClinicService.addReview(review);
-            setSubmit(true);
-        } catch (error) {
-            console.log(error);
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
         }
+        setOpenError(false);
+    };
+    const handleSubmit = async () => {
+        if (review.vetId && review.service && review.stars) {
+            setOpen(false);
+            try {
+                await ClinicService.addReview(review);
+                setSubmit(true);
+            } catch (error) {
+                console.log(error);
+            }
+        } else setOpenError(true);
     };
 
     useEffect(() => {
@@ -121,6 +131,11 @@ function ReviewsPart({clinicId}) {
                 </DialogTitle>
                 <DialogContent>
                     <ReviewForm clinicId={clinicId} vets={vets} setReview={setReview}/>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="error" sx={{width: '100%'}}>
+                            The review could not be recorded!
+                        </Alert>
+                    </Snackbar>
                 </DialogContent>
                 <DialogActions>
                     <Button
