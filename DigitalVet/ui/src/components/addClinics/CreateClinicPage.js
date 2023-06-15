@@ -1,6 +1,5 @@
 import React from "react";
 import {Alert, Box, Button, Grid, Snackbar, Stack, Typography} from "@mui/material";
-import {useState} from "react";
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import {storage} from "../../config/firebase";
 import {v4} from "uuid";
@@ -9,7 +8,7 @@ import ClinicService from "../../services/ClinicService";
 function CreateClinicPage({clinic, setClinic, update}) {
     const [open, setOpen] = React.useState(false);
     const [success, setSuccess] = React.useState(true);
-    const [state, setState] = useState({
+    const [state, setState] = React.useState({
         imageUploaded: 0,
         selectedFile: null
     })
@@ -65,21 +64,21 @@ function CreateClinicPage({clinic, setClinic, update}) {
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 {success ? (
                     <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                        The clinic page has been successfully updated!
+                        Pagina clinicii a fost actualizată cu succes!
                     </Alert>
                 ) : (
                     <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                        An error occurred during the update!
+                        A apărut o eroare la actualizare!
                     </Alert>
                 )}
             </Snackbar>
             <Box style={{width: '70%', textAlign: 'center'}}>
-                <Typography fontWeight="bold" sx={{margin: 3}}>Information for the Clinic Page</Typography>
+                <Typography fontWeight="bold" sx={{margin: 3}}>Informații pentru pagina clinicii</Typography>
                 <Box sx={{textAlign: 'start'}}>
                     <Grid container style={{width: '100%'}}>
                         <Grid item xs={6}>
                             <Stack spacing={1} style={{width: '100%'}}>
-                                <Typography>The name of the clinic</Typography>
+                                <Typography>Numele clinicii</Typography>
                                 <input
                                     style={{marginTop: 10, marginBottom: 10, marginRight: 10, width: '80%', height: 30}}
                                     type="text"
@@ -91,7 +90,7 @@ function CreateClinicPage({clinic, setClinic, update}) {
                             </Stack>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography>City</Typography>
+                            <Typography>Localitate</Typography>
                             <input
                                 style={{marginTop: 10, marginBottom: 10, width: '80%', height: 30}}
                                 type="text"
@@ -102,7 +101,7 @@ function CreateClinicPage({clinic, setClinic, update}) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography>Address</Typography>
+                            <Typography>Adresă</Typography>
                             <input
                                 style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                                 type="text"
@@ -113,7 +112,7 @@ function CreateClinicPage({clinic, setClinic, update}) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography>A short description</Typography>
+                            <Typography>O scurtă descriere</Typography>
                             <textarea
                                 style={{width: '90%', height: 100, marginTop: 10, marginBottom: 10}}
                                 rows={5}
@@ -158,7 +157,7 @@ function CreateClinicPage({clinic, setClinic, update}) {
                             variant="outlined"
                             style={{color: '#43ab98', borderColor: '#43ab98'}}
                         >
-                            Update
+                            Actualizare
                         </Button>}
                 </div>
             </Box>

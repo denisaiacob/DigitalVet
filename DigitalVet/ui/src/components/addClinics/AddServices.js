@@ -83,23 +83,23 @@ function AddServices({service, setService, vets, update}) {
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 {success ? (
                     <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                        The services have been successfully updated!
+                        Serviciile au fost actualizate cu succes!
                     </Alert>
                 ) : (
                     <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                        An error occurred during the update!
+                        A apărut o eroare la actualizare!
                     </Alert>
                 )}
             </Snackbar>
             <Box style={{width: '90%', textAlign: 'center'}}>
-                <Typography fontWeight="bold" sx={{marginTop: 3}}>Add services</Typography>
+                <Typography fontWeight="bold" sx={{marginTop: 3}}>Adaugă servicii</Typography>
                 {
                     service.map((x, i) => {
                         return (
-                            <Box key={i} sx={{textAlign: 'start', marginTop: 5, width: '100%'}}>
+                            <Box key={service[i].serviceId} sx={{textAlign: 'start', marginTop: 5, width: '100%'}}>
                                 <Grid container style={{width: '100%'}}>
                                     <Grid item xs={12}>
-                                        <Typography>Service name</Typography>
+                                        <Typography>Numele serviciului</Typography>
                                         <input
                                             type="text"
                                             name="name"
@@ -111,7 +111,7 @@ function AddServices({service, setService, vets, update}) {
                                     </Grid>
                                     <Grid item container xs={12}>
                                         <Grid item xs={6}>
-                                            <Typography>Price</Typography>
+                                            <Typography>Preț</Typography>
                                             <input
                                                 type="number"
                                                 name="price"
@@ -122,7 +122,7 @@ function AddServices({service, setService, vets, update}) {
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Typography>Time in minutes</Typography>
+                                            <Typography>Timpul în minute</Typography>
                                             <input
                                                 type="number"
                                                 name="minutes"
@@ -136,7 +136,7 @@ function AddServices({service, setService, vets, update}) {
                                     <Grid item xs={12}>
                                         {vets && (
                                             <div>
-                                                <Typography>Veterinarians</Typography>
+                                                <Typography>Medic veterinar</Typography>
                                                 <select
                                                     name="vetId"
                                                     id="vetId"
@@ -148,9 +148,9 @@ function AddServices({service, setService, vets, update}) {
                                                     }}
                                                     style={{width: '90%', height: 30, marginBottom: 10}}
                                                 >
-                                                    <option>Select a veterinarian</option>
+                                                    <option>Selectează un medic</option>
                                                     {vets.map((o, j) => (
-                                                        <option key={j} value={vets[j].vetId}>{vets[j].name}</option>
+                                                        <option key={vets[j].vetId} value={vets[j].vetId}>{vets[j].name}</option>
                                                     ))}
                                                 </select>
                                             </div>
@@ -180,7 +180,7 @@ function AddServices({service, setService, vets, update}) {
                             variant="outlined"
                             style={{color: '#43ab98', borderColor: '#43ab98'}}
                         >
-                            Update
+                            Actualizare
                         </Button>
                     </div>
                 )}

@@ -110,7 +110,7 @@ function BookPage({timeSteps, setAppointment, service}) {
                                 <DemoItem>
                                     <DatePicker
                                         format="DD/MM/YYYY"
-                                        label="Choose the date"
+                                        label="Selectează data"
                                         value={date}
                                         sx={{width: '100%'}}
                                         onChange={(newValue) => handleChangeDate(newValue)}
@@ -126,7 +126,7 @@ function BookPage({timeSteps, setAppointment, service}) {
                     <FormControl sx={{width: '80%'}}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['MultiSectionDigitalClock']}>
-                                <DemoItem label="Choose the time">
+                                <DemoItem label="Selectează ora">
                                     <MultiSectionDigitalClock
                                         value={time}
                                         onChange={(newValue) => handleChangeTime(newValue)}

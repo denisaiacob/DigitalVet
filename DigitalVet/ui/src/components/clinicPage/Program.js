@@ -56,35 +56,35 @@ function Program({clinicId}) {
                 </Typography>
                 <Grid container direction="row" spacing={2} sx={{marginTop: 1}}>
                     <Grid item xs={4}>
-                        <ProgramTypography>Monday</ProgramTypography>
-                        <ProgramTypography>Tuesday</ProgramTypography>
-                        <ProgramTypography>Wednesday</ProgramTypography>
-                        <ProgramTypography>Thursday</ProgramTypography>
-                        <ProgramTypography>Friday</ProgramTypography>
-                        <ProgramTypography>Saturday</ProgramTypography>
-                        <ProgramTypography>Sunday</ProgramTypography>
+                        <ProgramTypography>Luni</ProgramTypography>
+                        <ProgramTypography>Marți</ProgramTypography>
+                        <ProgramTypography>Miercuri</ProgramTypography>
+                        <ProgramTypography>Joi</ProgramTypography>
+                        <ProgramTypography>Vineri</ProgramTypography>
+                        <ProgramTypography>Sâmbătă</ProgramTypography>
+                        <ProgramTypography>Duminică</ProgramTypography>
                     </Grid>
                     <Grid item>
                         <ProgramTypography>
-                            {program.monday === '-' ? 'Closed' : program.monday}
+                            {program.monday === '-' ? 'Închis' : program.monday}
                         </ProgramTypography>
                         <ProgramTypography>
-                            {program.tuesday === '-' ? 'Closed' : program.tuesday}
+                            {program.tuesday === '-' ? 'Închis' : program.tuesday}
                         </ProgramTypography>
                         <ProgramTypography>
-                            {program.wednesday === '-' ? 'Closed' : program.wednesday}
+                            {program.wednesday === '-' ? 'Închis' : program.wednesday}
                         </ProgramTypography>
                         <ProgramTypography>
-                            {program.thursday === '-' ? 'Closed' : program.thursday}
+                            {program.thursday === '-' ? 'Închis' : program.thursday}
                         </ProgramTypography>
                         <ProgramTypography>
-                            {program.friday === '-' ? 'Closed' : program.friday}
+                            {program.friday === '-' ? 'Închis' : program.friday}
                         </ProgramTypography>
                         <ProgramTypography>
-                            {program.saturday === '-' ? 'Closed' : program.saturday}
+                            {program.saturday === '-' ? 'Închis' : program.saturday}
                         </ProgramTypography>
                         <ProgramTypography>
-                            {program.sunday === '-' ? 'Closed' : program.sunday}
+                            {program.sunday === '-' ? 'Închis' : program.sunday}
                         </ProgramTypography>
 
                     </Grid>

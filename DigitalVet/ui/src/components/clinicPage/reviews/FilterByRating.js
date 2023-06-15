@@ -51,7 +51,7 @@ function FilterByRating({checkedItems, setCheckedItems}) {
                 }}
                 gutterBottom
             >
-                Filter by rating
+                Filtrează după rating
             </Typography>
             <div style={{marginLeft: 20}}>
                 <FormGroup>

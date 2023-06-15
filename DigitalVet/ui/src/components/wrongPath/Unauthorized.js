@@ -9,7 +9,7 @@ function Unauthorized() {
                 fontWeight='bold'
                 sx={{margin: 8}}
             >
-                You do not have access to the requested page!
+                Nu ai acces la această pagină!
             </Typography>
             <img style={{width: '20%'}} src={page} alt={"You do not have access"}/>
         </div>

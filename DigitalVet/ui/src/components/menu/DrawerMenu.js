@@ -89,7 +89,7 @@ function DrawerMenu() {
                                 aria-labelledby="nested-list-subheader"
                                 subheader={
                                     <ListSubheader component="div" id="nested-list-subheader">
-                                        Log in
+                                        Autentificare
                                     </ListSubheader>
                                 }
                             >
@@ -98,14 +98,14 @@ function DrawerMenu() {
                                     <ListItemIcon>
                                         <PersonIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Register"/>
+                                    <ListItemText primary="Înregistrare"/>
                                 </ListItemButton>
                                 <ListItemButton color="inherit" component={Link} to="/login"
                                                 onClick={() => setOpenDrawer(!openDrawer)}>
                                     <ListItemIcon>
                                         <LoginIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Login"/>
+                                    <ListItemText primary="Autentificare"/>
                                 </ListItemButton>
                             </List>
                             <Divider/>
@@ -115,7 +115,7 @@ function DrawerMenu() {
                                 aria-labelledby="nested-list-subheader"
                                 subheader={
                                     <ListSubheader component="div" id="nested-list-subheader">
-                                        Add
+                                        Adaugă
                                     </ListSubheader>
                                 }
                             >
@@ -123,7 +123,7 @@ function DrawerMenu() {
                                     <ListItemIcon>
                                         <AddBoxIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Add your cabinet"/>
+                                    <ListItemText primary="Adaugă o clinică"/>
                                 </ListItemButton>
                             </List>
                         </div>
@@ -142,7 +142,7 @@ function DrawerMenu() {
                                     <ListItemIcon>
                                         <FavoriteIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Favorite Clinics"/>
+                                    <ListItemText primary="Clinici favorite"/>
                                 </ListItemButton>
                                 <ListItemButton
                                     color="inherit"
@@ -152,14 +152,14 @@ function DrawerMenu() {
                                     <ListItemIcon>
                                         <EventIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="My appointments"/>
+                                    <ListItemText primary="Programările mele"/>
                                 </ListItemButton>
                                 <ListItemButton color="inherit"
                                                 onClick={logout}>
                                     <ListItemIcon>
                                         <LogoutIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Logout"/>
+                                    <ListItemText primary="Deconectare"/>
                                 </ListItemButton>
                             </List>
                         </div>
@@ -178,14 +178,14 @@ function DrawerMenu() {
                                     <ListItemIcon>
                                         <HomeIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Clinic Profile"/>
+                                    <ListItemText primary="Profilul clinicii"/>
                                 </ListItemButton>
                                 <ListItemButton color="inherit"
                                                 onClick={logout}>
                                     <ListItemIcon>
                                         <LogoutIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Logout"/>
+                                    <ListItemText primary="Deconectare"/>
                                 </ListItemButton>
                             </List>
                         </div>

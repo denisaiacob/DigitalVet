@@ -189,7 +189,7 @@ function ClinicPage() {
                                 </Typography>
                                 <Box sx={{maxWidth: 120}}>
                                     <PointerTypography>
-                                        {reviewsNumber} Reviews
+                                        {reviewsNumber} Recenzii
                                     </PointerTypography>
                                 </Box>
                             </Grid>
@@ -226,10 +226,10 @@ function ClinicPage() {
                     variant="fullWidth"
                     aria-label="tabs"
                 >
-                    <StyledTab label="Services"/>
-                    <StyledTab label="Description"/>
+                    <StyledTab label="Servicii"/>
+                    <StyledTab label="Descriere"/>
                     <StyledTab label="Program"/>
-                    <StyledTab label="Reviews"/>
+                    <StyledTab label="Recenzii"/>
                 </StyledTabs>
                 <SwipeableViews
                     axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}

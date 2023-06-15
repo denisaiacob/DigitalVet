@@ -68,26 +68,7 @@ function LeftResponsiveSide({initialValues, setInitialValues}) {
             <div style={{marginLeft: 30, marginTop: 10}}>
                 <Stack>
                     <Box style={{marginBottom: 50}}>
-                        <Typography style={{marginBottom: 10}}>Sort by</Typography>
-                        <div className="radio-group-container" align="start">
-                            <FormControl component="fieldset">
-                                <RadioGroup
-                                    name="sort"
-                                    aria-labelledby="sort"
-                                    value={initialValues.sort}
-                                    onChange={handleChange}
-                                >
-                                    <FormControlLabel value="rating" control={<Radio size={"small"}/>} label="Rating"/>
-                                    <FormControlLabel value="low" control={<Radio size={"small"}/>}
-                                                      label="The lowest price"/>
-                                    <FormControlLabel value="high" control={<Radio size={"small"}/>}
-                                                      label="The highest price"/>
-                                </RadioGroup>
-                            </FormControl>
-                        </div>
-                    </Box>
-                    <Box style={{marginBottom: 50}}>
-                        <Typography style={{marginBottom: 10}}>Choose the location</Typography>
+                        <Typography style={{marginBottom: 10}}>Selectează locația</Typography>
                         <div className="radio-group-container" align="start">
                             <FormControl component="fieldset">
                                 <RadioGroup
@@ -110,7 +91,7 @@ function LeftResponsiveSide({initialValues, setInitialValues}) {
                         </div>
                     </Box>
                     <Box style={{marginBottom: 50}}>
-                        <Typography style={{marginBottom: 10}}>Choose service</Typography>
+                        <Typography style={{marginBottom: 10}}>Selectează serviciul</Typography>
                         <div className="radio-group-container" align="start">
                             <FormControl component="fieldset">
                                 <RadioGroup
@@ -133,7 +114,7 @@ function LeftResponsiveSide({initialValues, setInitialValues}) {
                         </div>
                     </Box>
                     <Box style={{marginBottom: 50}}>
-                        <Typography style={{marginBottom: 10}}>Choose the date</Typography>
+                        <Typography style={{marginBottom: 10}}>Selectează data</Typography>
                         <div className="radio-group-container" align="start">
                             <FormControl>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>

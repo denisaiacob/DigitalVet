@@ -89,12 +89,12 @@ function ServiceFilter({setOpen}) {
                 noValidate
             >
                 <FormControl fullWidth sx={{mt: 1, mb: 2, width: 300}}>
-                    <InputLabel id="choose-location">Choose the location</InputLabel>
+                    <InputLabel id="choose-location">Selectează locația</InputLabel>
                     <Select
                         id="select-location"
                         name="location"
                         value={formValues.location}
-                        label="Choose the location"
+                        label="Selectează locația"
                         onChange={handleChange}
                         MenuProps={MenuProps}
                     >
@@ -113,12 +113,12 @@ function ServiceFilter({setOpen}) {
                     </Select>
                 </FormControl>
                 <FormControl fullWidth sx={{mb: 1, width: 300}}>
-                    <InputLabel id="choose-service">Choose service</InputLabel>
+                    <InputLabel id="choose-service">Selectează serviciul</InputLabel>
                     <Select
                         id="select-services"
                         name="service"
                         value={formValues.service}
-                        label="Choose service"
+                        label="Selectează serviciul"
                         onChange={handleChange}
                         MenuProps={MenuProps}
                     >
@@ -139,7 +139,7 @@ function ServiceFilter({setOpen}) {
                         <DemoContainer components={['DatePicker']}>
                             <DatePicker
                                 format="DD/MM/YYYY"
-                                label="Choose the date"
+                                label="Alege data"
                                 value={formValues.date}
                                 sx={{width: 300, mb: 2, mt: 1}}
                                 onChange={(newValue) => setFormValues({...formValues, date: newValue})}
@@ -156,7 +156,7 @@ function ServiceFilter({setOpen}) {
                     type='submit'
                     style={buttonStyle}
                 >
-                    Search for services
+                    Caută servicii
                 </Button>
             </Box>
         </div>

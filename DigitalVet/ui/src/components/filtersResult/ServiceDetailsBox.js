@@ -95,18 +95,18 @@ function ServiceDetailsBox({service}) {
                             </Grid>
                         </Grid>
                         <Grid item container direction="row" spacing={2}>
-                            <Grid item md={10} xs={12}>
+                            <Grid item md={8.5} xs={12}>
                                 <Typography textAlign="start" variant="body2"
-                                            color='gray'>{service.minutes} minutes</Typography>
+                                            color='gray'>{service.minutes} minute</Typography>
                             </Grid>
-                            <Grid item md={2} xs={12}>
+                            <Grid item md={3.5} xs={12}>
                                 {auth?.roles?.find(role => role === 'user') &&
                                     <Button
                                         variant="outlined"
                                         style={{color: '#43ab98', borderColor: '#43ab98'}}
                                         onClick={handleClickOpen}
                                     >
-                                        Book
+                                        Programează-te
                                     </Button>
                                 }
                             </Grid>
@@ -131,7 +131,7 @@ function ServiceDetailsBox({service}) {
                     />
                     <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
                         <Alert onClose={handleCloseError} severity="error" sx={{width: '100%'}}>
-                            This date and time are not available
+                            Această dată și oră nu sunt disponibile
                         </Alert>
                     </Snackbar>
                 </DialogContent>
@@ -141,14 +141,14 @@ function ServiceDetailsBox({service}) {
                         onClick={handleClose}
                         style={{color: '#43ab98'}}
                     >
-                        Cancel
+                        Închide
                     </Button>
                     <Button
                         onClick={handleSubmit}
                         autoFocus
                         style={{color: '#43ab98'}}
                     >
-                        Save
+                        Salvează
                     </Button>
                 </DialogActions>
             </Dialog>

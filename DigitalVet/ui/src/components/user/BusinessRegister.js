@@ -35,7 +35,7 @@ function BusinessRegister() {
                             variant="caption"
                             marginTop={3}
                         >
-                            Administrator account registrations
+                            Înregistrare cont administrator
                         </Typography>
                         <RegisterForm role={"business"}/>
                     </Box>

@@ -104,7 +104,7 @@ function ReviewForm({vets, setReview}) {
                         <Select
                             name="vet"
                             value={vet}
-                            label="Select a veterinarian"
+                            label="Selectează veterinar"
                             onChange={handleChangeVet}
                             MenuProps={MenuProps}
                         >
@@ -126,7 +126,7 @@ function ReviewForm({vets, setReview}) {
                                 <Select
                                     name="service"
                                     value={service}
-                                    label="Select a service"
+                                    label="Selectează serviciul"
                                     onChange={handleChangeService}
                                     MenuProps={MenuProps}
                                     sx={{width: '100%'}}
@@ -145,7 +145,7 @@ function ReviewForm({vets, setReview}) {
                         </FormControl>
                     )}
                     <TextField
-                        label="Review"
+                        label="Recenzie"
                         multiline
                         rows={3}
                         sx={{width: 300}}

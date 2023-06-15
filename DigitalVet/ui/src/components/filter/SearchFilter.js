@@ -111,7 +111,7 @@ function SearchFilter({searchClinic}) {
                     <SearchIcon/>
                 </SearchIconWrapper>
                 <StyledInputBase
-                    placeholder="Search…"
+                    placeholder="Caută…"
                     inputProps={{'aria-label': 'search'}}
                     value={wordEntered}
                     onChange={handleFilter}

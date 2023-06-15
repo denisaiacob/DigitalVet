@@ -20,7 +20,7 @@ function Description({description}) {
                     variant="h6"
                     fontWeight="bold"
                 >
-                    About us
+                    Despre noi
                 </Typography>
                 <Typography
                     sx={{

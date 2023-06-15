@@ -93,7 +93,7 @@ function LeftSide({initialValues, setInitialValues}) {
             <RoundedTypography variant="h5" sx={{marginTop: 3, marginBottom: 1}}> Search filters</RoundedTypography>
             <Accordion>
                 <AccordionSummary aria-controls="panel2-content" id="panel2-content">
-                    <Typography>Choose the location</Typography>
+                    <Typography>Selectrează locația</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <div className="radio-group-container" align="start">
@@ -120,7 +120,7 @@ function LeftSide({initialValues, setInitialValues}) {
             </Accordion>
             <Accordion>
                 <AccordionSummary aria-controls="panel3-content" id="panel3-content">
-                    <Typography>Choose service</Typography>
+                    <Typography>Selectează serviciul</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <div className="radio-group-container" align="start">
@@ -147,7 +147,7 @@ function LeftSide({initialValues, setInitialValues}) {
             </Accordion>
             <Accordion>
                 <AccordionSummary aria-controls="panel4-content" id="panel4-content">
-                    <Typography>Choose the date</Typography>
+                    <Typography>Selectează data</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormControl>
@@ -155,7 +155,7 @@ function LeftSide({initialValues, setInitialValues}) {
                             <DemoContainer components={['DatePicker']}>
                                 <DatePicker
                                     format="DD/MM/YYYY"
-                                    label="Choose the date"
+                                    label="Selectează data"
                                     value={dayjs(initialValues.date).isValid() ? initialValues.date : null}
                                     sx={{width: 220}}
                                     onChange={(newValue) => setInitialValues({...initialValues, date: newValue})}

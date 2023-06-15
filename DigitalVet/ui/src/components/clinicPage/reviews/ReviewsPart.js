@@ -100,7 +100,7 @@ function ReviewsPart({clinicId}) {
                         sx={{color: '#43ab98', marginBottom: 3}}
                         onClick={handleAddReview}
                     >
-                        Add a review
+                        Adaugă o recenzie
                     </Button>
                 )}
                 <Grid container spacing={2} direction="row">
@@ -127,13 +127,13 @@ function ReviewsPart({clinicId}) {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle>
-                    {"Add a review"}
+                    {"Adaugă recenzie"}
                 </DialogTitle>
                 <DialogContent>
                     <ReviewForm clinicId={clinicId} vets={vets} setReview={setReview}/>
                     <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
                         <Alert onClose={handleCloseError} severity="error" sx={{width: '100%'}}>
-                            The review could not be recorded!
+                            Recenzia nu a putut fi salvată!
                         </Alert>
                     </Snackbar>
                 </DialogContent>
@@ -143,14 +143,14 @@ function ReviewsPart({clinicId}) {
                         onClick={handleClose}
                         style={{color: '#43ab98'}}
                     >
-                        Cancel
+                        Închide
                     </Button>
                     <Button
                         onClick={handleSubmit}
                         autoFocus
                         style={{color: '#43ab98'}}
                     >
-                        Save
+                        Salvează
                     </Button>
                 </DialogActions>
             </Dialog>

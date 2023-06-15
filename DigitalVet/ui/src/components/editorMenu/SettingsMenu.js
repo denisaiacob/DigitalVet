@@ -80,12 +80,12 @@ function SettingsMenu({open, setOpen, isMatch, setTab}) {
             <List
                 sx={{width: '100%'}}
                 subheader={
-                    <ListSubheader component="div">View</ListSubheader>
+                    <ListSubheader component="div">Vizualizare</ListSubheader>
                 }
             >
                 <ListItemButton onClick={() => handleTab(0)}>
                     <ListItemIcon><HomeIcon/></ListItemIcon>
-                    <ListItemText primary="Clinic Page"/>
+                    <ListItemText primary="Pagina clinicii"/>
                 </ListItemButton>
                 <ListItemButton onClick={() => handleTab(1)}>
                     <ListItemIcon><CalendarMonthIcon/></ListItemIcon>
@@ -96,24 +96,24 @@ function SettingsMenu({open, setOpen, isMatch, setTab}) {
             <List
                 sx={{width: '100%'}}
                 subheader={
-                    <ListSubheader component="div">Settings</ListSubheader>
+                    <ListSubheader component="div">Setări</ListSubheader>
                 }
             >
                 <ListItemButton onClick={() => handleTab(2)}>
                     <ListItemIcon><DisplaySettingsIcon/></ListItemIcon>
-                    <ListItemText primary="Clinic Page"/>
+                    <ListItemText primary="Informații clinică"/>
                 </ListItemButton>
                 <ListItemButton onClick={() => handleTab(3)}>
                     <ListItemIcon><ManageAccountsIcon/></ListItemIcon>
-                    <ListItemText primary="Veterinarian profile"/>
+                    <ListItemText primary="Medici veterinari"/>
                 </ListItemButton>
                 <ListItemButton onClick={() => handleTab(4)}>
                     <ListItemIcon><MedicalServicesIcon/></ListItemIcon>
-                    <ListItemText primary="Services"/>
+                    <ListItemText primary="Servicii"/>
                 </ListItemButton>
                 <ListItemButton onClick={() => handleTab(5)}>
                     <ListItemIcon><AccessTimeIcon/></ListItemIcon>
-                    <ListItemText primary="Program"/>
+                    <ListItemText primary="Progrogram"/>
                 </ListItemButton>
             </List>
             <div style={{marginTop: 20}}>
@@ -122,7 +122,7 @@ function SettingsMenu({open, setOpen, isMatch, setTab}) {
                 >
                     <ListItemButton onClick={logout}>
                         <ListItemIcon><LogoutIcon/></ListItemIcon>
-                        <ListItemText primary="Log out"/>
+                        <ListItemText primary="Deconectare"/>
                     </ListItemButton>
                 </List>
             </div>

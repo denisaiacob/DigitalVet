@@ -137,7 +137,7 @@ function ClinicBox({clinic}) {
                             </Typography>
                             <Box sx={{maxWidth: 120}}>
                                 <PointerTypography onClick={handleReviews}>
-                                    {reviewsNumber} Reviews
+                                    {reviewsNumber} Recenzii
                                 </PointerTypography>
                             </Box>
                         </Grid>

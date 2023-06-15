@@ -15,7 +15,7 @@ function AddClinicInfo({info, setInfo}) {
             >
                 <Grid container style={{width: '100%'}}>
                     <Grid item xs={12}>
-                        <Typography>Fiscal Identification Number</Typography>
+                        <Typography>CUI</Typography>
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"
@@ -26,7 +26,7 @@ function AddClinicInfo({info, setInfo}) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography>Trade register number</Typography>
+                        <Typography>Număr registrul comerțului</Typography>
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"
@@ -37,7 +37,7 @@ function AddClinicInfo({info, setInfo}) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography>Administrator name</Typography>
+                        <Typography>Numele administratorului</Typography>
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"
@@ -48,7 +48,7 @@ function AddClinicInfo({info, setInfo}) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography>IBAN bank account</Typography>
+                        <Typography>IBAN</Typography>
                         <input
                             style={{width: '90%', height: 30, marginTop: 10, marginBottom: 10}}
                             type="text"

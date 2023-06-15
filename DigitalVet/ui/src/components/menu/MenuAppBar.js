@@ -88,8 +88,9 @@ function MenuAppBar() {
                             <Grid container item xs justifyContent="end" marginRight="20px">
                                 {!auth?.user && (
                                     <ThemeProvider theme={theme}>
-                                        <Button component={Link} to="/business" startIcon={<AddBoxIcon/>}>Add your
-                                            cabinet</Button>
+                                        <Button component={Link} to="/business" startIcon={<AddBoxIcon/>}>
+                                            Adaugă o clinică
+                                        </Button>
                                     </ThemeProvider>
                                 )}
                             </Grid>
@@ -120,7 +121,7 @@ function MenuAppBar() {
                                                     component={Link} to={"/fav"}
                                                     onClick={() => setAnchorEl(null)}
                                                 >
-                                                    Favorite Clinics
+                                                    Clinici favorite
                                                 </Button>
                                                 <Button
                                                     fullWidth
@@ -129,7 +130,7 @@ function MenuAppBar() {
                                                     component={Link} to={"/myAppointments"}
                                                     onClick={() => setAnchorEl(null)}
                                                 >
-                                                    My appointments
+                                                    Programările mele
                                                 </Button>
                                                 <Button
                                                     fullWidth
@@ -137,7 +138,7 @@ function MenuAppBar() {
                                                     startIcon={<LogoutIcon/>}
                                                     onClick={logout}
                                                 >
-                                                    Logout
+                                                    Deconectare
                                                 </Button>
                                             </div>
                                         )}
@@ -151,7 +152,7 @@ function MenuAppBar() {
                                                         component={Link} to={`/settings/${auth.cId}`}
                                                         onClick={() => setAnchorEl(null)}
                                                     >
-                                                        Clinic Profile
+                                                        Profilul clinicii
                                                     </Button>
                                                     <Button
                                                         fullWidth
@@ -159,7 +160,7 @@ function MenuAppBar() {
                                                         startIcon={<LogoutIcon/>}
                                                         onClick={logout}
                                                     >
-                                                        Logout
+                                                        Deconectare
                                                     </Button>
                                                 </div>
                                             </div>
@@ -173,7 +174,7 @@ function MenuAppBar() {
                                                     startIcon={<LoginIcon/>}
                                                     onClick={() => setAnchorEl(null)}
                                                 >
-                                                    Login
+                                                    Autentificare
                                                 </Button>
                                                 <Button
                                                     fullWidth
@@ -182,7 +183,7 @@ function MenuAppBar() {
                                                     startIcon={<PersonIcon/>}
                                                     onClick={() => setAnchorEl(null)}
                                                 >
-                                                    Register
+                                                    Înregistrare
                                                 </Button>
                                             </div>
                                         )}

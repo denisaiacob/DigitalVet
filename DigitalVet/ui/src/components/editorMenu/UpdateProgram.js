@@ -10,7 +10,15 @@ const MiniTypography = styled(Typography)({
 });
 
 function UpdateProgram({clinicId}) {
-    const [program, setProgram] = useState({});
+    const [program, setProgram] = useState({
+        monday: '',
+        tuesday: '',
+        wednesday: '',
+        thursday: '',
+        friday: '',
+        saturday: '',
+        sunday: ''
+    });
     const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
@@ -52,19 +60,19 @@ function UpdateProgram({clinicId}) {
         <div className="clinic-page">
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                    The program has been successfully updated!
+                    Programul a fost actualizat cu succes!
                 </Alert>
             </Snackbar>
             <Box
                 style={{width: '70%', textAlign: 'center'}}
             >
-                <Typography fontWeight="bold" sx={{margin: 3}}>Clinic schedule</Typography>
+                <Typography fontWeight="bold" sx={{margin: 3}}>Programul clinicii</Typography>
                 <Box sx={{width: '70%', display: 'flex', textAlign: 'start'}}>
                     <Grid container
                           style={{width: '100%', display: 'flex', alignItems: 'start', justifyContent: 'start'}}>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Monday</MiniTypography>
+                                <MiniTypography>Luni</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
@@ -78,7 +86,7 @@ function UpdateProgram({clinicId}) {
                         </Grid>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Tuesday</MiniTypography>
+                                <MiniTypography>Marți</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
@@ -92,7 +100,7 @@ function UpdateProgram({clinicId}) {
                         </Grid>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Wednesday</MiniTypography>
+                                <MiniTypography>Miercuri</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
@@ -106,7 +114,7 @@ function UpdateProgram({clinicId}) {
                         </Grid>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Thursday</MiniTypography>
+                                <MiniTypography>Joi</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
@@ -120,7 +128,7 @@ function UpdateProgram({clinicId}) {
                         </Grid>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Friday</MiniTypography>
+                                <MiniTypography>Vineri</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
@@ -134,7 +142,7 @@ function UpdateProgram({clinicId}) {
                         </Grid>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Saturday</MiniTypography>
+                                <MiniTypography>Sâmbătă</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
@@ -148,7 +156,7 @@ function UpdateProgram({clinicId}) {
                         </Grid>
                         <Grid item container xs={12}>
                             <Grid item xs={6}>
-                                <MiniTypography>Sunday</MiniTypography>
+                                <MiniTypography>Duminică</MiniTypography>
                             </Grid>
                             <Grid item xs={3} style={{width: '50%'}}>
                                 <input
@@ -168,7 +176,7 @@ function UpdateProgram({clinicId}) {
                         variant="outlined"
                         style={{color: '#43ab98', borderColor: '#43ab98'}}
                     >
-                        Update
+                        Actualizare
                     </Button>
                 </div>
             </Box>

@@ -48,7 +48,7 @@ function Filter() {
         <div className="all">
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                    Select a filter!
+                    Selectează o modalitate de filtrare!
                 </Alert>
             </Snackbar>
             <Box
@@ -72,9 +72,9 @@ function Filter() {
                         textColor="inherit"
                         variant="fullWidth"
                     >
-                        <Tab label="Services"/>
-                        <Tab label="Clinics"/>
-                        <Tab label="Vets"/>
+                        <Tab label="Servicii"/>
+                        <Tab label="Clinici"/>
+                        <Tab label="Veterinari"/>
                     </Tabs>
                 </AppBar>
                 <SwipeableViews

@@ -35,7 +35,7 @@ function Register() {
                             variant="caption"
                             marginTop={3}
                         >
-                            Register
+                            Înregistrare
                         </Typography>
                         <RegisterForm role={"user"}/>
                     </Box>

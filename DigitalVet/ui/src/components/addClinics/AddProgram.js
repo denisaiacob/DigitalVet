@@ -17,7 +17,7 @@ function AddProgram({program, setProgram}) {
         <Box
             style={{width: '70%', textAlign: 'center'}}
         >
-            <Typography fontWeight="bold" sx={{margin: 3}}>Clinic schedule</Typography>
+            <Typography fontWeight="bold" sx={{margin: 3}}>Programul clinicii</Typography>
             <Box sx={{width: '70%', display: 'flex', textAlign: 'start'}}>
                 <Grid container style={{width: '100%', display: 'flex', alignItems: 'start', justifyContent: 'start'}}>
                     <Grid item container xs={12} style={{marginBottom: 10}}>
@@ -25,15 +25,15 @@ function AddProgram({program, setProgram}) {
                             <MiniTypography></MiniTypography>
                         </Grid>
                         <Grid item xs={3}>
-                            <MiniTypography>Opening hour</MiniTypography>
+                            <MiniTypography>Oră deschidere</MiniTypography>
                         </Grid>
                         <Grid item xs={3}>
-                            <MiniTypography>Closing hour</MiniTypography>
+                            <MiniTypography>Oră închidere</MiniTypography>
                         </Grid>
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Monday</MiniTypography>
+                            <MiniTypography>Luni</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
@@ -56,7 +56,7 @@ function AddProgram({program, setProgram}) {
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Tuesday</MiniTypography>
+                            <MiniTypography>Marți</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
@@ -79,7 +79,7 @@ function AddProgram({program, setProgram}) {
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Wednesday</MiniTypography>
+                            <MiniTypography>Miercuri</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
@@ -102,7 +102,7 @@ function AddProgram({program, setProgram}) {
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Thursday</MiniTypography>
+                            <MiniTypography>Joi</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
@@ -125,7 +125,7 @@ function AddProgram({program, setProgram}) {
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Friday</MiniTypography>
+                            <MiniTypography>Vineri</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
@@ -148,7 +148,7 @@ function AddProgram({program, setProgram}) {
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Saturday</MiniTypography>
+                            <MiniTypography>Sâmbătă</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input
@@ -171,7 +171,7 @@ function AddProgram({program, setProgram}) {
                     </Grid>
                     <Grid item container xs={12}>
                         <Grid item xs={6}>
-                            <MiniTypography>Sunday</MiniTypography>
+                            <MiniTypography>Duminică</MiniTypography>
                         </Grid>
                         <Grid item xs={3} style={{width: '50%'}}>
                             <input

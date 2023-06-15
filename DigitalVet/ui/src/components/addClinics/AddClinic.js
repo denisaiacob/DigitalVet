@@ -25,7 +25,7 @@ import AuthContext from "../../context/AuthProvider";
 import useAuth from "../../hooks/UseAuth";
 
 
-const steps = ['Clinic page', 'Clinic information', 'Add program', 'Add veterinarians', 'Add services'];
+const steps = ['Pagina clinicii', 'Informațiile clinicii', 'Adaugă program', 'Adaugă medici', 'Adaugă servicii'];
 
 const QontoConnector = styled(StepConnector)(({theme}) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -273,7 +273,7 @@ function AddClinic() {
                 sx={{width: '90%', margin: 5, alignItems: 'center'}}
             >
                 <Stepper activeStep={activeStep} connector={<QontoConnector/>}>
-                    {steps.map((label, index) => {
+                    {steps.map((label) => {
                         const stepProps = {};
                         return (
                             <Step key={label} {...stepProps}>
@@ -297,7 +297,7 @@ function AddClinic() {
                             onClick={handleBack}
                             sx={{mr: 1}}
                         >
-                            Back
+                            Înapoi
                         </Button>
                         <Box sx={{flex: '1 1 auto'}}/>
                         {activeStep < steps.length - 1 && (
@@ -306,7 +306,7 @@ function AddClinic() {
                                 variant="outlined"
                                 style={{color: '#43ab98', borderColor: '#43ab98'}}
                             >
-                                Next
+                                Următorul
                             </Button>
                         )}
                         {activeStep === steps.length - 1 && (
@@ -315,14 +315,14 @@ function AddClinic() {
                                 variant="outlined"
                                 style={{color: '#43ab98', borderColor: '#43ab98'}}
                             >
-                                Finish
+                                Finalizare
                             </Button>)}
                         {createClinic &&
                             <Button
                                 variant="outlined"
                                 style={{color: '#43ab98', borderColor: '#43ab98'}}
                                 onClick={handleSubmit}
-                            >Submit
+                            >Trimitere
                             </Button>
                         }
                     </Toolbar>

@@ -90,14 +90,14 @@ function Login() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i;
         if (!values.email) {
-            errors.email = "Email is required!";
+            errors.email = "Emailul este obligatoriu!";
         } else if (!emailRegex.test(values.email)) {
-            errors.email = "This is not a valid email format!";
+            errors.email = "Emailul nu are un format corect!";
         }
         if (!values.password) {
-            errors.password = "Password is required";
+            errors.password = "Parola este obligatorie";
         } else if (!passwordRegex.test(values.password)) {
-            errors.password = "Password must be more than 8 characters and at least one digit";
+            errors.password = "Parola trebuie să aibă minim 8 caractere și cel puțin o cifră";
         }
         return errors;
     };
@@ -137,7 +137,7 @@ function Login() {
             >
                 <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                        No account found with this email.
+                        Nu a fost găsit niciun cont asociat acestei adrese.
                     </Alert>
                 </Snackbar>
                 <Container component="main" maxWidth="xs">
@@ -150,7 +150,7 @@ function Login() {
                         }}
                     >
                         <Typography fontSize={20} variant="caption" marginTop={3}>
-                            Sign in to your account
+                            Autentifică-te în cont
                         </Typography>
                         <Box
                             component="form"
@@ -177,7 +177,7 @@ function Login() {
                                 required
                                 fullWidth
                                 id="password"
-                                label="Password"
+                                label="Parolă"
                                 name="password"
                                 type="password"
                                 value={userInfo.password}
@@ -194,7 +194,7 @@ function Login() {
                                 variant="contained"
                                 style={buttonStyle}
                             >
-                                Sign In
+                                Autentificare
                             </Button>
                         </Box>
                         <Stack
@@ -203,8 +203,8 @@ function Login() {
                             direction="row"
                             spacing={2}
                         >
-                            <Typography color="darkgrey">Don't have an account?</Typography>
-                            <Typography color='#3ca692' component={Link} to="/register">Register</Typography>
+                            <Typography color="darkgrey">Nu ai un cont?</Typography>
+                            <Typography color='#3ca692' component={Link} to="/register">Înregistrează-te</Typography>
                         </Stack>
                     </Box>
                 </Container>

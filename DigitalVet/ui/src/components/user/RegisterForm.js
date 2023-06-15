@@ -101,25 +101,25 @@ function RegisterForm({role}) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i;
         if (!values.email) {
-            errors.email = "Email is required!";
+            errors.email = "Emailul este obligatoriu!";
         } else if (!emailRegex.test(values.email)) {
-            errors.email = "This is not a valid email format!";
+            errors.email = "Emailul nu are un format valid!";
         }
         if (!values.password) {
-            errors.password = "Password is required";
+            errors.password = "Parola este obligatorie";
         } else if (!passwordRegex.test(values.password)) {
-            errors.password = "Password must be more than 8 characters and at least one digit";
+            errors.password = "Parola trebuie să aibă minim 8 caractere și minim o cifră";
         }
         if (!confirmPassword) {
-            errors.confirmPassword = "Confirm Password is required";
+            errors.confirmPassword = "Parola pentru confirmare este obligatorie";
         } else if (confirmPassword !== values.password) {
-            errors.confirmPassword = "Passwords don't match"
+            errors.confirmPassword = "Parolele nu coincid"
         }
         if (!values.firstName) {
-            errors.firstName = "First name is required!"
+            errors.firstName = "Prenumele este obligatoriu!"
         }
         if (!values.lastName) {
-            errors.lastName = "Last name is required!"
+            errors.lastName = "Numele este obligatoriu!"
         }
         return errors;
     };
@@ -147,7 +147,7 @@ function RegisterForm({role}) {
         <div>
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                    This email address is already associated with an account!
+                    Adresa de mail este deja asociată unui cont!
                 </Alert>
             </Snackbar>
             <Box
@@ -168,7 +168,7 @@ function RegisterForm({role}) {
                             fullWidth
                             id="firstName"
                             name="firstName"
-                            label="First name"
+                            label="Prenume"
                             value={userInfo.firstName}
                             onChange={(event) => handleChange(event)}
                             margin='normal'
@@ -184,7 +184,7 @@ function RegisterForm({role}) {
                             fullWidth
                             id="lastName"
                             name="lastName"
-                            label="Last name"
+                            label="Nume"
                             value={userInfo.lastName}
                             onChange={(event) => handleChange(event)}
                             margin='normal'
@@ -214,7 +214,7 @@ function RegisterForm({role}) {
                     required
                     fullWidth
                     id="password"
-                    label="Password"
+                    label="Parolă"
                     name="password"
                     type="password"
                     value={userInfo.password}
@@ -229,7 +229,7 @@ function RegisterForm({role}) {
                     required
                     fullWidth
                     id="confirmPassword"
-                    label="Confirm Password"
+                    label="Parolă confirmare"
                     name="confirmPassword"
                     type="password"
                     value={confirmPassword}
@@ -247,7 +247,7 @@ function RegisterForm({role}) {
                     variant="contained"
                     style={buttonStyle}
                 >
-                    Register
+                    Înregistrare
                 </Button>
             </Box>
             <Stack
@@ -256,12 +256,12 @@ function RegisterForm({role}) {
                 direction="row"
                 spacing={2}
             >
-                <Typography color="darkgrey">Already have an account?</Typography>
+                <Typography color="darkgrey">Ai deja un cont?</Typography>
                 <Typography
                     color='#3ca692'
                     component={Link} to="/login"
                 >
-                    Sign in
+                    Autentifică-te
                 </Typography>
             </Stack>
         </div>

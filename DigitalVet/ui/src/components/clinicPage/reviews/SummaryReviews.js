@@ -90,7 +90,7 @@ function SummaryReviews({vets}) {
                 color="text.secondary"
                 gutterBottom
             >
-                {reviewNumber} Reviews
+                {reviewNumber} Recenzii
             </Typography>
         </Card>
     );

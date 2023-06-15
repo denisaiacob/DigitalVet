@@ -123,23 +123,23 @@ function AddVet({vet, setVet, update}) {
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 {success ? (
                     <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                        The veterinarians section has been successfully updated!
+                        Medicii veterinari au fost actualizați cu succes!
                     </Alert>
                 ) : (
                     <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                        An error occurred during the update!
+                        A apărut o eroare la actualizare!
                     </Alert>
                 )}
             </Snackbar>
             <Box style={{width: '70%', textAlign: 'center'}}>
-                <Typography fontWeight="bold" sx={{marginTop: 3}}>Add veterinarians</Typography>
+                <Typography fontWeight="bold" sx={{marginTop: 3}}>Adaugă veterinari</Typography>
                 {
                     vet.map((x, i) => {
                         return (
-                            <Box key={i} sx={{textAlign: 'start', marginTop: 5}}>
+                            <Box key={vet[i].vetId} sx={{textAlign: 'start', marginTop: 5}}>
                                 <Grid container>
                                     <Grid item xs={6}>
-                                        <Typography>Name</Typography>
+                                        <Typography>Nume</Typography>
                                         <input
                                             type="text"
                                             name="name"
@@ -150,7 +150,7 @@ function AddVet({vet, setVet, update}) {
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Typography>Function</Typography>
+                                        <Typography>Funcție</Typography>
                                         <input
                                             type="text"
                                             name="function"
@@ -161,7 +161,7 @@ function AddVet({vet, setVet, update}) {
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Typography>A short description</Typography>
+                                        <Typography>O scurtă descriere</Typography>
                                         <textarea
                                             style={{width: '90%', height: 60, marginTop: 5}}
                                             name="description"
@@ -175,7 +175,6 @@ function AddVet({vet, setVet, update}) {
                                         <input
                                             accept="image/*"
                                             id="contained-button-file"
-                                            // multiple
                                             type="file"
                                             onChange={handleUploadClick.bind(this, i)}
                                         />
@@ -216,7 +215,7 @@ function AddVet({vet, setVet, update}) {
                             variant="outlined"
                             style={{color: '#43ab98', borderColor: '#43ab98'}}
                         >
-                            Update
+                            Actualizare
                         </Button>}
                 </div>
             </Box>
