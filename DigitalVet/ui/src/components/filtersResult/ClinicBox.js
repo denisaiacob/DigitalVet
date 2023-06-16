@@ -122,7 +122,7 @@ function ClinicBox({clinic}) {
                     {isLoading && <CircularProgress/>}
                     <CardMedia
                         component="img"
-                        sx={{width: '100%', maxHeight: 300}}
+                        sx={{width: '100%', maxHeight: 250}}
                         image={clinic.photo === "" ? avatar : clinic.photo}
                         alt="Clinic"
                         onClick={() => handleClinic(clinic.clinicId)}
