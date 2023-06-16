@@ -5,7 +5,7 @@ import {
     Grid,
     CardHeader,
     CardMedia,
-    Typography, Box,
+    Typography, Box, CircularProgress,
 } from "@mui/material";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import {yellow, red, blue} from "@mui/material/colors";
@@ -30,6 +30,7 @@ function ClinicBox({clinic}) {
     const {auth} = useAuth();
     const [checked, setChecked] = React.useState(false);
     const [favoriteId, setFavoriteId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const handleReviews = () => {
         navigate("/");
     };
@@ -100,11 +101,16 @@ function ClinicBox({clinic}) {
         setChecked(!checked);
     };
 
+    const handleImageLoad = () => {
+        setIsLoading(false);
+    };
+
     return (
         <div key={clinic.clinicId} className="show-box">
             <Grid container spacing={2}>
                 <Grid
                     item
+                    container
                     md={6}
                     style={{
                         display: 'flex',
@@ -113,12 +119,14 @@ function ClinicBox({clinic}) {
                         marginRight: 30
                     }}
                 >
+                    {isLoading && <CircularProgress/>}
                     <CardMedia
                         component="img"
                         sx={{width: '100%', maxHeight: 300}}
                         image={clinic.photo === "" ? avatar : clinic.photo}
                         alt="Clinic"
                         onClick={() => handleClinic(clinic.clinicId)}
+                        onLoad={handleImageLoad}
                     />
                 </Grid>
                 <Grid item xs={12} sm container>
