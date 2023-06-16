@@ -18,21 +18,29 @@ function ShowClinics() {
         location: queryParams.get('location') || "",
         service: queryParams.get('service') || "",
         date: queryParams.get('date') !== 'M' ? dayjs(queryParams.get('date')) : null,
-        sort: null
     });
 
     useEffect(() => {
         const fetchClinic = async () => {
             try {
                 const response = await ClinicService.getAllClinics();
+                let newFilter = response.data;
                 if (initialValues.location !== "") {
-                    const newFilter = response.data.filter((value) => {
+                    newFilter = newFilter.filter((value) => {
                         return value.city === initialValues.location;
                     });
-                    setClinics(newFilter);
-                } else {
-                    setClinics(response.data);
                 }
+                if (initialValues.service !== "") {
+                    const filteredClinics = await Promise.all(newFilter.map(async (value) => {
+                        const services = await ClinicService.getServicesByClinicId(value.clinicId);
+                        if (services.data) {
+                            return services.data.some((item) => item.name === initialValues.service);
+                        }
+                        return false;
+                    }));
+                    newFilter = newFilter.filter((value, index) => filteredClinics[index]);
+                }
+                setClinics(newFilter);
             } catch (error) {
                 console.log(error);
             }
@@ -46,7 +54,7 @@ function ShowClinics() {
                 <div className="responsive-container">
                     <div className="right-column" style={{marginBottom: 40}}>
                         <LeftResponsiveSide initialValues={initialValues} setInitialValues={setInitialValues}/>
-                        <RightSide filter={initialValues} clinics={clinics}/>
+                        <RightSide clinics={clinics}/>
                     </div>
                 </div>
             ) : (
@@ -55,7 +63,7 @@ function ShowClinics() {
                         <LeftSide initialValues={initialValues} setInitialValues={setInitialValues}/>
                     </div>
                     <div className="right-column" style={{marginBottom: 20}}>
-                        <RightSide clinics={clinics} filter={initialValues}/>
+                        <RightSide clinics={clinics}/>
                     </div>
                 </div>
             )}

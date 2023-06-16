@@ -1,16 +1,10 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {styled} from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {
-    Card,
-    CardContent,
-    CardActions,
-    Collapse,
-    IconButton, Pagination,
-} from "@mui/material";
+import {Card, CardActions, CardContent, Collapse, IconButton, Pagination,} from "@mui/material";
 import ClinicBox from "./ClinicBox";
 import ServiceDetailsBox from "./ServiceDetailsBox";
-import {useEffect, useState} from "react";
 import ClinicService from "../../services/ClinicService";
 
 const ExpandMore = styled((props) => {
@@ -24,7 +18,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function RightSide({clinics, filter}) {
+function RightSide({clinics}) {
     const [expanded, setExpanded] = useState(Array(clinics.length).fill(false));
 
     const [loadingServices, setLoadingServices] = useState(true);
@@ -66,13 +60,12 @@ function RightSide({clinics, filter}) {
 
     const handleExpandClick = (i) => {
         setExpanded((prevExpanded) => {
-            const newExpanded = prevExpanded.map((value, index) => {
+            return prevExpanded.map((value, index) => {
                 if (index === i) {
                     return !value;
                 }
                 return value;
             });
-            return newExpanded;
         });
     };
 
