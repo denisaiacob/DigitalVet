@@ -6,7 +6,7 @@ import {
     CardContent,
     CardActions,
     Collapse,
-    IconButton,
+    IconButton, Pagination,
 } from "@mui/material";
 import ClinicBox from "./ClinicBox";
 import ServiceDetailsBox from "./ServiceDetailsBox";
@@ -29,8 +29,17 @@ function RightSide({clinics, filter}) {
 
     const [loadingServices, setLoadingServices] = useState(true);
     const [services, setServices] = useState([]);
+    const pageSize = 4;
+    const [pagination, setPagination] = useState({
+        count: 0,
+        from: 0,
+        to: pageSize
+    })
 
     useEffect(() => {
+        const setClinicsPagination = () => {
+            setPagination({...pagination, count: clinics.length})
+        };
         const fetchServices = async () => {
             setLoadingServices(true);
             try {
@@ -49,8 +58,11 @@ function RightSide({clinics, filter}) {
                 setExpanded(Array(clinics.length).fill(false));
             }
         };
-        fetchServices().then();
-    }, [clinics]);
+        if (clinics) {
+            setClinicsPagination();
+            fetchServices().then();
+        }
+    }, [clinics, pagination.to, pagination.from]);
 
     const handleExpandClick = (i) => {
         setExpanded((prevExpanded) => {
@@ -64,40 +76,53 @@ function RightSide({clinics, filter}) {
         });
     };
 
+    const handlePageChange = (event, page) => {
+        const from = (page - 1) * pageSize;
+        const to = (page - 1) * pageSize + pageSize;
+        setPagination({...pagination, from: from, to: to})
+    };
+
     return (
         <div style={{width: '80%', marginBottom: 30}}>
             <div>
                 {clinics.map((clinic, i) => (
                     <div key={clinic.clinicId} style={{marginTop: 30}}>
-                        <Card sx={{maxWidth: 820}}>
-                            <ClinicBox clinic={clinic}/>
-                            <div>
-                                <CardActions disableSpacing>
-                                    <ExpandMore
-                                        expand={expanded[i]}
-                                        onClick={() => handleExpandClick(i)}
-                                        aria-expanded={expanded[i]}
-                                        aria-label="show services"
-                                    >
-                                        <ExpandMoreIcon/>
-                                    </ExpandMore>
-                                </CardActions>
-                                {!loadingServices && services[i] &&
-                                    <Collapse in={expanded[i]} timeout="auto" unmountOnExit>
-                                        <CardContent>
-                                            {services[i].map((service) => (
-                                                <div key={service.serviceId}>
-                                                    <ServiceDetailsBox service={service}/>
-                                                </div>
-                                            ))}
-                                        </CardContent>
-                                    </Collapse>
-                                }
-                            </div>
-                        </Card>
+                        {i >= pagination.from && i < pagination.to && (
+                            <Card sx={{maxWidth: 820}}>
+                                <ClinicBox clinic={clinic}/>
+                                <div>
+                                    <CardActions disableSpacing>
+                                        <ExpandMore
+                                            expand={expanded[i]}
+                                            onClick={() => handleExpandClick(i)}
+                                            aria-expanded={expanded[i]}
+                                            aria-label="show services"
+                                        >
+                                            <ExpandMoreIcon/>
+                                        </ExpandMore>
+                                    </CardActions>
+                                    {!loadingServices && services[i] &&
+                                        <Collapse in={expanded[i]} timeout="auto" unmountOnExit>
+                                            <CardContent>
+                                                {services[i].map((service) => (
+                                                    <div key={service.serviceId}>
+                                                        <ServiceDetailsBox service={service}/>
+                                                    </div>
+                                                ))}
+                                            </CardContent>
+                                        </Collapse>
+                                    }
+                                </div>
+                            </Card>
+                        )}
                     </div>
                 ))}
             </div>
+            <Pagination
+                style={{marginTop:30, display:'flex', justifyContent:'center'}}
+                count={Math.ceil(pagination.count / pageSize)}
+                onChange={handlePageChange}
+            />
         </div>
     );
 }
