@@ -90,7 +90,7 @@ function LeftSide({initialValues, setInitialValues}) {
 
     return (
         <div>
-            <RoundedTypography variant="h5" sx={{marginTop: 3, marginBottom: 1}}> Search filters</RoundedTypography>
+            <RoundedTypography variant="h5" sx={{marginTop: 3, marginBottom: 1}}> Filtre de căutare</RoundedTypography>
             <Accordion>
                 <AccordionSummary aria-controls="panel2-content" id="panel2-content">
                     <Typography>Selectrează locația</Typography>

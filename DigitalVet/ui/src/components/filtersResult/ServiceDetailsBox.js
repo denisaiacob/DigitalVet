@@ -121,7 +121,7 @@ function ServiceDetailsBox({service}) {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle>
-                    {"Choose the day and time of the appointment"}
+                    {"Selectează o data și ora pentru programare"}
                 </DialogTitle>
                 <DialogContent>
                     <BookPage

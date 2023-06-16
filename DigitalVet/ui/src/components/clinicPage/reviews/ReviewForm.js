@@ -100,7 +100,7 @@ function ReviewForm({vets, setReview}) {
                         emptyIcon={<StarIcon style={{opacity: 0.55}} fontSize="inherit"/>}
                     />
                     <FormControl fullWidth sx={{mt: 1, mb: 2, width: 300}}>
-                        <InputLabel id="choose-location">Select a veterinarian</InputLabel>
+                        <InputLabel id="choose-location">Selectează veterinar</InputLabel>
                         <Select
                             name="vet"
                             value={vet}

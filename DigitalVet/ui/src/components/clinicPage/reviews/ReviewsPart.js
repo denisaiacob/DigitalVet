@@ -127,7 +127,7 @@ function ReviewsPart({clinicId}) {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle>
-                    {"Adaugă recenzie"}
+                    {"Adaugă o recenzie"}
                 </DialogTitle>
                 <DialogContent>
                     <ReviewForm clinicId={clinicId} vets={vets} setReview={setReview}/>

@@ -147,7 +147,7 @@ function RegisterForm({role}) {
         <div>
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                    Adresa de mail este deja asociată unui cont!
+                    Adresa de email este deja asociată unui cont!
                 </Alert>
             </Snackbar>
             <Box
@@ -229,7 +229,7 @@ function RegisterForm({role}) {
                     required
                     fullWidth
                     id="confirmPassword"
-                    label="Parolă confirmare"
+                    label="Confirmare parolă"
                     name="confirmPassword"
                     type="password"
                     value={confirmPassword}
