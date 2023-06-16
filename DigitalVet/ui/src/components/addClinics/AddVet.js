@@ -183,7 +183,7 @@ function AddVet({vet, setVet, update}) {
                                                  src={state[i].selectedFile ? state[i].selectedFile : vet[i].photo}
                                                  style={{width: 150, margin: 10}}/>
                                         )}
-                                        {vet[i].photo && !state[i] && (
+                                        {vet[i].photo && (
                                             <img
                                                 alt="clinic-photo"
                                                 src={vet[i].photo}
