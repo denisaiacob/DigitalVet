@@ -33,8 +33,8 @@ function FilterByRating({checkedItems, setCheckedItems}) {
                 width: 499,
                 height: 220,
                 '@media (max-width:700px)': {
-                    width: 109,
-                    height: 80,
+                    width: 250,
+                    height: 220,
                 },
                 textAlign: "center",
                 display: "flex",
@@ -45,7 +45,7 @@ function FilterByRating({checkedItems, setCheckedItems}) {
                 sx={{
                     fontSize: '1.0rem',
                     '@media (max-width:700px)': {
-                        fontSize: '0.4rem',
+                        fontSize: '0.8rem',
                     },
                     marginBottom: 1
                 }}

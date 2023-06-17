@@ -107,7 +107,7 @@ function ReviewsPart({clinicId}) {
                     <Grid item>
                         <SummaryReviews vets={vets}/>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={12} md={6}>
                         <FilterByRating checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
                     </Grid>
                 </Grid>
