@@ -178,7 +178,7 @@ function AddVet({vet, setVet, update}) {
                                             type="file"
                                             onChange={handleUploadClick.bind(this, i)}
                                         />
-                                        {state[i] && state[i].selectedFile !== null && (
+                                        {state[i] && state[i].selectedFile !== null&& !vet[i].photo && (
                                             <img alt="vet-photo"
                                                  src={state[i].selectedFile ? state[i].selectedFile : vet[i].photo}
                                                  style={{width: 150, margin: 10}}/>

@@ -206,7 +206,7 @@ function AddClinic() {
 
     const handleCreateClinic = (event) => {
         event.preventDefault();
-        if (clinic.name && clinic.city && info.fin && info.trade) {
+        if (clinic.name && info.fin && program.monday1 && service[0].name && vet[0].name) {
             AddClinicService.addClinic((clinic)).then((response) => {
                 handleProgram(response.data);
                 setCreateClinic(true);
@@ -214,8 +214,7 @@ function AddClinic() {
 
             });
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        }
-        else alert('Numele clinicii, localitatea, dar si informatiile fiscale sunt obligatorii ');
+        } else alert('Vă rugăm să completați toate informațiile solicitate ');
 
     };
 
