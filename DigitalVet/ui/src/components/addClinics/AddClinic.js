@@ -206,32 +206,36 @@ function AddClinic() {
 
     const handleCreateClinic = (event) => {
         event.preventDefault();
-        AddClinicService.addClinic((clinic)).then((response) => {
-            handleProgram(response.data);
-            setCreateClinic(true);
-        }).catch(() => {
-            alert('An error occurred while processing the request');
-        });
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (clinic.name && clinic.city && info.fin && info.trade) {
+            AddClinicService.addClinic((clinic)).then((response) => {
+                handleProgram(response.data);
+                setCreateClinic(true);
+            }).catch(() => {
+
+            });
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        else alert('Numele clinicii, localitatea, dar si informatiile fiscale sunt obligatorii ');
+
     };
 
     const handleSubmit = () => {
         let success = true;
         setCreateClinic(false);
         vet.map((x, i) => {
-            AddClinicService.addVet((vet[i])).then().catch(() => {
-                alert('An error occurred while processing the request');
+            AddClinicService.addVet((vet[i])).then().catch((error) => {
+                console.log(error);
                 success = false;
             })
         });
         service.map((x, i) => {
-            AddClinicService.addService((service[i])).then().catch(() => {
-                alert('An error occurred while processing the request');
+            AddClinicService.addService((service[i])).then().catch((error) => {
+                console.log(error);
                 success = false;
             })
         });
-        AddClinicService.addProgram((programSubmit)).then().catch(() => {
-            alert('An error occurred while processing the request');
+        AddClinicService.addProgram((programSubmit)).then().catch((error) => {
+            console.log(error);
             success = false;
         })
         AddClinicService.addAdmin((admin)).then((response) => {
@@ -239,8 +243,8 @@ function AddClinic() {
             const roles = auth?.roles;
             const cId = response.data;
             setAuth({user, roles, cId})
-        }).catch(() => {
-            alert('An error occurred while processing the request');
+        }).catch((error) => {
+            console.log(error);
             success = false;
         })
         if (success) navigate(`/settings/${clinicId}`)
