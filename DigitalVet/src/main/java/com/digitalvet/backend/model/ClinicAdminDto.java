@@ -1,14 +1,19 @@
 package com.digitalvet.backend.model;
 
 public class ClinicAdminDto {
+    Long id;
     private Long clinicId;
     private Long userId;
 
-    public ClinicAdminDto() {}
+    public ClinicAdminDto() {
+    }
 
-    public ClinicAdminDto(Long clinicId, Long userId) {
-        this.clinicId = clinicId;
-        this.userId = userId;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getClinicId() {

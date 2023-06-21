@@ -1,7 +1,9 @@
 package com.digitalvet.backend.controller;
 
+import com.digitalvet.backend.entity.AppointmentsEntity;
 import com.digitalvet.backend.model.AppointmentDto;
 import com.digitalvet.backend.services.AppointmentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +19,10 @@ public class AppointmentsController {
     }
 
 
-    @PostMapping(path = "/appointments")
-    public Long addAppointment(@RequestBody AppointmentDto appointmentDto) {
-        return appointmentsService.addAppointment(appointmentDto);
+    @PostMapping(path = "/users/{userId}/appointments")
+    public ResponseEntity<AppointmentsEntity> addAppointment(@PathVariable(value = "userId") Long userId,
+                                                             @RequestBody AppointmentDto appointmentDto) {
+        return appointmentsService.addAppointment(userId,appointmentDto);
     }
 
     @GetMapping("/appointments/{id}")

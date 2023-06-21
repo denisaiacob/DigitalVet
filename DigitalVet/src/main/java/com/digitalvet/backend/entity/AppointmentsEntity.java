@@ -1,7 +1,10 @@
 package com.digitalvet.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.validation.constraints.NotBlank;
 import java.sql.Time;
@@ -25,32 +28,35 @@ public class AppointmentsEntity {
     @NotBlank
     private Long serviceId;
 
-    @NotBlank
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private UserEntity user;
 
     public AppointmentsEntity() {}
 
-    public AppointmentsEntity(Long id, Date day, Time time, Long serviceId, Long userId) {
+    public AppointmentsEntity(Long id, Date day, Time time, Long serviceId, UserEntity user) {
         this.id = id;
         this.day = day;
         this.time = time;
         this.serviceId = serviceId;
-        this.userId = userId;
+        this.user = user;
     }
 
-    public AppointmentsEntity(Date day, Time time, Long serviceId, Long userId) {
+    public AppointmentsEntity(Long id, Date day, Time time, Long serviceId) {
+        this.id = id;
         this.day = day;
         this.time = time;
         this.serviceId = serviceId;
-        this.userId = userId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -89,11 +95,22 @@ public class AppointmentsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AppointmentsEntity that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getDay(), that.getDay()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getServiceId(), that.getServiceId()) && Objects.equals(getUserId(), that.getUserId());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getDay(), that.getDay()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getServiceId(), that.getServiceId()) && Objects.equals(getUser(), that.getUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDay(), getTime(), getServiceId(), getUserId());
+        return Objects.hash(getId(), getDay(), getTime(), getServiceId(), getUser());
+    }
+
+    @Override
+    public String toString() {
+        return "AppointmentsEntity{" +
+                "id=" + id +
+                ", day=" + day +
+                ", time=" + time +
+                ", serviceId=" + serviceId +
+                ", user=" + user +
+                '}';
     }
 }

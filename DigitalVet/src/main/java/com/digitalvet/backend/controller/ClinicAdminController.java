@@ -1,5 +1,6 @@
 package com.digitalvet.backend.controller;
 
+import com.digitalvet.backend.entity.ClinicAdminEntity;
 import com.digitalvet.backend.model.ClinicAdminDto;
 import com.digitalvet.backend.services.ClinicAdminService;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ClinicAdminController {
     }
 
     @PostMapping(path = "/admins")
-    public Long addClinic(@RequestBody ClinicAdminDto clinicAdminDto) {
+    public ResponseEntity<ClinicAdminEntity> addClinic(@RequestBody ClinicAdminDto clinicAdminDto) {
         return clinicAdminService.addAdmin(clinicAdminDto);
     }
 

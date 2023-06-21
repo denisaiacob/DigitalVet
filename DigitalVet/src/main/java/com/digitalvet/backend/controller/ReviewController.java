@@ -1,7 +1,9 @@
 package com.digitalvet.backend.controller;
 
+import com.digitalvet.backend.entity.ReviewEntity;
 import com.digitalvet.backend.model.ReviewDto;
 import com.digitalvet.backend.services.ReviewService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,14 +19,10 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @PostMapping(path = "/reviews")
-    public Long addReview(@RequestBody ReviewDto reviewDto) {
-        return reviewService.addReview(reviewDto);
-    }
-
-    @GetMapping("/reviews")
-    public List<ReviewDto> getAllReviews() {
-        return reviewService.getAllReviews();
+    @PostMapping(path = "/reviews/{vetId}")
+    public ResponseEntity<ReviewEntity> addReview(@PathVariable(value = "vetId") Long vetId,
+                                                  @RequestBody ReviewDto reviewDto) {
+        return reviewService.addReview(vetId, reviewDto);
     }
 
     @GetMapping("/reviews/vet/{vetId}")

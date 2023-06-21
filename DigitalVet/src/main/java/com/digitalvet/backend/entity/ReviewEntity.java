@@ -1,7 +1,10 @@
 package com.digitalvet.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -17,8 +20,6 @@ public class ReviewEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long reviewId;
 
-    @NotBlank(message = "Vet is mandatory")
-    private Long vetId;
     @NotBlank(message = "Service is mandatory")
     private String service;
 
@@ -28,27 +29,32 @@ public class ReviewEntity {
     @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid description")
     private String description;
 
-    @NotBlank(message = "Username is mandatory")
+    @NotBlank
     private String user;
 
     @NotBlank(message = "Day is mandatory")
     private Date day;
 
-    public ReviewEntity() {
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vet_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private VetEntity vet;
 
-    public ReviewEntity(Long reviewId, Long vetId, String service, Integer stars, String description, String user, Date day) {
+    public ReviewEntity() {}
+
+    public ReviewEntity(Long reviewId, String service, Integer stars, String description, String user, Date day, VetEntity vet) {
         this.reviewId = reviewId;
-        this.vetId = vetId;
         this.service = service;
         this.stars = stars;
         this.description = description;
         this.user = user;
         this.day = day;
+        this.vet = vet;
     }
 
-    public ReviewEntity(Long vetId, String service, Integer stars, String description, String user, Date day) {
-        this.vetId = vetId;
+    public ReviewEntity(Long reviewId, String service, Integer stars, String description, String user, Date day) {
+        this.reviewId = reviewId;
         this.service = service;
         this.stars = stars;
         this.description = description;
@@ -64,12 +70,12 @@ public class ReviewEntity {
         this.reviewId = reviewId;
     }
 
-    public Long getVetId() {
-        return vetId;
+    public VetEntity getVet() {
+        return vet;
     }
 
-    public void setVetId(Long vetId) {
-        this.vetId = vetId;
+    public void setVet(VetEntity vet) {
+        this.vet = vet;
     }
 
     public String getService() {
@@ -116,24 +122,24 @@ public class ReviewEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ReviewEntity that)) return false;
-        return Objects.equals(getReviewId(), that.getReviewId()) && Objects.equals(getVetId(), that.getVetId()) && Objects.equals(getService(), that.getService()) && Objects.equals(getStars(), that.getStars()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getUser(), that.getUser()) && Objects.equals(getDay(), that.getDay());
+        return Objects.equals(getReviewId(), that.getReviewId()) && Objects.equals(getService(), that.getService()) && Objects.equals(getStars(), that.getStars()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getUser(), that.getUser()) && Objects.equals(getDay(), that.getDay()) && Objects.equals(getVet(), that.getVet());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getReviewId(), getVetId(), getService(), getStars(), getDescription(), getUser(), getDay());
+        return Objects.hash(getReviewId(), getService(), getStars(), getDescription(), getUser(), getDay(), getVet());
     }
 
     @Override
     public String toString() {
         return "ReviewEntity{" +
                 "reviewId=" + reviewId +
-                ", vetId=" + vetId +
-                ", service=" + service +
+                ", service='" + service + '\'' +
                 ", stars=" + stars +
                 ", description='" + description + '\'' +
                 ", user='" + user + '\'' +
-                ", day='" + day + '\'' +
+                ", day=" + day +
+                ", vet=" + vet +
                 '}';
     }
 }

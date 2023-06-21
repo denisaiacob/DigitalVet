@@ -60,7 +60,7 @@ function ReviewsPart({clinicId}) {
         if (review.vetId && review.service && review.stars) {
             setOpen(false);
             try {
-                await ClinicService.addReview(review);
+                await ClinicService.addReview(review, review.vetId);
                 setSubmit(true);
             } catch (error) {
                 console.log(error);

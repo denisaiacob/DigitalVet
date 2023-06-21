@@ -113,7 +113,7 @@ function SettingsMenu({open, setOpen, isMatch, setTab}) {
                 </ListItemButton>
                 <ListItemButton onClick={() => handleTab(5)}>
                     <ListItemIcon><AccessTimeIcon/></ListItemIcon>
-                    <ListItemText primary="Progrogram"/>
+                    <ListItemText primary="Program"/>
                 </ListItemButton>
             </List>
             <div style={{marginTop: 20}}>

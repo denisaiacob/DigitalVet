@@ -67,7 +67,7 @@ function ServiceDetailsBox({service}) {
                 });
                 if (!unique) {
                     try {
-                        await ClinicService.addAppointment(appointment);
+                        await ClinicService.addAppointment(appointment,auth?.user.id);
                         setOpen(false);
                     } catch (error) {
                         console.log(error);

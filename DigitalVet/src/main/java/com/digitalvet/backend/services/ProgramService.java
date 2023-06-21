@@ -1,9 +1,11 @@
 package com.digitalvet.backend.services;
 
+import com.digitalvet.backend.entity.ProgramEntity;
 import com.digitalvet.backend.model.ProgramDto;
+import org.springframework.http.ResponseEntity;
 
 public interface ProgramService {
-    Long addProgram(ProgramDto programDto);
+    ResponseEntity<ProgramEntity> addProgram(ProgramDto programDto);
 
     ProgramDto getProgramById(Long id);
 

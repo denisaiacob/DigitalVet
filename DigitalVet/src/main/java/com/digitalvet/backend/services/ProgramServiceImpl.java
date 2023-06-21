@@ -2,9 +2,13 @@ package com.digitalvet.backend.services;
 
 import com.digitalvet.backend.entity.ProgramEntity;
 import com.digitalvet.backend.model.ProgramDto;
+import com.digitalvet.backend.repository.ClinicRepository;
 import com.digitalvet.backend.repository.ProgramRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,16 +16,17 @@ import java.util.Optional;
 @Service
 public class ProgramServiceImpl implements ProgramService {
     private final ProgramRepository programRepository;
+    private final ClinicRepository clinicRepository;
 
-    public ProgramServiceImpl(ProgramRepository programRepository) {
+    public ProgramServiceImpl(ProgramRepository programRepository, ClinicRepository clinicRepository) {
         this.programRepository = programRepository;
+        this.clinicRepository = clinicRepository;
     }
 
     @Override
-    public Long addProgram(ProgramDto programDto) {
+    public ResponseEntity<ProgramEntity> addProgram(ProgramDto programDto) {
         ProgramEntity program = new ProgramEntity(
                 programDto.getProgramId(),
-                programDto.getClinicId(),
                 programDto.getMonday(),
                 programDto.getTuesday(),
                 programDto.getWednesday(),
@@ -30,8 +35,12 @@ public class ProgramServiceImpl implements ProgramService {
                 programDto.getSaturday(),
                 programDto.getSunday());
 
-        programRepository.save(program);
-        return program.getProgramId();
+        ProgramEntity response= clinicRepository.findById(programDto.getClinicId()).map(clinic -> {
+            program.setClinic(clinic);
+            return programRepository.save(program);
+        }).orElseThrow(() -> new ResourceNotFoundException("Not found clinic with id = " + programDto.getClinicId()));
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @Override
@@ -57,7 +66,7 @@ public class ProgramServiceImpl implements ProgramService {
             BeanUtils.copyProperties(programEntity, program);
             return program;
         } else {
-            return null;
+            throw new EntityNotFoundException("Program not found for clinic ID: " + clinicId);
         }
 
     }
@@ -67,7 +76,6 @@ public class ProgramServiceImpl implements ProgramService {
         Optional<ProgramEntity> programEntityOptional = programRepository.findById(id);
         if (programEntityOptional.isPresent()) {
             ProgramEntity programEntity = programEntityOptional.get();
-            programEntity.setClinicId(program.getClinicId());
             programEntity.setMonday(program.getMonday());
             programEntity.setTuesday(program.getTuesday());
             programEntity.setWednesday(program.getWednesday());

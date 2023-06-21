@@ -3,7 +3,11 @@ package com.digitalvet.backend.services;
 import com.digitalvet.backend.entity.ReviewEntity;
 import com.digitalvet.backend.model.ReviewDto;
 import com.digitalvet.backend.repository.ReviewRepository;
+import com.digitalvet.backend.repository.VetRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,42 +16,29 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
+    private final VetRepository vetRepository;
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, VetRepository vetRepository) {
         this.reviewRepository = reviewRepository;
+        this.vetRepository = vetRepository;
     }
 
     @Override
-    public Long addReview(ReviewDto reviewDto) {
+    public ResponseEntity<ReviewEntity> addReview(Long vetId, ReviewDto reviewDto) {
         ReviewEntity review = new ReviewEntity(
                 reviewDto.getReviewId(),
-                reviewDto.getVetId(),
                 reviewDto.getService(),
                 reviewDto.getStars(),
                 reviewDto.getDescription(),
                 reviewDto.getUser(),
                 reviewDto.getDay());
 
-        reviewRepository.save(review);
-        return review.getReviewId();
-    }
+        ReviewEntity response= vetRepository.findById(vetId).map(vet -> {
+            review.setVet(vet);
+            return reviewRepository.save(review);
+        }).orElseThrow(() -> new ResourceNotFoundException("Not found Vet with id = " + vetId));
 
-    @Override
-    public List<ReviewDto> getAllReviews() {
-        List<ReviewEntity> reviewEntities
-                = reviewRepository.findAll();
-
-        return reviewEntities
-                .stream()
-                .map(review -> new ReviewDto(
-                        review.getReviewId(),
-                        review.getVetId(),
-                        review.getService(),
-                        review.getStars(),
-                        review.getDescription(),
-                        review.getUser(),
-                        review.getDay()))
-                .toList();
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @Override
@@ -59,7 +50,7 @@ public class ReviewServiceImpl implements ReviewService {
                     .stream()
                     .map(review -> new ReviewDto(
                             review.getReviewId(),
-                            review.getVetId(),
+                            review.getVet().getVetId(),
                             review.getService(),
                             review.getStars(),
                             review.getDescription(),

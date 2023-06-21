@@ -1,5 +1,6 @@
 package com.digitalvet.backend.controller;
 
+import com.digitalvet.backend.entity.ProgramEntity;
 import com.digitalvet.backend.model.ProgramDto;
 import com.digitalvet.backend.services.ProgramService;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class ProgramController {
     }
 
     @PostMapping(path = "/programs")
-    public Long addProgram(@RequestBody ProgramDto programDto) {
+    public ResponseEntity<ProgramEntity> addProgram(@RequestBody ProgramDto programDto) {
         return programService.addProgram(programDto);
     }
 

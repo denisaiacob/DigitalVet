@@ -5,6 +5,7 @@ import com.digitalvet.backend.entity.ServiceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface AppointmentsRepository extends JpaRepository<AppointmentsEntity
     @Query("SELECT appointment FROM AppointmentsEntity appointment WHERE appointment.serviceId = ?1 ORDER BY appointment.day")
     Optional<List<AppointmentsEntity>> findByServiceId(Long serviceId);
 
-    @Query("SELECT appointment FROM AppointmentsEntity appointment WHERE appointment.userId = ?1 ORDER BY appointment.day")
-    Optional<List<AppointmentsEntity>> findByUserId(Long serviceId);
+    @Query("SELECT appointment FROM AppointmentsEntity appointment WHERE appointment.user.id = :userId ORDER BY appointment.day")
+    Optional<List<AppointmentsEntity>> findByUserId(@Param("userId") Long userId);
 
 }

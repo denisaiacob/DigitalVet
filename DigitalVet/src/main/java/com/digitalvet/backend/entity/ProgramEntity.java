@@ -15,8 +15,10 @@ public class ProgramEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long programId;
 
-    @NotBlank(message = "Program is mandatory")
-    private Long clinicId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "clinic_id")
+    private ClinicEntity clinic;
 
     @NotBlank(message = "Program is mandatory")
     @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid program")
@@ -46,22 +48,11 @@ public class ProgramEntity {
     @Pattern(regexp = "^[\\w\\s.,'-]*$", message = "Invalid program")
     private String sunday;
 
-    public ProgramEntity() {}
-
-    public ProgramEntity(Long programId, Long clinicId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
-        this.programId = programId;
-        this.clinicId = clinicId;
-        this.monday = monday;
-        this.tuesday = tuesday;
-        this.wednesday = wednesday;
-        this.thursday = thursday;
-        this.friday = friday;
-        this.saturday = saturday;
-        this.sunday = sunday;
+    public ProgramEntity() {
     }
 
-    public ProgramEntity(Long clinicId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
-        this.clinicId = clinicId;
+    public ProgramEntity(Long programId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
+        this.programId = programId;
         this.monday = monday;
         this.tuesday = tuesday;
         this.wednesday = wednesday;
@@ -75,16 +66,12 @@ public class ProgramEntity {
         return programId;
     }
 
-    public void setProgramId(Long programId) {
-        this.programId = programId;
+    public ClinicEntity getClinic() {
+        return clinic;
     }
 
-    public Long getClinicId() {
-        return clinicId;
-    }
-
-    public void setClinicId(Long clinicId) {
-        this.clinicId = clinicId;
+    public void setClinic(ClinicEntity clinic) {
+        this.clinic = clinic;
     }
 
     public String getMonday() {
@@ -147,19 +134,19 @@ public class ProgramEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ProgramEntity that)) return false;
-        return Objects.equals(getProgramId(), that.getProgramId()) && Objects.equals(getClinicId(), that.getClinicId()) && Objects.equals(getMonday(), that.getMonday()) && Objects.equals(getTuesday(), that.getTuesday()) && Objects.equals(getWednesday(), that.getWednesday()) && Objects.equals(getThursday(), that.getThursday()) && Objects.equals(getFriday(), that.getFriday()) && Objects.equals(getSaturday(), that.getSaturday()) && Objects.equals(getSunday(), that.getSunday());
+        return Objects.equals(getProgramId(), that.getProgramId()) && Objects.equals(getClinic(), that.getClinic()) && Objects.equals(getMonday(), that.getMonday()) && Objects.equals(getTuesday(), that.getTuesday()) && Objects.equals(getWednesday(), that.getWednesday()) && Objects.equals(getThursday(), that.getThursday()) && Objects.equals(getFriday(), that.getFriday()) && Objects.equals(getSaturday(), that.getSaturday()) && Objects.equals(getSunday(), that.getSunday());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProgramId(), getClinicId(), getMonday(), getTuesday(), getWednesday(), getThursday(), getFriday(), getSaturday(), getSunday());
+        return Objects.hash(getProgramId(), getClinic(), getMonday(), getTuesday(), getWednesday(), getThursday(), getFriday(), getSaturday(), getSunday());
     }
 
     @Override
     public String toString() {
         return "ProgramEntity{" +
                 "programId=" + programId +
-                ", clinicId=" + clinicId +
+                ", clinic=" + clinic +
                 ", monday='" + monday + '\'' +
                 ", tuesday='" + tuesday + '\'' +
                 ", wednesday='" + wednesday + '\'' +

@@ -1,6 +1,5 @@
 package com.digitalvet.backend.model;
 
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class ReviewDto {

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const CLINICS_API_URL = "http://localhost:8070/api/v1/digitalVet/clinics"
+const USERS_API_URL = "http://localhost:8070/api/v1/digitalVet/users"
 const CLINICS_ADMINS_API_URL = "http://localhost:8070/api/v1/digitalVet/admins"
 const REVIEWS_API_URL = "http://localhost:8070/api/v1/digitalVet/reviews"
 const REVIEWS_VET_API_URL = "http://localhost:8070/api/v1/digitalVet/reviews/vet"
@@ -21,8 +22,8 @@ class ClinicService {
         return axios.post(CLINICS_API_URL, clinic);
     }
 
-    addReview(review) {
-        return axios.post(REVIEWS_API_URL, review);
+    addReview(review, vetId) {
+        return axios.post(REVIEWS_API_URL + "/" + vetId, review);
     }
 
     addProgram(program) {
@@ -37,8 +38,8 @@ class ClinicService {
         return axios.post(VETS_API_URL, vet);
     }
 
-    addAppointment(appointment) {
-        return axios.post(APPOINTMENTS_API_URL, appointment);
+    addAppointment(appointment,userId) {
+        return axios.post(USERS_API_URL+ "/" + userId + "/appointments", appointment);
     }
 
     addAdmin(admin) {
@@ -51,10 +52,6 @@ class ClinicService {
 
     getAllClinics() {
         return axios.get(CLINICS_API_URL);
-    }
-
-    getAllReviews() {
-        return axios.get(REVIEWS_API_URL);
     }
 
     getAllVets() {

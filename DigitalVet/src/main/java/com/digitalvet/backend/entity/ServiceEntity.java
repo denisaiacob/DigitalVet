@@ -15,7 +15,6 @@ public class ServiceEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long serviceId;
 
-    @NotBlank(message = "Vet id is mandatory")
     private Long vetId;
 
     @NotBlank(message = "Clinic id is mandatory")
